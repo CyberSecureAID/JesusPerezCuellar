@@ -12,10 +12,10 @@
 |---|---|
 | Total de archivos | 23 |
 | Fases | 8 |
-| ✅ Completados | 4 |
+| ✅ Completados | 7 |
 | 🔄 En progreso | 0 |
-| ⏳ Pendientes | 19 |
-| Progreso total | 17% |
+| ⏳ Pendientes | 16 |
+| Progreso total | 30% |
 
 ---
 
@@ -38,9 +38,9 @@ cyberportfolio/
 │   │   └── AppInit.js                  ⏳ F22
 │   ├── robot/
 │   │   ├── RobotCore.js                ✅ F04
-│   │   ├── RobotHead.js                ⏳ F05
-│   │   ├── RobotTracking.js            ⏳ F06
-│   │   └── RobotAnimations.js          ⏳ F07
+│   │   ├── RobotHead.js                ✅ F05
+│   │   ├── RobotTracking.js            ✅ F06
+│   │   └── RobotAnimations.js          ✅ F07
 │   ├── effects/
 │   │   ├── ParticleField.js            ⏳ F08
 │   │   ├── HolographicGrid.js          ⏳ F09
@@ -89,9 +89,9 @@ cyberportfolio/
 | # | Archivo | Estado | Notas |
 |---|---|---|---|
 | F04 | `js/robot/RobotCore.js` | ✅ **COMPLETADO** | Escena Three.js r128, cámara perspectiva 45°, renderer ACESFilmic + alpha, iluminación dramática 5 fuentes (cian/violeta/verde), fog volumétrico, grid holográfico, loop con callbacks, ResizeObserver, destroy() |
-| F05 | `js/robot/RobotHead.js` | ⏳ Pendiente | Geometría de cabeza/rostro, materiales PBR, ojos emisivos, HUD facial |
-| F06 | `js/robot/RobotTracking.js` | ⏳ Pendiente | Tracking de cursor: raycasting, lerp, límites de rotación natural |
-| F07 | `js/robot/RobotAnimations.js` | ⏳ Pendiente | Idle loop: respiración, pulso de luces, parpadeo, micro-movimientos |
+| F05 | `js/robot/RobotHead.js` | ✅ **COMPLETADO** | Geometría procedural completa: cranio, facePanel, ojos emisivos con pupila, cejas, mandíbula, orejas, cuello, antenas coronales, scan lines HUD, glow rings orbitales. 100% sin archivos externos |
+| F06 | `js/robot/RobotTracking.js` | ✅ **COMPLETADO** | Tracking de cursor con lerp (factor 0.045), zona muerta ±10%, límites ±25°Y/±18°X, soporte giroscopio iOS/Android, IntersectionObserver para hero zone, retorno suave al centro |
+| F07 | `js/robot/RobotAnimations.js` | ✅ **COMPLETADO** | Idle loop completo: respiración, pulso de ojos, parpadeo aleatorio (3–7s), micro-tilt, jaw idle, scan lines animadas, glow rings rotativos, pulso de antenas en cascada, triggerGlitch() para F16 |
 
 **Criterio de aceptación:** Robot 3D visible en hero, mirada sigue al cursor de forma fluida y natural.
 
@@ -130,7 +130,7 @@ cyberportfolio/
 |---|---|---|---|
 | F14 | `js/ui/TypeWriter.js` | ⏳ Pendiente | Efecto typewriter con cursor parpadeante + glitch en transición |
 | F15 | `js/ui/ScrollAnimations.js` | ⏳ Pendiente | Intersection Observer: reveal, counter animado, progress bars, parallax |
-| F16 | `js/ui/GlitchEffect.js` | ⏳ Pendiente | Glitch aplicable: desplazamiento RGB, clip-path, activable en hover/scroll |
+| F16 | `js/ui/GlitchEffect.js` | ⏳ Pendiente | Glitch aplicable: desplazamiento RGB, clip-path, activable en hover/scroll — llama a RobotAnimations.triggerGlitch() |
 | F17 | `js/ui/CustomCursor.js` | ⏳ Pendiente | Cursor cian con halo, morphing en hover, trail de partículas |
 
 **Criterio de aceptación:** Experiencia UX inmersiva: animaciones fluidas, cursor personalizado funcional, typewriter rotando especialidades.
@@ -192,7 +192,7 @@ index.html (F01)
     ├── MatrixRain.js (F10)      ← independiente (Canvas 2D)
     ├── TypeWriter.js (F14)      ← independiente
     ├── ScrollAnimations.js (F15) ← independiente
-    ├── GlitchEffect.js (F16)   ← independiente
+    ├── GlitchEffect.js (F16)   ← independiente (llama a RobotAnimations.triggerGlitch)
     ├── CustomCursor.js (F17)   ← independiente
     ├── ServicesSection.js (F18) ← depende de F16
     ├── ProjectsSection.js (F19) ← independiente
@@ -270,6 +270,9 @@ npx vercel --prod
 | 2026-06-09 | `css/variables.css` | ✅ Completado | F02 — Design tokens: paleta cian/violeta, tipografía fluid, espaciado, sombras, glows, glassmorphism, z-index, transiciones, tokens de componentes y variables JS |
 | 2026-06-09 | `css/base.css` | ✅ Completado | F03 — Reset moderno, tipografía base, scrollbar cian 4px, selection highlight, focus-visible accesible, canvas fondo fixed, sr-only, skip-link, print, reduced-motion |
 | 2026-06-09 | `js/robot/RobotCore.js` | ✅ Completado | F04 — Motor Three.js r128: escena, cámara, renderer WebGL ACESFilmic, 5 luces dramáticas cian/violeta/verde, fog, grid holográfico, loop con callbacks, ResizeObserver, API pública completa |
+| 2026-06-09 | `js/robot/RobotHead.js` | ✅ Completado | F05 — Geometría procedural completa sin archivos externos: cranio biselado, facePanel, ojos emisivos con pupila, cejas acento, mandíbula, orejas con ranuras, cuello, 3 antenas coronales, 4 scan lines HUD, 3 glow rings orbitales |
+| 2026-06-09 | `js/robot/RobotTracking.js` | ✅ Completado | F06 — Tracking cursor lerp suave, zona muerta ±10%, límites anatómicos ±25°Y / ±18°X, curva de potencia 1.3, soporte giroscopio iOS 13+ / Android, IntersectionObserver hero zone, retorno lento al centro |
+| 2026-06-09 | `js/robot/RobotAnimations.js` | ✅ Completado | F07 — Idle loop completo: respiración (bobbing + scale), pulso de ojos desfasado, parpadeo aleatorio 3–7s (closing 55ms / opening 80ms), micro-tilt con lerp 0.015, jaw noise, scan lines con opacity fade, glow rings multi-eje, antenas en cascada, triggerBlink(), triggerGlitch() para sincronía con F16, soporte reduced-motion |
 
 ---
 
@@ -284,6 +287,8 @@ Si retomas este proyecto en otra sesión o con otra herramienta:
 5. **No modificar `index.html`** sin actualizar este documento.
 6. **El robot 3D** (F04-F07) se construye proceduralmente en Three.js — no requiere archivos de modelo externos (.glb/.gltf).
 7. **Target de performance:** 60fps estable en desktop, 30fps mínimo en mobile.
+8. **RobotAnimations.triggerGlitch()** debe ser llamado desde GlitchEffect.js (F16) para sincronizar el efecto CSS con la animación 3D del robot.
+9. **El idle tilt (F07)** usa `userData.idleTiltX/Y` para no pisar la rotación del tracking (F06). Si modificas el sistema de rotación, respeta esta separación.
 
 ---
 
