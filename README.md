@@ -12,10 +12,10 @@
 |---|---|
 | Total de archivos | 23 |
 | Fases | 8 |
-| ✅ Completados | 2 |
+| ✅ Completados | 3 |
 | 🔄 En progreso | 0 |
-| ⏳ Pendientes | 21 |
-| Progreso total | 9% |
+| ⏳ Pendientes | 20 |
+| Progreso total | 13% |
 
 ---
 
@@ -28,7 +28,7 @@ cyberportfolio/
 │
 ├── css/
 │   ├── variables.css                   ✅ F02
-│   ├── base.css                        ⏳ F03
+│   ├── base.css                        ✅ F03
 │   ├── layout.css                      ⏳ F11
 │   ├── components.css                  ⏳ F12
 │   └── responsive.css                  ⏳ F13
@@ -77,7 +77,7 @@ cyberportfolio/
 |---|---|---|---|
 | F01 | `index.html` | ✅ **COMPLETADO** | HTML5 semántico completo, 7 secciones, hooks para todos los módulos JS |
 | F02 | `css/variables.css` | ✅ **COMPLETADO** | Design tokens completos: colores, tipografía, espaciado, sombras, glows, glassmorphism, z-index, transiciones, tokens de componentes y tokens JS |
-| F03 | `css/base.css` | ⏳ Pendiente | Reset CSS, tipografía base, scrollbar custom |
+| F03 | `css/base.css` | ✅ **COMPLETADO** | Reset CSS moderno, tipografía base, scrollbar cian custom, accesibilidad (sr-only, skip-link, focus-visible), canvas fondo, print, reduced-motion |
 
 **Criterio de aceptación de la fase:** La página carga sin errores en consola, estructura visible aunque sin estilos definitivos.
 
@@ -268,6 +268,7 @@ npx vercel --prod
 | 2026-06-09 | `PROJECT_STATUS.md` | Creado | Documento maestro inicial |
 | 2026-06-09 | `index.html` | ✅ Completado | F01 — Estructura HTML5 completa, 7 secciones |
 | 2026-06-09 | `css/variables.css` | ✅ Completado | F02 — Design tokens: paleta cian/violeta, tipografía fluid, espaciado, sombras, glows, glassmorphism, z-index, transiciones, tokens de componentes y variables JS |
+| 2026-06-09 | `css/base.css` | ✅ Completado | F03 — Reset moderno, tipografía base, scrollbar cian 4px, selection highlight, focus-visible accesible, canvas fondo fixed, sr-only, skip-link, print, reduced-motion |
 
 ---
 
