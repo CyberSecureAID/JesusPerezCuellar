@@ -12,10 +12,10 @@
 |---|---|
 | Total de archivos | 23 |
 | Fases | 8 |
-| ✅ Completados | 3 |
+| ✅ Completados | 4 |
 | 🔄 En progreso | 0 |
-| ⏳ Pendientes | 20 |
-| Progreso total | 13% |
+| ⏳ Pendientes | 19 |
+| Progreso total | 17% |
 
 ---
 
@@ -37,7 +37,7 @@ cyberportfolio/
 │   ├── core/
 │   │   └── AppInit.js                  ⏳ F22
 │   ├── robot/
-│   │   ├── RobotCore.js                ⏳ F04
+│   │   ├── RobotCore.js                ✅ F04
 │   │   ├── RobotHead.js                ⏳ F05
 │   │   ├── RobotTracking.js            ⏳ F06
 │   │   └── RobotAnimations.js          ⏳ F07
@@ -88,7 +88,7 @@ cyberportfolio/
 
 | # | Archivo | Estado | Notas |
 |---|---|---|---|
-| F04 | `js/robot/RobotCore.js` | ⏳ Pendiente | Escena Three.js, cámara, renderer, iluminación dramática, post-procesado Bloom |
+| F04 | `js/robot/RobotCore.js` | ✅ **COMPLETADO** | Escena Three.js r128, cámara perspectiva 45°, renderer ACESFilmic + alpha, iluminación dramática 5 fuentes (cian/violeta/verde), fog volumétrico, grid holográfico, loop con callbacks, ResizeObserver, destroy() |
 | F05 | `js/robot/RobotHead.js` | ⏳ Pendiente | Geometría de cabeza/rostro, materiales PBR, ojos emisivos, HUD facial |
 | F06 | `js/robot/RobotTracking.js` | ⏳ Pendiente | Tracking de cursor: raycasting, lerp, límites de rotación natural |
 | F07 | `js/robot/RobotAnimations.js` | ⏳ Pendiente | Idle loop: respiración, pulso de luces, parpadeo, micro-movimientos |
@@ -269,6 +269,7 @@ npx vercel --prod
 | 2026-06-09 | `index.html` | ✅ Completado | F01 — Estructura HTML5 completa, 7 secciones |
 | 2026-06-09 | `css/variables.css` | ✅ Completado | F02 — Design tokens: paleta cian/violeta, tipografía fluid, espaciado, sombras, glows, glassmorphism, z-index, transiciones, tokens de componentes y variables JS |
 | 2026-06-09 | `css/base.css` | ✅ Completado | F03 — Reset moderno, tipografía base, scrollbar cian 4px, selection highlight, focus-visible accesible, canvas fondo fixed, sr-only, skip-link, print, reduced-motion |
+| 2026-06-09 | `js/robot/RobotCore.js` | ✅ Completado | F04 — Motor Three.js r128: escena, cámara, renderer WebGL ACESFilmic, 5 luces dramáticas cian/violeta/verde, fog, grid holográfico, loop con callbacks, ResizeObserver, API pública completa |
 
 ---
 
