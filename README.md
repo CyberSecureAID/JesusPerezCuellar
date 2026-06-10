@@ -12,10 +12,10 @@
 |---|---|
 | Total de archivos | 23 |
 | Fases | 8 |
-| ✅ Completados | 17 |
+| ✅ Completados | 19 |
 | 🔄 En progreso | 0 |
-| ⏳ Pendientes | 09 |
-| Progreso total | 43% |
+| ⏳ Pendientes | 06 |
+| Progreso total | ?¡% |
 
 ---
 
