@@ -12,7 +12,7 @@
 |---|---|
 | Total de archivos | 23 |
 | Fases | 8 |
-| ✅ Completados | 10 |
+| ✅ Completados | 11 |
 | 🔄 En progreso | 0 |
 | ⏳ Pendientes | 13 |
 | Progreso total | 43% |
@@ -29,7 +29,7 @@ cyberportfolio/
 ├── css/
 │   ├── variables.css                   ✅ F02
 │   ├── base.css                        ✅ F03
-│   ├── layout.css                      ⏳ F11
+│   ├── layout.css                      ✅ F11
 │   ├── components.css                  ⏳ F12
 │   └── responsive.css                  ⏳ F13
 │
@@ -115,7 +115,7 @@ cyberportfolio/
 
 | # | Archivo | Estado | Notas |
 |---|---|---|---|
-| F11 | `css/layout.css` | ⏳ Pendiente | Todas las secciones: navbar, hero, servicios, proyectos, skills, blockchain, footer |
+| F11 | `css/layout.css` | ✅ Pendiente | Todas las secciones: navbar, hero, servicios, proyectos, skills, blockchain, footer |
 | F12 | `css/components.css` | ⏳ Pendiente | Botones glow, cards holográficas, progress bars, tags, formulario |
 | F13 | `css/responsive.css` | ⏳ Pendiente | Breakpoints: 4K, laptop, tablet, mobile (robot simplificado en mobile) |
 
