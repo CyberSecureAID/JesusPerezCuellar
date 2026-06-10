@@ -233,3 +233,6 @@ const TypeWriter = (() => {
     isReady,
     destroy,
   };
+
+  })();
+window.TypeWriter = TypeWriter;
