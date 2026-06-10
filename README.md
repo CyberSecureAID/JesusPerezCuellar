@@ -12,7 +12,7 @@
 |---|---|
 | Total de archivos | 23 |
 | Fases | 8 |
-| ✅ Completados | 16 |
+| ✅ Completados | 17 |
 | 🔄 En progreso | 0 |
 | ⏳ Pendientes | 09 |
 | Progreso total | 43% |
@@ -49,7 +49,7 @@ cyberportfolio/
 │   │   ├── TypeWriter.js               ✅ F14
 │   │   ├── ScrollAnimations.js         ✅ F15
 │   │   ├── GlitchEffect.js             ✅ F16
-│   │   └── CustomCursor.js             ⏳ F17
+│   │   └── CustomCursor.js             ✅ F17
 │   ├── sections/
 │   │   ├── ServicesSection.js          ⏳ F18
 │   │   ├── ProjectsSection.js          ⏳ F19
@@ -131,7 +131,7 @@ cyberportfolio/
 | F14 | `js/ui/TypeWriter.js` | ✅ **COMPLETADO** | Efecto typewriter con cursor parpadeante + glitch en transición |
 | F15 | `js/ui/ScrollAnimations.js` | ✅ **COMPLETADO** | Intersection Observer: reveal, counter animado, progress bars, parallax |
 | F16 | `js/ui/GlitchEffect.js` | ✅ **COMPLETADO** | Glitch aplicable: desplazamiento RGB, clip-path, activable en hover/scroll — llama a RobotAnimations.triggerGlitch() |
-| F17 | `js/ui/CustomCursor.js` | ⏳ Pendiente | Cursor cian con halo, morphing en hover, trail de partículas |
+| F17 | `js/ui/CustomCursor.js` | ✅ **COMPLETADO** | Cursor cian con halo, morphing en hover, trail de partículas |
 
 **Criterio de aceptación:** Experiencia UX inmersiva: animaciones fluidas, cursor personalizado funcional, typewriter rotando especialidades.
 
