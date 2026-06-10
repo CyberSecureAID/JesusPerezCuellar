@@ -12,10 +12,10 @@
 |---|---|
 | Total de archivos | 23 |
 | Fases | 8 |
-| ✅ Completados | 8 |
+| ✅ Completados | 10 |
 | 🔄 En progreso | 0 |
-| ⏳ Pendientes | 15 |
-| Progreso total | 35% |
+| ⏳ Pendientes | 13 |
+| Progreso total | 43% |
 
 ---
 
@@ -43,8 +43,8 @@ cyberportfolio/
 │   │   └── RobotAnimations.js          ✅ F07
 │   ├── effects/
 │   │   ├── ParticleField.js            ✅ F08
-│   │   ├── HolographicGrid.js          ⏳ F09
-│   │   └── MatrixRain.js               ⏳ F10
+│   │   ├── HolographicGrid.js          ✅ F09
+│   │   └── MatrixRain.js               ✅ F10
 │   ├── ui/
 │   │   ├── TypeWriter.js               ⏳ F14
 │   │   ├── ScrollAnimations.js         ⏳ F15
@@ -103,10 +103,10 @@ cyberportfolio/
 | # | Archivo | Estado | Notas |
 |---|---|---|---|
 | F08 | `js/effects/ParticleField.js` | ✅ **COMPLETADO** | InstancedMesh 1 draw call, 2000 partículas desktop / 600 mobile, 3 zonas de distribución (esfera, banda ecuatorial, polvo cercano), drift senoidal por partícula, repulsión al cursor O(1), additive blending, colores cian 70% / violeta 30% con varianza de brillo |
-| F09 | `js/effects/HolographicGrid.js` | ⏳ Pendiente | Grid perspectivo animado estilo synthwave, líneas de escaneo |
-| F10 | `js/effects/MatrixRain.js` | ⏳ Pendiente | Lluvia de caracteres hex/binarios, canvas lateral, efecto sutil |
+| F09 | `js/effects/HolographicGrid.js` | ✅ **COMPLETADO** | Grid perspectivo animado estilo synthwave, Canvas 2D, punto de fuga central, líneas horizontales con perspectiva exponencial, línea de horizonte con flicker cian/violeta, scan lines, viñeta radial, pause/resume/setIntensity/destroy |
+| F10 | `js/effects/MatrixRain.js` | ✅ **COMPLETADO** | Lluvia de caracteres hex/binarios sobre #bg-canvas, efecto lateral (columnas centrales atenuadas), cabeza de gota brillante, blending aditivo sobre F09, charsets por zona (hex/bin/mix), pause/resume/setDensity/setIntensity/destroy |
 
-**Criterio de aceptación:** Ambiente inmersivo visible, sin impacto significativo en FPS (target: 60fps estable).
+**Criterio de aceptación:** Ambiente inmersivo visible, sin impacto significativo en FPS (target: 60fps estable). ✅
 
 ---
 
@@ -189,7 +189,7 @@ index.html (F01)
     │   └── RobotAnimations.js (F07) ← depende de F04 y F05
     ├── ParticleField.js (F08)   ← depende de THREE.js y RobotCore (scene + loop)
     ├── HolographicGrid.js (F09) ← independiente (Canvas 2D)
-    ├── MatrixRain.js (F10)      ← independiente (Canvas 2D)
+    ├── MatrixRain.js (F10)      ← depende de F09 (pinta encima, comparte canvas)
     ├── TypeWriter.js (F14)      ← independiente
     ├── ScrollAnimations.js (F15) ← independiente
     ├── GlitchEffect.js (F16)   ← independiente (llama a RobotAnimations.triggerGlitch)
@@ -274,6 +274,8 @@ npx vercel --prod
 | 2026-06-09 | `js/robot/RobotTracking.js` | ✅ Completado | F06 — Tracking cursor lerp suave, zona muerta ±10%, límites anatómicos ±25°Y / ±18°X, curva de potencia 1.3, soporte giroscopio iOS 13+ / Android, IntersectionObserver hero zone, retorno lento al centro |
 | 2026-06-09 | `js/robot/RobotAnimations.js` | ✅ Completado | F07 — Idle loop completo: respiración (bobbing + scale), pulso de ojos desfasado, parpadeo aleatorio 3–7s (closing 55ms / opening 80ms), micro-tilt con lerp 0.015, jaw noise, scan lines con opacity fade, glow rings multi-eje, antenas en cascada, triggerBlink(), triggerGlitch() para sincronía con F16, soporte reduced-motion |
 | 2026-06-09 | `js/effects/ParticleField.js` | ✅ Completado | F08 — InstancedMesh 1 draw call, 2000p desktop / 600p mobile, 3 zonas de distribución, drift senoidal individual, repulsión cursor O(1) proyección plano Z, additive blending, instanceColor por partícula, colores cian/violeta con varianza de brillo, destroy() limpio |
+| 2026-06-10 | `js/effects/HolographicGrid.js` | ✅ Completado | F09 — Grid perspectivo synthwave Canvas 2D, punto de fuga 35% altura, 24 líneas verticales, 18 líneas horizontales perspectiva cúbica, línea de horizonte flicker cian/violeta, 3 scan lines descendentes, viñeta radial, flicker global, pause/resume/setIntensity/destroy, reduced-motion |
+| 2026-06-10 | `js/effects/MatrixRain.js` | ✅ Completado | F10 — Lluvia de caracteres hex/bin sobre #bg-canvas compartido con F09, máscara lateral (columnas centrales invisibles), cabeza de gota blanca/cian, cola con fade, blending 'lighter' aditivo, 3 charsets por zona, tick acumulado ~18fps para columnas, pause/resume/setDensity/setIntensity/destroy |
 
 ---
 
@@ -291,8 +293,5 @@ Si retomas este proyecto en otra sesión o con otra herramienta:
 8. **RobotAnimations.triggerGlitch()** debe ser llamado desde GlitchEffect.js (F16) para sincronizar el efecto CSS con la animación 3D del robot.
 9. **El idle tilt (F07)** usa `userData.idleTiltX/Y` para no pisar la rotación del tracking (F06). Si modificas el sistema de rotación, respeta esta separación.
 10. **ParticleField (F08)** se registra en el loop de RobotCore igual que los módulos del robot. Debe inicializarse DESPUÉS de RobotCore.init(). El count se lee del token CSS `--js-particle-count` definido en variables.css (F02).
-
----
-
-*Documento generado y mantenido durante el desarrollo del proyecto.*  
-*Actualizar la tabla de estado y el historial de cambios con cada archivo completado.*
+11. **HolographicGrid (F09)** gestiona el `clearRect()` del #bg-canvas. Debe inicializarse ANTES que MatrixRain (F10).
+12. **MatrixRain (F10)** pinta encima de F09 usando `globalCompositeOperation = 'lighter'`. No llama a `clearRect()` propio — depende del clear de F09 en cada frame. El orden de init() en index.html es obligatorio: primero F09, luego F10. Recuerda descomentar el `<script>` de MatrixRain en `index.html`.
