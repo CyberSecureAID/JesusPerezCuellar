@@ -51,8 +51,8 @@ cyberportfolio/
 │   │   ├── GlitchEffect.js             ✅ F16
 │   │   └── CustomCursor.js             ✅ F17
 │   ├── sections/
-│   │   ├── ServicesSection.js          ⏳ F18
-│   │   ├── ProjectsSection.js          ⏳ F19
+│   │   ├── ServicesSection.js          ✅ F18
+│   │   ├── ProjectsSection.js          ✅ F19
 │   │   └── ContactSection.js           ⏳ F20
 │   └── audio/
 │       └── AudioManager.js             ⏳ F21
@@ -142,8 +142,8 @@ cyberportfolio/
 
 | # | Archivo | Estado | Notas |
 |---|---|---|---|
-| F18 | `js/sections/ServicesSection.js` | ⏳ Pendiente | Hover 3D tilt en cards, íconos SVG animados, modal de detalle |
-| F19 | `js/sections/ProjectsSection.js` | ⏳ Pendiente | Filtro por categoría, grid animado, scroll horizontal en mobile |
+| F18 | `js/sections/ServicesSection.js` | ✅ **COMPLETADO** | Hover 3D tilt en cards, íconos SVG animados, modal de detalle |
+| F19 | `js/sections/ProjectsSection.js` | ✅ **COMPLETADO** | Filtro por categoría, grid animado, scroll horizontal en mobile |
 | F20 | `js/sections/ContactSection.js` | ⏳ Pendiente | Validación JS, efecto terminal en inputs, copy al clipboard |
 
 **Criterio de aceptación:** Filtro de proyectos funcional, formulario valida y muestra feedback, cards de servicios con tilt effect.
