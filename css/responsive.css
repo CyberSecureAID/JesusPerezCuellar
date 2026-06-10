@@ -1,0 +1,659 @@
+/*
+  ============================================================
+  CYBER PORTFOLIO — F13 · css/responsive.css
+  ============================================================
+  ESTADO: ✅ COMPLETADO
+  VERSIÓN: 1.0.0
+  FASE: 4 de 8
+
+  DESCRIPCIÓN:
+    Breakpoints y overrides responsivos para todos los
+    layouts y componentes del portfolio.
+    Depende de: variables.css (F02), base.css (F03),
+               layout.css (F11), components.css (F12)
+
+  ORDEN EN index.html:
+    1. variables.css (F02)
+    2. base.css      (F03)
+    3. layout.css    (F11)
+    4. components.css (F12)
+    5. responsive.css ← este archivo
+
+  BREAKPOINTS:
+    --bp-4k:  2560px  — 4K / ultrawide
+    --bp-2xl: 1536px  — wide desktop
+    --bp-xl:  1280px  — desktop estándar
+    --bp-lg:  1024px  — laptop / tablet landscape
+    --bp-md:   768px  — tablet portrait
+    --bp-sm:   480px  — mobile landscape / phablet
+    (mobile portrait: < 480px — base styles)
+
+  ESTRATEGIA:
+    · Desktop-first para layout principal.
+    · Las secciones más complejas (hero split, skills 3col,
+      services 2col) colapsan progresivamente.
+    · El robot 3D se simplifica en mobile: canvas más pequeño,
+      HUD decorativo oculto, partículas reducidas por CSS token.
+    · Navbar colapsa a hamburger en ≤ 768px.
+    · Tipografía usa clamp() — pocos overrides necesarios.
+
+  PRÓXIMO ARCHIVO: F14 · js/ui/TypeWriter.js
+  ============================================================
+*/
+
+/* ============================================================
+   1. 4K / ULTRAWIDE (≥ 2560px)
+   ============================================================ */
+
+@media screen and (min-width: 2560px) {
+
+  :root {
+    /* Escalar el padding del contenedor en pantallas enormes */
+    --container-padding: 3rem;
+    --section-padding-y: 9rem;
+  }
+
+  /* El robot ocupa menos del panel — más espacio para respirar */
+  .section--hero {
+    grid-template-columns: 1fr 0.8fr;
+  }
+
+  /* Limitar el tamaño máximo del robot canvas */
+  #robot-canvas {
+    max-width: 700px;
+    max-height: 700px;
+    margin: auto;
+  }
+
+  /* Servicios en 3 columnas en 4K */
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Proyectos en 3 columnas */
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Blockchain: dar más espacio a las estadísticas */
+  .blockchain-grid {
+    grid-template-columns: 1.4fr 1fr;
+  }
+}
+
+
+/* ============================================================
+   2. WIDE DESKTOP (≤ 1536px)
+   Ajustes menores — el layout base ya funciona bien.
+   ============================================================ */
+
+@media screen and (max-width: 1536px) {
+
+  .section--hero {
+    grid-template-columns: 1fr 0.95fr;
+  }
+}
+
+
+/* ============================================================
+   3. DESKTOP ESTÁNDAR (≤ 1280px)
+   ============================================================ */
+
+@media screen and (max-width: 1280px) {
+
+  .hero-title {
+    font-size: clamp(2rem, 6vw, 4.5rem);
+  }
+
+  .about-grid {
+    gap: var(--space-10);
+  }
+
+  .skills-grid {
+    gap: var(--space-8);
+  }
+
+  /* El grid holográfico y la viñeta de fondo pueden reducirse */
+  #bg-canvas {
+    opacity: 0.9;
+  }
+}
+
+
+/* ============================================================
+   4. LAPTOP / TABLET LANDSCAPE (≤ 1024px)
+   ============================================================ */
+
+@media screen and (max-width: 1024px) {
+
+  :root {
+    --section-padding-y: clamp(3rem, 6vw, 5rem);
+  }
+
+  /* ── Navbar ── */
+  .nav-links {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  /* ── Hero: apilar en lugar de split-screen ── */
+  .section--hero {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    min-height: 100vh;
+    padding-top: var(--navbar-height);
+  }
+
+  .hero-content {
+    padding: var(--space-12) var(--container-padding) var(--space-6);
+    padding-left: var(--container-padding);
+    text-align: center;
+    align-items: center;
+    order: 1;
+    z-index: var(--z-raised);
+  }
+
+  .hero-description {
+    max-width: 560px;
+  }
+
+  .hero-stats {
+    justify-content: center;
+  }
+
+  .hero-ctas {
+    justify-content: center;
+  }
+
+  .hero-social {
+    justify-content: center;
+  }
+
+  /* Robot 3D en la mitad inferior, más compacto */
+  .hero-robot {
+    height: 42vh;
+    min-height: 320px;
+    order: 2;
+  }
+
+  /* HUD decorativo visible pero compacto */
+  .hud-tag--left,
+  .hud-tag--right {
+    display: none;
+  }
+
+  /* Scroll indicator más abajo */
+  .scroll-indicator {
+    bottom: var(--space-4);
+  }
+
+  /* ── About: apilar ── */
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .about-terminal {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* ── Services: 2 col → se mantiene en 1024px ── */
+
+  /* ── Skills: 3 col → 2 col ── */
+  .skills-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .skill-category:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+
+  .tech-icons-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  /* ── Projects: 2 col → se mantiene ── */
+
+  /* ── Blockchain: apilar ── */
+  .blockchain-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .blockchain-stats {
+    order: 2;
+  }
+
+  .blockchain-chains {
+    order: 1;
+    max-width: 400px;
+  }
+
+  /* ── Contact: apilar ── */
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .contact-info {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    padding-top: 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .contact-info-item {
+    min-width: 160px;
+    flex: 1;
+  }
+
+  .contact-socials {
+    flex-direction: row;
+    gap: var(--space-4);
+    width: 100%;
+  }
+
+  /* ── Footer ── */
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .footer-center {
+    order: 3;
+    grid-column: 1 / -1;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+}
+
+
+/* ============================================================
+   5. TABLET PORTRAIT (≤ 768px)
+   ============================================================ */
+
+@media screen and (max-width: 768px) {
+
+  :root {
+    --navbar-height: var(--navbar-height-mobile);
+    --container-padding: 1.25rem;
+    /* Reducir partículas en tablet */
+    --js-particle-count: 800;
+  }
+
+  /* ── Navbar mobile ── */
+  .nav-container {
+    padding: 0 var(--container-padding);
+  }
+
+  /* ── Hero ── */
+  .hero-robot {
+    height: 38vh;
+    min-height: 280px;
+  }
+
+  /* Ocultar anillos orbitales CSS en tablet — ruido visual */
+  .orbital-ring {
+    display: none;
+  }
+
+  /* ── Sections ── */
+  .section-title {
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+  }
+
+  /* ── Services: 1 col ── */
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* ── Skills: 1 col ── */
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .skill-category:nth-child(3) {
+    grid-column: auto;
+  }
+
+  .tech-icons-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* ── Projects: 1 col ── */
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* ── Projects filter: scroll horizontal ── */
+  .projects-filter {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: var(--space-2);
+    /* Ocultar scrollbar del filtro */
+    scrollbar-width: none;
+  }
+
+  .projects-filter::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Evitar shrink en botones de filtro */
+  .filter-btn {
+    flex-shrink: 0;
+  }
+
+  /* ── Blockchain stats: 2x2 → se mantiene ── */
+
+  /* ── Contact info: columna única ── */
+  .contact-info {
+    flex-direction: column;
+  }
+
+  .contact-socials {
+    flex-wrap: wrap;
+  }
+
+  /* ── Footer: columna única ── */
+  .footer-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, auto);
+    justify-items: center;
+    text-align: center;
+    gap: var(--space-4);
+  }
+
+  .footer-left {
+    align-items: center;
+  }
+
+  .footer-right {
+    justify-content: center;
+  }
+
+  /* ── Terminal en about: scroll si es muy largo ── */
+  .terminal-body {
+    overflow-x: auto;
+  }
+
+  .terminal-code {
+    font-size: var(--text-xs);
+    white-space: pre;
+  }
+}
+
+
+/* ============================================================
+   6. MOBILE LANDSCAPE / PHABLET (≤ 480px)
+   ============================================================ */
+
+@media screen and (max-width: 480px) {
+
+  :root {
+    --container-padding: 1rem;
+    --section-padding-y: 3rem;
+    /* Partículas mínimas en mobile */
+    --js-particle-count: 600;
+  }
+
+  /* ── Hero: más compacto ── */
+  .hero-content {
+    padding-top: calc(var(--navbar-height) + var(--space-8));
+    padding-bottom: var(--space-4);
+    gap: var(--space-4);
+  }
+
+  .hero-stats {
+    gap: var(--space-5);
+  }
+
+  .hero-stat-number {
+    font-size: var(--text-3xl);
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-ctas .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-robot {
+    height: 35vh;
+    min-height: 240px;
+  }
+
+  /* Reducir el HUD en mobile */
+  .robot-hud {
+    inset: var(--space-4);
+  }
+
+  .hud-corner {
+    width: 14px;
+    height: 14px;
+  }
+
+  .hud-tag--top,
+  .hud-tag--bottom {
+    display: none;
+  }
+
+  /* ── Secciones ── */
+  .section-eyebrow {
+    margin-bottom: var(--space-4);
+  }
+
+  .section-title {
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
+    margin-bottom: var(--space-4);
+  }
+
+  .section-subtitle {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-8);
+  }
+
+  /* ── Service cards: padding reducido ── */
+  .service-card {
+    padding: var(--space-5);
+  }
+
+  /* ── Project cards ── */
+  .project-card {
+    padding: var(--space-4);
+  }
+
+  /* ── Blockchain stats: 1x4 en mobile pequeño ── */
+  .blockchain-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .bstat-num {
+    font-size: var(--text-3xl);
+  }
+
+  /* ── Contact form ── */
+  .form-input {
+    font-size: var(--text-base); /* Previene zoom en iOS */
+  }
+
+  /* ── Tags: wrap más agresivo ── */
+  .project-tags {
+    gap: var(--space-1);
+  }
+
+  .tag {
+    font-size: var(--text-2xs);
+    height: 20px;
+    padding: 0 var(--space-2);
+  }
+
+  /* ── Tech icons: 3 columnas ── */
+  .tech-icons-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+  }
+
+  .tech-icon-box {
+    width: 38px;
+    height: 38px;
+    font-size: var(--text-2xs);
+  }
+}
+
+
+/* ============================================================
+   7. MOBILE PORTRAIT MUY PEQUEÑO (≤ 360px)
+   ============================================================ */
+
+@media screen and (max-width: 360px) {
+
+  .hero-stats {
+    gap: var(--space-4);
+  }
+
+  .hero-stat-number {
+    font-size: var(--text-2xl);
+  }
+
+  .hero-stat-unit {
+    font-size: var(--text-xl);
+  }
+
+  /* Blockchain stats: columna única */
+  .blockchain-stats {
+    grid-template-columns: 1fr;
+  }
+
+  /* Skill bars: texto compacto */
+  .skill-name {
+    font-size: var(--text-xs);
+  }
+
+  .skill-percent {
+    font-size: var(--text-2xs);
+  }
+
+  /* Contact info */
+  .contact-info-label {
+    font-size: var(--text-2xs);
+  }
+
+  .contact-info-value {
+    font-size: var(--text-xs);
+  }
+}
+
+
+/* ============================================================
+   8. NAVEGACIÓN MOBILE — TRANSICIÓN SUAVE
+   Overrides para el panel mobile que layout.css define
+   como `hidden`. Aquí añadimos la animación de apertura.
+   ============================================================ */
+
+@media screen and (max-width: 1024px) {
+
+  .nav-mobile {
+    /* Oculto por defecto vía atributo `hidden` en HTML */
+    /* Cuando JS elimina `hidden`, el panel aparece con fade */
+    opacity: 0;
+    transform: translateY(-8px);
+    transition:
+      opacity var(--duration-normal) var(--ease-default),
+      transform var(--duration-normal) var(--ease-cyber);
+    pointer-events: none;
+  }
+
+  /* JS elimina `hidden` → esto no se aplica si `hidden` está presente.
+     El atributo `hidden` tiene precedencia. Esta regla actúa como
+     estado visible cuando `hidden` se elimina del DOM. */
+  .nav-mobile:not([hidden]) {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+}
+
+
+/* ============================================================
+   9. PRINT — OVERRIDE DE RESPONSIVE
+   ============================================================ */
+
+@media print {
+
+  .section--hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    page-break-after: always;
+  }
+
+  .hero-robot {
+    display: none;
+  }
+
+  .services-grid,
+  .skills-grid,
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-grid,
+  .blockchain-grid,
+  .contact-grid,
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+
+  .service-card,
+  .project-card {
+    page-break-inside: avoid;
+    border: 1px solid #ccc;
+  }
+}
+
+
+/* ============================================================
+   10. REDUCED MOTION — OVERRIDE DE RESPONSIVE
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  /* Asegurar que no haya transforms de layout en transición */
+  .nav-mobile,
+  .nav-mobile:not([hidden]) {
+    transition: none;
+    transform: none;
+  }
+
+  .orbital-ring {
+    animation: none;
+  }
+
+  .scroll-arrow {
+    animation: none;
+    opacity: 0.6;
+  }
+
+  .status-dot,
+  .availability-dot {
+    animation: none;
+  }
+
+  .nav-logo-cursor {
+    animation: none;
+  }
+
+  .t-cursor {
+    animation: none;
+    opacity: 1;
+  }
+}
