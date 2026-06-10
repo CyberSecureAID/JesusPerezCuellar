@@ -48,7 +48,7 @@ cyberportfolio/
 │   ├── ui/
 │   │   ├── TypeWriter.js               ✅ F14
 │   │   ├── ScrollAnimations.js         ✅ F15
-│   │   ├── GlitchEffect.js             ⏳ F16
+│   │   ├── GlitchEffect.js             ✅ F16
 │   │   └── CustomCursor.js             ⏳ F17
 │   ├── sections/
 │   │   ├── ServicesSection.js          ⏳ F18
