@@ -473,3 +473,6 @@ const ScrollAnimations = (() => {
     destroy,
   };
 
+})();
+
+window.ScrollAnimations = ScrollAnimations;
