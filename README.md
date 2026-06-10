@@ -46,8 +46,8 @@ cyberportfolio/
 │   │   ├── HolographicGrid.js          ✅ F09
 │   │   └── MatrixRain.js               ✅ F10
 │   ├── ui/
-│   │   ├── TypeWriter.js               ⏳ F14
-│   │   ├── ScrollAnimations.js         ⏳ F15
+│   │   ├── TypeWriter.js               ✅ F14
+│   │   ├── ScrollAnimations.js         ✅ F15
 │   │   ├── GlitchEffect.js             ⏳ F16
 │   │   └── CustomCursor.js             ⏳ F17
 │   ├── sections/
@@ -115,9 +115,9 @@ cyberportfolio/
 
 | # | Archivo | Estado | Notas |
 |---|---|---|---|
-| F11 | `css/layout.css` | ✅ Pendiente | Todas las secciones: navbar, hero, servicios, proyectos, skills, blockchain, footer |
-| F12 | `css/components.css` | ✅ Pendiente | Botones glow, cards holográficas, progress bars, tags, formulario |
-| F13 | `css/responsive.css` | ✅ Pendiente | Breakpoints: 4K, laptop, tablet, mobile (robot simplificado en mobile) |
+| F11 | `css/layout.css` | ✅ **COMPLETADO** | Todas las secciones: navbar, hero, servicios, proyectos, skills, blockchain, footer |
+| F12 | `css/components.css` | ✅ **COMPLETADO** | Botones glow, cards holográficas, progress bars, tags, formulario |
+| F13 | `css/responsive.css` | ✅ **COMPLETADO** | Breakpoints: 4K, laptop, tablet, mobile (robot simplificado en mobile) |
 
 **Criterio de aceptación:** Página completamente estilizada y responsive en todos los dispositivos.
 
@@ -128,8 +128,8 @@ cyberportfolio/
 
 | # | Archivo | Estado | Notas |
 |---|---|---|---|
-| F14 | `js/ui/TypeWriter.js` | ⏳ Pendiente | Efecto typewriter con cursor parpadeante + glitch en transición |
-| F15 | `js/ui/ScrollAnimations.js` | ⏳ Pendiente | Intersection Observer: reveal, counter animado, progress bars, parallax |
+| F14 | `js/ui/TypeWriter.js` | ✅ **COMPLETADO** | Efecto typewriter con cursor parpadeante + glitch en transición |
+| F15 | `js/ui/ScrollAnimations.js` | ✅ **COMPLETADO** | Intersection Observer: reveal, counter animado, progress bars, parallax |
 | F16 | `js/ui/GlitchEffect.js` | ⏳ Pendiente | Glitch aplicable: desplazamiento RGB, clip-path, activable en hover/scroll — llama a RobotAnimations.triggerGlitch() |
 | F17 | `js/ui/CustomCursor.js` | ⏳ Pendiente | Cursor cian con halo, morphing en hover, trail de partículas |
 
