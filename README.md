@@ -209,9 +209,9 @@ Antes del deploy, reemplazar en `index.html` todas las instancias de:
 
 | Placeholder | Reemplazar con |
 |---|---|
-| `[TU_NOMBRE]` | Tu nombre completo |
-| `[INICIALES]` | Tus iniciales (ej: `JD`) |
-| `[TU_USUARIO]` | Tu usuario de GitHub/Twitter |
+| `[ Jesús Pérez Cuellar]` | Tu nombre completo |
+| `[ Jesus | Developer & Trader ]` | Tus iniciales (ej: `JD`) |
+| `[@JesusDevTrader]` | Tu usuario de GitHub/Twitter |
 | `[TU_DOMINIO]` | Tu dominio web |
 | `[AÑO]` | Tu año de inicio profesional |
 | `tu@email.com` | Tu email de contacto |
