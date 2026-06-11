@@ -12,7 +12,7 @@
 |---|---|
 | Total de archivos | 23 |
 | Fases | 8 |
-| ✅ Completados | 19 |
+| ✅ Completados | 20 |
 | 🔄 En progreso | 0 |
 | ⏳ Pendientes | 06 |
 | Progreso total | ?¡% |
@@ -53,7 +53,7 @@ cyberportfolio/
 │   ├── sections/
 │   │   ├── ServicesSection.js          ✅ F18
 │   │   ├── ProjectsSection.js          ✅ F19
-│   │   └── ContactSection.js           ⏳ F20
+│   │   └── ContactSection.js           ✅ F20
 │   └── audio/
 │       └── AudioManager.js             ⏳ F21
 │
@@ -144,7 +144,7 @@ cyberportfolio/
 |---|---|---|---|
 | F18 | `js/sections/ServicesSection.js` | ✅ **COMPLETADO** | Hover 3D tilt en cards, íconos SVG animados, modal de detalle |
 | F19 | `js/sections/ProjectsSection.js` | ✅ **COMPLETADO** | Filtro por categoría, grid animado, scroll horizontal en mobile |
-| F20 | `js/sections/ContactSection.js` | ⏳ Pendiente | Validación JS, efecto terminal en inputs, copy al clipboard |
+| F20 | `js/sections/ContactSection.js` | ✅ **COMPLETADO** | Validación JS, efecto terminal en inputs, copy al clipboard |
 
 **Criterio de aceptación:** Filtro de proyectos funcional, formulario valida y muestra feedback, cards de servicios con tilt effect.
 
