@@ -1,0 +1,275 @@
+/*
+  ============================================================
+  CYBER PORTFOLIO — F13 · css/responsive.css
+  ============================================================
+  VERSIÓN: 1.1.0 — Fix menú móvil visible + tipografía
+*/
+
+/* ============================================================
+   1. 4K / ULTRAWIDE (≥ 2560px)
+   ============================================================ */
+@media screen and (min-width: 2560px) {
+  :root {
+    --container-padding: 3rem;
+    --section-padding-y: 9rem;
+  }
+  .section--hero { grid-template-columns: 1fr 0.8fr; }
+  #robot-canvas  { max-width: 700px; max-height: 700px; margin: auto; }
+  .services-grid { grid-template-columns: repeat(3, 1fr); }
+  .projects-grid { grid-template-columns: repeat(3, 1fr); }
+  .blockchain-grid { grid-template-columns: 1.4fr 1fr; }
+}
+
+/* ============================================================
+   2. WIDE DESKTOP (≤ 1536px)
+   ============================================================ */
+@media screen and (max-width: 1536px) {
+  .section--hero { grid-template-columns: 1fr 0.95fr; }
+}
+
+/* ============================================================
+   3. DESKTOP ESTÁNDAR (≤ 1280px)
+   ============================================================ */
+@media screen and (max-width: 1280px) {
+  .hero-title { font-size: clamp(1.8rem, 5vw, 3.5rem); }
+  .about-grid { gap: var(--space-10); }
+  .skills-grid { gap: var(--space-8); }
+  #bg-canvas { opacity: 0.9; }
+}
+
+/* ============================================================
+   4. LAPTOP / TABLET LANDSCAPE (≤ 1024px)
+   ============================================================ */
+@media screen and (max-width: 1024px) {
+  :root { --section-padding-y: clamp(3rem, 6vw, 5rem); }
+
+  /* Navbar */
+  .nav-links  { display: none; }
+  .nav-toggle { display: flex; }
+
+  /* Hero apilado */
+  .section--hero {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    min-height: 100vh;
+    padding-top: var(--navbar-height);
+  }
+  .hero-content {
+    padding: var(--space-12) var(--container-padding) var(--space-6);
+    padding-left: var(--container-padding);
+    text-align: center;
+    align-items: center;
+    order: 1;
+    z-index: var(--z-raised);
+  }
+  .hero-description { max-width: 560px; }
+  .hero-stats       { justify-content: center; }
+  .hero-ctas        { justify-content: center; }
+  .hero-social      { justify-content: center; }
+  .hero-robot       { height: 42vh; min-height: 320px; order: 2; }
+  .hud-tag--left, .hud-tag--right { display: none; }
+  .scroll-indicator { bottom: var(--space-4); }
+
+  /* About */
+  .about-grid     { grid-template-columns: 1fr; gap: var(--space-8); }
+  .about-terminal { max-width: 560px; margin: 0 auto; }
+
+  /* Skills */
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  .skill-category:nth-child(3) { grid-column: 1 / -1; }
+  .tech-icons-grid { grid-template-columns: repeat(5, 1fr); }
+
+  /* Blockchain */
+  .blockchain-grid  { grid-template-columns: 1fr; gap: var(--space-8); }
+  .blockchain-stats { order: 2; }
+  .blockchain-chains { order: 1; max-width: 400px; }
+
+  /* Contact */
+  .contact-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+  .contact-info {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    padding-top: 0;
+    border-top: 1px solid var(--color-border);
+  }
+  .contact-info-item { min-width: 160px; flex: 1; }
+  .contact-socials   { flex-direction: row; gap: var(--space-4); width: 100%; }
+
+  /* Footer */
+  .footer-container { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; }
+  .footer-center {
+    order: 3;
+    grid-column: 1 / -1;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+}
+
+/* ============================================================
+   MENÚ MÓVIL — FIX CRÍTICO
+   El atributo [hidden] debería ocultarlo, pero algunos browsers
+   lo ignoran si hay display en el CSS. Forzamos oculto por defecto
+   y solo mostramos cuando JS elimina [hidden].
+   ============================================================ */
+.nav-mobile {
+  display: none !important;
+}
+
+.nav-mobile:not([hidden]) {
+  display: flex !important;
+  position: fixed;
+  top: var(--navbar-height);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(5, 5, 8, 0.97);
+  backdrop-filter: var(--glass-blur-heavy);
+  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  z-index: calc(var(--z-sticky) - 1);
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid var(--color-border-cyan);
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.nav-mobile ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-8);
+}
+
+.nav-mobile-link {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  transition: color var(--duration-fast) var(--ease-default);
+}
+.nav-mobile-link:hover {
+  color: var(--color-cyan-400);
+  text-shadow: var(--text-glow-cyan);
+}
+
+/* ============================================================
+   5. TABLET PORTRAIT (≤ 768px)
+   ============================================================ */
+@media screen and (max-width: 768px) {
+  :root {
+    --navbar-height: var(--navbar-height-mobile);
+    --container-padding: 1.25rem;
+    --js-particle-count: 800;
+  }
+  .nav-container { padding: 0 var(--container-padding); }
+  .hero-robot    { height: 38vh; min-height: 280px; }
+  .orbital-ring  { display: none; }
+  .section-title { font-size: clamp(1.4rem, 5vw, 2.2rem); }
+  .services-grid { grid-template-columns: 1fr; }
+  .skills-grid   { grid-template-columns: 1fr; gap: var(--space-8); }
+  .skill-category:nth-child(3) { grid-column: auto; }
+  .tech-icons-grid { grid-template-columns: repeat(3, 1fr); }
+  .projects-grid { grid-template-columns: 1fr; }
+  .projects-filter {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: var(--space-2);
+    scrollbar-width: none;
+  }
+  .projects-filter::-webkit-scrollbar { display: none; }
+  .filter-btn    { flex-shrink: 0; }
+  .contact-info  { flex-direction: column; }
+  .contact-socials { flex-wrap: wrap; }
+  .footer-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, auto);
+    justify-items: center;
+    text-align: center;
+    gap: var(--space-4);
+  }
+  .footer-left  { align-items: center; }
+  .footer-right { justify-content: center; }
+  .terminal-body { overflow-x: auto; }
+  .terminal-code { font-size: var(--text-xs); white-space: pre; }
+}
+
+/* ============================================================
+   6. MOBILE (≤ 480px)
+   ============================================================ */
+@media screen and (max-width: 480px) {
+  :root {
+    --container-padding: 1rem;
+    --section-padding-y: 3rem;
+    --js-particle-count: 600;
+  }
+  .hero-content {
+    padding-top: calc(var(--navbar-height) + var(--space-8));
+    padding-bottom: var(--space-4);
+    gap: var(--space-4);
+  }
+  .hero-stats       { gap: var(--space-5); }
+  .hero-stat-number { font-size: var(--text-3xl); }
+  .hero-ctas        { flex-direction: column; width: 100%; }
+  .hero-ctas .btn   { width: 100%; justify-content: center; }
+  .hero-robot       { height: 35vh; min-height: 240px; }
+  .robot-hud        { inset: var(--space-4); }
+  .hud-corner       { width: 14px; height: 14px; }
+  .hud-tag--top, .hud-tag--bottom { display: none; }
+  .section-eyebrow  { margin-bottom: var(--space-4); }
+  .section-title    { font-size: clamp(1.3rem, 6vw, 1.9rem); margin-bottom: var(--space-4); }
+  .section-subtitle { font-size: var(--text-base); margin-bottom: var(--space-8); }
+  .service-card     { padding: var(--space-5); }
+  .project-card     { padding: var(--space-4); }
+  .blockchain-stats { grid-template-columns: 1fr 1fr; }
+  .bstat-num        { font-size: var(--text-3xl); }
+  .form-input       { font-size: var(--text-base); }
+  .project-tags     { gap: var(--space-1); }
+  .tag              { font-size: var(--text-2xs); height: 20px; padding: 0 var(--space-2); }
+  .tech-icons-grid  { grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+  .tech-icon-box    { width: 38px; height: 38px; font-size: var(--text-2xs); }
+}
+
+/* ============================================================
+   7. MOBILE MUY PEQUEÑO (≤ 360px)
+   ============================================================ */
+@media screen and (max-width: 360px) {
+  .hero-stats        { gap: var(--space-4); }
+  .hero-stat-number  { font-size: var(--text-2xl); }
+  .hero-stat-unit    { font-size: var(--text-xl); }
+  .blockchain-stats  { grid-template-columns: 1fr; }
+  .skill-name        { font-size: var(--text-xs); }
+  .skill-percent     { font-size: var(--text-2xs); }
+  .contact-info-label { font-size: var(--text-2xs); }
+  .contact-info-value { font-size: var(--text-xs); }
+}
+
+/* ============================================================
+   8. PRINT
+   ============================================================ */
+@media print {
+  .section--hero { grid-template-columns: 1fr; min-height: auto; page-break-after: always; }
+  .hero-robot    { display: none; }
+  .services-grid, .skills-grid, .projects-grid,
+  .about-grid, .blockchain-grid, .contact-grid, .footer-container {
+    grid-template-columns: 1fr;
+  }
+  .service-card, .project-card { page-break-inside: avoid; border: 1px solid #ccc; }
+}
+
+/* ============================================================
+   9. REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .nav-mobile, .nav-mobile:not([hidden]) { transition: none; transform: none; }
+  .orbital-ring    { animation: none; }
+  .scroll-arrow    { animation: none; opacity: 0.6; }
+  .status-dot, .availability-dot { animation: none; }
+  .nav-logo-cursor { animation: none; }
+  .t-cursor        { animation: none; opacity: 1; }
+}
