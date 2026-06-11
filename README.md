@@ -35,7 +35,7 @@ cyberportfolio/
 │
 ├── js/
 │   ├── core/
-│   │   └── AppInit.js                  ⏳ F22
+│   │   └── AppInit.js                  ✅ F22
 │   ├── robot/
 │   │   ├── RobotCore.js                ✅ F04
 │   │   ├── RobotHead.js                ✅ F05
@@ -55,7 +55,7 @@ cyberportfolio/
 │   │   ├── ProjectsSection.js          ✅ F19
 │   │   └── ContactSection.js           ✅ F20
 │   └── audio/
-│       └── AudioManager.js             ⏳ F21
+│       └── AudioManager.js             ✅ F21
 │
 ├── assets/
 │   ├── favicon.svg                     ⏳ (crear manualmente)
