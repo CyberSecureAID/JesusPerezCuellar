@@ -3,9 +3,16 @@
   ============================================================
   CYBER PORTFOLIO — F01 · index.html
   ============================================================
-  ESTADO: ✅ COMPLETADO
-  VERSIÓN: 1.3.0  (robot 3D reemplazado por GIF hero-visual)
-  FASE: 1 de 8
+  VERSIÓN: 1.4.0  — Fix GIF blend-mode + HUD corners alineados
+  ============================================================
+  CAMBIOS v1.4.0:
+    · Nuevo wrapper .hero-gif-wrapper alrededor del GIF y el HUD.
+      Esto asegura que los hud-corners se posicionen exactamente
+      sobre el área visible del GIF (no sobre el contenedor mayor).
+    · Los .orbital-ring siguen en .hero-robot (giran en el panel).
+    · El .section--hero tiene background:#000000 puro en layout.css
+      para que mix-blend-mode:screen funcione sin interferencias.
+    · Eliminado isolation:isolate del .hero-robot (rompía el blend).
   ============================================================
 -->
 <html lang="es">
@@ -232,37 +239,61 @@
 
       </div>
 
+      <!-- ═══════════════════════════════════════════════════════
+           PANEL DERECHO — GIF hero
+           
+           ESTRUCTURA v1.4.0:
+           .hero-robot                → columna derecha completa
+             .hero-gif-wrapper        → cuadrado centrado que
+                                        coincide con el área visible
+                                        del GIF (aspect-ratio: 1/1)
+               img.hero-gif-visual    → el GIF con blend-mode:screen
+               .robot-hud             → corners sobre el GIF exacto
+             .orbital-ring × 2        → anillos giratorios externos
+           ═══════════════════════════════════════════════════════ -->
       <div class="hero-robot" aria-hidden="true">
 
-        <img id="hero-gif" class="hero-gif-visual" src="assets/hero-visual.gif" alt="" loading="eager" decoding="async">
+        <!-- Wrapper que define el área exacta del GIF visible -->
+        <div class="hero-gif-wrapper">
 
-        <div class="robot-hud" aria-hidden="true">
-          <div class="hud-corner hud-corner--tl"></div>
-          <div class="hud-corner hud-corner--tr"></div>
-          <div class="hud-corner hud-corner--bl"></div>
-          <div class="hud-corner hud-corner--br"></div>
-          <div class="hud-tag hud-tag--top">
-            <span class="hud-label">UNIT_ID</span>
-            <span class="hud-value" id="hud-unit-id">CYB-001</span>
-          </div>
-          <div class="hud-tag hud-tag--bottom">
-            <span class="hud-label">STATUS</span>
-            <span class="hud-value hud-value--green">ONLINE</span>
-          </div>
-          <div class="hud-tag hud-tag--left">
-            <span class="hud-label">THREAT_LVL</span>
-            <span class="hud-value hud-value--cyan">MAX</span>
-          </div>
-          <div class="hud-tag hud-tag--right">
-            <span class="hud-label">TRACKING</span>
-            <span class="hud-value hud-value--violet">ACTIVE</span>
-          </div>
-        </div>
+          <img id="hero-gif"
+               class="hero-gif-visual"
+               src="assets/hero-visual.gif"
+               alt=""
+               loading="eager"
+               decoding="async">
 
+          <!-- HUD decorativo alineado al wrapper del GIF -->
+          <div class="robot-hud" aria-hidden="true">
+            <div class="hud-corner hud-corner--tl"></div>
+            <div class="hud-corner hud-corner--tr"></div>
+            <div class="hud-corner hud-corner--bl"></div>
+            <div class="hud-corner hud-corner--br"></div>
+            <div class="hud-tag hud-tag--top">
+              <span class="hud-label">UNIT_ID</span>
+              <span class="hud-value" id="hud-unit-id">CYB-001</span>
+            </div>
+            <div class="hud-tag hud-tag--bottom">
+              <span class="hud-label">STATUS</span>
+              <span class="hud-value hud-value--green">ONLINE</span>
+            </div>
+            <div class="hud-tag hud-tag--left">
+              <span class="hud-label">THREAT_LVL</span>
+              <span class="hud-value hud-value--cyan">MAX</span>
+            </div>
+            <div class="hud-tag hud-tag--right">
+              <span class="hud-label">TRACKING</span>
+              <span class="hud-value hud-value--violet">ACTIVE</span>
+            </div>
+          </div>
+
+        </div><!-- /.hero-gif-wrapper -->
+
+        <!-- Anillos orbitales fuera del wrapper (giran en el panel completo) -->
         <div class="orbital-ring orbital-ring--1" aria-hidden="true"></div>
         <div class="orbital-ring orbital-ring--2" aria-hidden="true"></div>
 
-      </div>
+      </div><!-- /.hero-robot -->
 
       <div class="scroll-indicator" aria-label="Desplázate hacia abajo">
         <div class="scroll-arrow"></div>
