@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  CYBER PORTFOLIO — F01 · index.html
+  ============================================================
+  ESTADO: ✅ COMPLETADO
+  VERSIÓN: 1.3.0  (robot 3D reemplazado por GIF hero-visual)
+  FASE: 1 de 8
+  ============================================================
+-->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Especialista en desarrollo de software, ciberseguridad, hacking ético, blockchain y tecnologías emergentes. Centro de operaciones digital.">
+  <meta name="keywords" content="desarrollo software, ciberseguridad, hacking ético, blockchain, web3, smart contracts, pentesting, desarrollo web">
+  <meta name="author" content="[Jesús Pérez Cuellar]">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / redes sociales -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://[TU_DOMINIO].com/">
+  <meta property="og:title" content="[Jesús Pérez Cuellar] — Cyber Portfolio">
+  <meta property="og:description" content="Especialista en ciberseguridad, desarrollo avanzado y blockchain.">
+  <meta property="og:image" content="assets/og-image.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="[Jesús Pérez Cuellar] — Cyber Portfolio">
+  <meta name="twitter:description" content="Especialista en ciberseguridad, desarrollo avanzado y blockchain.">
+
+  <title>[Jesús Pérez Cuellar] — Cyber Portfolio</title>
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: #050508;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .loader-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: #00ffff;
+      text-transform: uppercase;
+    }
+    .loader-bar-wrap {
+      width: 200px;
+      height: 2px;
+      background: #1a1a2e;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .loader-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #00ffff, #7f5af0);
+      border-radius: 2px;
+      animation: loaderFill 1.8s ease forwards;
+    }
+    .loader-percent {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #8892a4;
+      letter-spacing: 2px;
+    }
+    @keyframes loaderFill {
+      0%   { width: 0%; }
+      60%  { width: 70%; }
+      100% { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="loader" role="status" aria-label="Cargando portfolio">
+    <div class="loader-logo">[ INICIALIZANDO SISTEMA ]</div>
+    <div class="loader-bar-wrap">
+      <div class="loader-bar" id="loader-bar"></div>
+    </div>
+    <div class="loader-percent" id="loader-percent">0%</div>
+  </div>
+
+  <div id="custom-cursor" aria-hidden="true">
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+  </div>
+
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <header id="navbar" role="banner">
+    <nav class="nav-container" role="navigation" aria-label="Navegación principal">
+
+      <a href="#hero" class="nav-logo" aria-label="Ir al inicio">
+        <span class="nav-logo-bracket">[</span>
+        <span class="nav-logo-text" id="nav-logo-text">[JPC]</span>
+        <span class="nav-logo-bracket">]</span>
+        <span class="nav-logo-cursor" aria-hidden="true">_</span>
+      </a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="#about"      class="nav-link" data-section="about">Sobre mí</a></li>
+        <li><a href="#services"   class="nav-link" data-section="services">Servicios</a></li>
+        <li><a href="#skills"     class="nav-link" data-section="skills">Skills</a></li>
+        <li><a href="#projects"   class="nav-link" data-section="projects">Proyectos</a></li>
+        <li><a href="#blockchain" class="nav-link" data-section="blockchain">Blockchain</a></li>
+        <li><a href="#contact"    class="nav-link nav-link--cta" data-section="contact">Contacto</a></li>
+      </ul>
+
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links-mobile" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+
+    </nav>
+
+    <div class="nav-mobile" id="nav-links-mobile" role="dialog" aria-modal="true" aria-label="Menú de navegación" hidden>
+      <ul role="list">
+        <li><a href="#about"      class="nav-mobile-link">Sobre mí</a></li>
+        <li><a href="#services"   class="nav-mobile-link">Servicios</a></li>
+        <li><a href="#skills"     class="nav-mobile-link">Skills</a></li>
+        <li><a href="#projects"   class="nav-mobile-link">Proyectos</a></li>
+        <li><a href="#blockchain" class="nav-mobile-link">Blockchain</a></li>
+        <li><a href="#contact"    class="nav-mobile-link">Contacto</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="main-content" role="main">
+
+    <!-- ══════════════════════════════════════════════
+         SECCIÓN 1 — HERO
+         ══════════════════════════════════════════════ -->
+    <section id="hero" class="section section--hero" data-animate="hero" aria-label="Presentación principal">
+
+      <div class="hero-content">
+
+        <div class="hero-status" aria-label="Estado del sistema">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span class="status-text" id="hero-status-text">SISTEMA ACTIVO</span>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="hero-title-name" id="hero-name">[Jesus – Dev & Trader]</span>
+          <br>
+          <span class="hero-title-role" id="typewriter-target" aria-live="polite">
+            Software Developer
+          </span>
+          <span class="typewriter-cursor" aria-hidden="true">|</span>
+        </h1>
+
+        <p class="hero-description">
+          Arquitecto de sistemas seguros y soluciones blockchain.
+          Transformo vulnerabilidades en fortalezas y código en valor.
+        </p>
+
+        <div class="hero-stats" role="list" aria-label="Estadísticas profesionales">
+          <div class="hero-stat" role="listitem">
+            <span class="hero-stat-number" data-count="5">0</span>
+            <span class="hero-stat-unit">+</span>
+            <span class="hero-stat-label">años de experiencia</span>
+          </div>
+          <div class="hero-stat" role="listitem">
+            <span class="hero-stat-number" data-count="40">0</span>
+            <span class="hero-stat-unit">+</span>
+            <span class="hero-stat-label">proyectos completados</span>
+          </div>
+          <div class="hero-stat" role="listitem">
+            <span class="hero-stat-number" data-count="15">0</span>
+            <span class="hero-stat-unit">+</span>
+            <span class="hero-stat-label">tecnologías dominadas</span>
+          </div>
+        </div>
+
+        <div class="hero-ctas">
+          <a href="#projects" class="btn btn--primary">
+            <span>Ver proyectos</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="#contact" class="btn btn--ghost">Contactar</a>
+        </div>
+
+        <div class="hero-social" aria-label="Perfiles profesionales">
+          <a href="https://github.com/[JesusDevTrader]" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+          </a>
+          <a href="https://linkedin.com/in/[JesusDevTrader]" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+          <a href="https://twitter.com/[JesusDevTrader]" class="social-link" target="_blank" rel="noopener" aria-label="Twitter / X">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-link social-link--hack" target="_blank" rel="noopener" aria-label="HackTheBox">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5"/>
+              <line x1="12" y1="2" x2="12" y2="22"/>
+              <line x1="2" y1="8.5" x2="22" y2="8.5"/>
+              <line x1="2" y1="15.5" x2="22" y2="15.5"/>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="hero-robot" aria-hidden="true">
+
+        <img id="hero-gif" class="hero-gif-visual" src="assets/hero-visual.gif" alt="" loading="eager" decoding="async">
+
+        <div class="robot-hud" aria-hidden="true">
+          <div class="hud-corner hud-corner--tl"></div>
+          <div class="hud-corner hud-corner--tr"></div>
+          <div class="hud-corner hud-corner--bl"></div>
+          <div class="hud-corner hud-corner--br"></div>
+          <div class="hud-tag hud-tag--top">
+            <span class="hud-label">UNIT_ID</span>
+            <span class="hud-value" id="hud-unit-id">CYB-001</span>
+          </div>
+          <div class="hud-tag hud-tag--bottom">
+            <span class="hud-label">STATUS</span>
+            <span class="hud-value hud-value--green">ONLINE</span>
+          </div>
+          <div class="hud-tag hud-tag--left">
+            <span class="hud-label">THREAT_LVL</span>
+            <span class="hud-value hud-value--cyan">MAX</span>
+          </div>
+          <div class="hud-tag hud-tag--right">
+            <span class="hud-label">TRACKING</span>
+            <span class="hud-value hud-value--violet">ACTIVE</span>
+          </div>
+        </div>
+
+        <div class="orbital-ring orbital-ring--1" aria-hidden="true"></div>
+        <div class="orbital-ring orbital-ring--2" aria-hidden="true"></div>
+
+      </div>
+
+      <div class="scroll-indicator" aria-label="Desplázate hacia abajo">
+        <div class="scroll-arrow"></div>
+        <span class="scroll-text">SCROLL</span>
+      </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         SECCIÓN 2 — SOBRE MÍ
+         ══════════════════════════════════════════════ -->
+    <section id="about" class="section section--about" data-animate="fade-up" aria-label="Sobre mí">
+      <div class="section-container">
+
+        <div class="section-eyebrow">
+          <span class="eyebrow-code">// 01</span>
+          <span class="eyebrow-title">PERFIL</span>
+        </div>
+
+        <div class="about-grid">
+
+          <div class="about-text">
+            <h2 class="section-title">Arquitecto de sistemas.<br>Cazador de vulnerabilidades.</h2>
+            <p class="about-desc">
+              Especialista en el ecosistema completo de la tecnología moderna: desde
+              el código que impulsa aplicaciones de alto rendimiento, hasta los protocolos
+              que aseguran infraestructuras críticas. Combino desarrollo avanzado con
+              mentalidad ofensiva para construir sistemas que no solo funcionan,
+              sino que resisten.
+            </p>
+            <p class="about-desc">
+              Certificado en ciberseguridad ofensiva y defensiva. Experiencia práctica
+              en auditorías de seguridad, desarrollo blockchain y arquitectura de
+              soluciones Web3 para entornos empresariales.
+            </p>
+
+            <div class="about-tags" role="list" aria-label="Especialidades">
+              <span class="tag" role="listitem">Ethical Hacker</span>
+              <span class="tag" role="listitem">Blockchain Dev</span>
+              <span class="tag" role="listitem">Pentest Specialist</span>
+              <span class="tag" role="listitem">Web3 Architect</span>
+              <span class="tag" role="listitem">Smart Contracts</span>
+              <span class="tag" role="listitem">CTF Player</span>
+            </div>
+          </div>
+
+          <div class="about-terminal" aria-label="Terminal de información">
+            <div class="terminal-header">
+              <span class="terminal-dot terminal-dot--red"  aria-hidden="true"></span>
+              <span class="terminal-dot terminal-dot--yellow" aria-hidden="true"></span>
+              <span class="terminal-dot terminal-dot--green"  aria-hidden="true"></span>
+              <span class="terminal-title">profile.sh</span>
+            </div>
+            <div class="terminal-body">
+              <pre class="terminal-code"><code><span class="t-comment">$ whoami</span>
+<span class="t-output">[Jesús Pérez Cuellar]</span>
+
+<span class="t-comment">$ cat specialties.txt</span>
+<span class="t-key">→</span> <span class="t-value">Software Development (Full-Stack)</span>
+<span class="t-key">→</span> <span class="t-value">Cybersecurity &amp; Ethical Hacking</span>
+<span class="t-key">→</span> <span class="t-value">Blockchain &amp; Smart Contracts</span>
+<span class="t-key">→</span> <span class="t-value">Web3 &amp; DeFi Architecture</span>
+<span class="t-key">→</span> <span class="t-value">AI/ML Integration</span>
+
+<span class="t-comment">$ uptime</span>
+<span class="t-output">Online since [AÑO] · No downtime.</span>
+
+<span class="t-comment">$ status</span>
+<span class="t-green">✓ Available for projects</span>
+<span class="t-cursor" aria-hidden="true">█</span></code></pre>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         SECCIÓN 3 — SERVICIOS
+         ══════════════════════════════════════════════ -->
+    <section id="services" class="section section--services" data-animate="fade-up" aria-label="Servicios profesionales">
+      <div class="section-container">
+
+        <div class="section-eyebrow">
+          <span class="eyebrow-code">// 02</span>
+          <span class="eyebrow-title">SERVICIOS</span>
+        </div>
+        <h2 class="section-title">Soluciones de alto impacto</h2>
+        <p class="section-subtitle">Cada proyecto es una operación. Cada línea de código, una decisión estratégica.</p>
+
+        <div class="services-grid" role="list">
+
+          <article class="service-card" data-service-id="cybersecurity" role="listitem" tabindex="0" aria-label="Servicio: Ciberseguridad">
+            <div class="service-icon-wrap" aria-hidden="true">
+              <svg class="service-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M32 4L8 14v18c0 14 11 26 24 28 13-2 24-14 24-28V14L32 4z"/>
+                <path d="M20 32l8 8 16-16"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Ciberseguridad</h3>
+            <p class="service-desc">Auditorías de penetración, análisis de vulnerabilidades, hardening de sistemas y respuesta a incidentes. Metodologías OWASP, PTES y OSSTMM.</p>
+            <ul class="service-list" aria-label="Servicios incluidos">
+              <li>Pentesting Web &amp; API</li>
+              <li>Auditorías de red</li>
+              <li>Análisis forense digital</li>
+              <li>Red Team / Blue Team</li>
+            </ul>
+            <div class="service-footer">
+              <span class="service-tag">OWASP</span>
+              <span class="service-tag">Metasploit</span>
+              <span class="service-tag">Burp Suite</span>
+            </div>
+          </article>
+
+          <article class="service-card" data-service-id="development" role="listitem" tabindex="0" aria-label="Servicio: Desarrollo de Software">
+            <div class="service-icon-wrap" aria-hidden="true">
+              <svg class="service-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                <polyline points="16,20 8,32 16,44"/>
+                <polyline points="48,20 56,32 48,44"/>
+                <line x1="24" y1="48" x2="40" y2="16"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Desarrollo de Software</h3>
+            <p class="service-desc">Arquitectura y desarrollo de aplicaciones web avanzadas, APIs robustas, microservicios y sistemas distribuidos de alta disponibilidad.</p>
+            <ul class="service-list" aria-label="Servicios incluidos">
+              <li>Full-Stack Development</li>
+              <li>APIs REST &amp; GraphQL</li>
+              <li>Microservicios</li>
+              <li>Sistemas en tiempo real</li>
+            </ul>
+            <div class="service-footer">
+              <span class="service-tag">Node.js</span>
+              <span class="service-tag">Python</span>
+              <span class="service-tag">React</span>
+            </div>
+          </article>
+
+          <article class="service-card service-card--featured" data-service-id="blockchain" role="listitem" tabindex="0" aria-label="Servicio: Blockchain y Web3">
+            <div class="service-icon-wrap" aria-hidden="true">
+              <svg class="service-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="20" y="8"  width="24" height="14" rx="2"/>
+                <rect x="8"  y="42" width="20" height="14" rx="2"/>
+                <rect x="36" y="42" width="20" height="14" rx="2"/>
+                <line x1="32" y1="22" x2="32" y2="34"/>
+                <line x1="32" y1="34" x2="18" y2="42"/>
+                <line x1="32" y1="34" x2="46" y2="42"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Blockchain &amp; Web3</h3>
+            <p class="service-desc">Desarrollo de smart contracts, protocolos DeFi, NFT platforms, DAOs y arquitecturas Web3 con énfasis en seguridad y eficiencia de gas.</p>
+            <ul class="service-list" aria-label="Servicios incluidos">
+              <li>Smart Contracts (Solidity)</li>
+              <li>DeFi Protocols</li>
+              <li>Auditoría de contratos</li>
+              <li>NFT &amp; DAO platforms</li>
+            </ul>
+            <div class="service-footer">
+              <span class="service-tag">Solidity</span>
+              <span class="service-tag">Ethereum</span>
+              <span class="service-tag">Hardhat</span>
+            </div>
+          </article>
+
+          <article class="service-card" data-service-id="ai" role="listitem" tabindex="0" aria-label="Servicio: IA y Tecnologías Emergentes">
+            <div class="service-icon-wrap" aria-hidden="true">
+              <svg class="service-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="32" cy="32" r="10"/>
+                <circle cx="32" cy="12" r="4"/>
+                <circle cx="32" cy="52" r="4"/>
+                <circle cx="12" cy="32" r="4"/>
+                <circle cx="52" cy="32" r="4"/>
+                <line x1="32" y1="16" x2="32" y2="22"/>
+                <line x1="32" y1="42" x2="32" y2="48"/>
+                <line x1="16" y1="32" x2="22" y2="32"/>
+                <line x1="42" y1="32" x2="48" y2="32"/>
+              </svg>
+            </div>
+            <h3 class="service-title">IA &amp; Tecnologías Emergentes</h3>
+            <p class="service-desc">Integración de modelos de lenguaje, automatización inteligente, computer vision y soluciones de IA aplicadas a ciberseguridad y finanzas.</p>
+            <ul class="service-list" aria-label="Servicios incluidos">
+              <li>LLM Integration &amp; Fine-tuning</li>
+              <li>AI Security Tools</li>
+              <li>Automatización inteligente</li>
+              <li>ML para detección de amenazas</li>
+            </ul>
+            <div class="service-footer">
+              <span class="service-tag">Python</span>
+              <span class="service-tag">TensorFlow</span>
+              <span class="service-tag">LangChain</span>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         SECCIÓN 4 — SKILLS / TECNOLOGÍAS
+         ══════════════════════════════════════════════ -->
+    <section id="skills" class="section section--skills" data-animate="fade-up" aria-label="Habilidades técnicas">
+      <div class="section-container">
+
+        <div class="section-eyebrow">
+          <span class="eyebrow-code">// 03</span>
+          <span class="eyebrow-title">TECH STACK</span>
+        </div>
+        <h2 class="section-title">Arsenal tecnológico</h2>
+
+        <div class="skills-grid">
+
+          <div class="skill-category">
+            <h3 class="skill-category-title">
+              <span class="skill-cat-icon" aria-hidden="true">⬡</span>
+              Seguridad Ofensiva
+            </h3>
+            <div class="skill-bars" role="list">
+              <div class="skill-bar" role="listitem">
+                <div class="skill-bar-header">
+                  <span class="skill-name">Penetration Testing</span>
+                  <span class="skill-percent" aria-label="95 por ciento">95%</span>
+                </div>
+                <div class="skill-bar-track" aria-hidden="true">
+                  <div class="skill-bar-fill" data-width="95"></div>
+                </div>
+              </div>
+              <div class="skill-bar" role="listitem">
+                <div class="skill-bar-header">
+                  <span class="skill-name">Exploit Development</span>
+                  <span class="skill-percent" aria-label="80 por ciento">80%</span>
+                </div>
+                <div class="skill-bar-track" aria-hidden="true">
+                  <div class="skill-bar-fill" data-width="80"></div>
+                </div>
+              </div>
+              <div class="skill-bar" role="listitem">
+                <div class="skill-bar-header">
+                  <span class="skill-name">Malware Analysis</span>
+                  <span class="skill-percent" aria-label="75 por ciento">75%</span>
+                </div>
+                <div class="skill-bar-track" aria-hidden="true">
+                  <div class="skill-bar-fill" data-width="75"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3 class="skill-category-title">
+              <span class="skill-cat-icon" aria-hidden="true">⬡</span>
+              Desarrollo
+            </h3>
+            <div class="skill-bars" role="list">
+              <div class="skill-bar" role="listitem">
+                <div class="skill-bar-header">
+                  <span class="skill-name">JavaScript / Node.js</span>
+                  <span class="skill-percent" aria-label="92 por ciento">92%</span>
+                </div>
+                <div class="skill-bar-track" aria-hidden="true">
+                  <div class="skill-bar-fill" data-width="92"></div>
+                </div>
+              </div>
+              <div class="skill-bar" role="listitem">
+                <div class="skill-bar-header">
+                  <span class="skill-name">Python</span>
+                  <span class="skill-percent" aria-label="90 por ciento">90%</span>
+                </div>
+                <div class="skill-bar-track" aria-hidden="true">
+                  <div class="skill-bar-fill" data-width="90"></div>
+                </div>
+              </div>
+              <div class="skill-bar" role="listitem">
+                <div class="skill-bar-header">
+                  <span class="skill-name">Solidity / Web3</span>
+                  <span class="skill-percent" aria-label="85 por ciento">85%</span>
+                </div>
+                <div class="skill-bar-track" aria-hidden="true">
+                  <div class="skill-bar-fill" data-width="85"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3 class="skill-category-title">
+              <span class="skill-cat-icon" aria-hidden="true">⬡</span>
+              Herramientas &amp; Plataformas
+            </h3>
+            <div class="tech-icons-grid" role="list" aria-label="Tecnologías y herramientas">
+              <div class="tech-icon-item" role="listitem" aria-label="Kali Linux">
+                <div class="tech-icon-box">KL</div>
+                <span class="tech-icon-label">Kali Linux</span>
+              </div>
+              <div class="tech-icon-item" role="listitem" aria-label="Burp Suite">
+                <div class="tech-icon-box">BS</div>
+                <span class="tech-icon-label">Burp Suite</span>
+              </div>
+              <div class="tech-icon-item" role="listitem" aria-label="Metasploit">
+                <div class="tech-icon-box">MSF</div>
+                <span class="tech-icon-label">Metasploit</span>
+              </div>
+              <div class="tech-icon-item" role="listitem" aria-label="Docker">
+                <div class="tech-icon-box">🐳</div>
+                <span class="tech-icon-label">Docker</span>
+              </div>
+              <div class="tech-icon-item" role="listitem" aria-label="Ethereum">
+                <div class="tech-icon-box">ETH</div>
+                <span class="tech-icon-label">Ethereum</span>
+              </div>
+              <div class="tech-icon-item" role="listitem" aria-label="Hardhat">
+                <div class="tech-icon-box">HH</div>
+                <span class="tech-icon-label">Hardhat</span>
+              </div>
+              <div class="tech-icon-item" role="listitem" aria-label="AWS">
+                <div class="tech-icon-box">AWS</div>
+                <span class="tech-icon-label">AWS</span>
+              </div>
+              <div class="tech-icon-item" role="listitem" aria-label="React">
+                <div class="tech-icon-box">⚛</div>
+                <span class="tech-icon-label">React</span>
+              </div>
+              <div class="tech-icon-item" role="listitem" aria-label="PostgreSQL">
+                <div class="tech-icon-box">PG</div>
+                <span class="tech-icon-label">PostgreSQL</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         SECCIÓN 5 — PROYECTOS
+         ══════════════════════════════════════════════ -->
+    <section id="projects" class="section section--projects" data-animate="fade-up" aria-label="Proyectos y productos">
+      <div class="section-container">
+
+        <div class="section-eyebrow">
+          <span class="eyebrow-code">// 04</span>
+          <span class="eyebrow-title">PROYECTOS</span>
+        </div>
+        <h2 class="section-title">Operaciones desplegadas</h2>
+
+        <div class="projects-filter" role="tablist" aria-label="Filtrar proyectos por categoría">
+          <button class="filter-btn filter-btn--active" role="tab" data-filter="all"      aria-selected="true">Todos</button>
+          <button class="filter-btn" role="tab" data-filter="security"  aria-selected="false">Seguridad</button>
+          <button class="filter-btn" role="tab" data-filter="web3"      aria-selected="false">Web3</button>
+          <button class="filter-btn" role="tab" data-filter="dev"       aria-selected="false">Dev</button>
+          <button class="filter-btn" role="tab" data-filter="ai"        aria-selected="false">IA</button>
+        </div>
+
+        <div class="projects-grid" id="projects-grid">
+
+          <article class="project-card" data-category="security" aria-label="Proyecto: SecureNet Scanner">
+            <div class="project-header">
+              <div class="project-meta">
+                <span class="project-type">SEGURIDAD</span>
+                <span class="project-year">2024</span>
+              </div>
+              <div class="project-links" aria-label="Links del proyecto">
+                <a href="#" class="project-link" aria-label="Ver código en GitHub" target="_blank" rel="noopener">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+                  </svg>
+                </a>
+                <a href="#" class="project-link" aria-label="Ver demo en vivo" target="_blank" rel="noopener">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15 3 21 3 21 9"/>
+                    <line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">SecureNet Scanner</h3>
+            <p class="project-desc">Herramienta automatizada de reconocimiento y análisis de vulnerabilidades con reporting inteligente. Integra Nmap, Shodan API y motores de detección custom.</p>
+            <div class="project-tags" aria-label="Tecnologías usadas">
+              <span class="tag">Python</span>
+              <span class="tag">Nmap</span>
+              <span class="tag">Shodan API</span>
+              <span class="tag">SQLite</span>
+            </div>
+          </article>
+
+          <article class="project-card project-card--featured" data-category="web3" aria-label="Proyecto: DeFi Protocol">
+            <div class="project-header">
+              <div class="project-meta">
+                <span class="project-type">WEB3</span>
+                <span class="project-year">2024</span>
+              </div>
+              <div class="project-links" aria-label="Links del proyecto">
+                <a href="#" class="project-link" aria-label="Ver código en GitHub" target="_blank" rel="noopener">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">CipherVault DeFi Protocol</h3>
+            <p class="project-desc">Protocolo de lending descentralizado con mecanismos de liquidación automática y oracle resistente a manipulación. TVL peak: $2.1M.</p>
+            <div class="project-tags" aria-label="Tecnologías usadas">
+              <span class="tag">Solidity</span>
+              <span class="tag">Hardhat</span>
+              <span class="tag">Chainlink</span>
+              <span class="tag">OpenZeppelin</span>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="dev" aria-label="Proyecto: API Gateway">
+            <div class="project-header">
+              <div class="project-meta">
+                <span class="project-type">DESARROLLO</span>
+                <span class="project-year">2023</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link" aria-label="Ver código en GitHub" target="_blank" rel="noopener">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">NexusAPI Gateway</h3>
+            <p class="project-desc">Gateway de APIs con rate limiting inteligente, autenticación JWT/OAuth2, logging distribuido y circuit breaker. Soporta 50K req/seg.</p>
+            <div class="project-tags">
+              <span class="tag">Node.js</span>
+              <span class="tag">Redis</span>
+              <span class="tag">Docker</span>
+              <span class="tag">Nginx</span>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="ai" aria-label="Proyecto: ThreatAI">
+            <div class="project-header">
+              <div class="project-meta">
+                <span class="project-type">IA</span>
+                <span class="project-year">2024</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link" aria-label="Ver código en GitHub" target="_blank" rel="noopener">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">ThreatAI Detector</h3>
+            <p class="project-desc">Sistema de detección de amenazas basado en ML que analiza tráfico de red en tiempo real. Precision 94.3% en detección de intrusiones zero-day.</p>
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">TensorFlow</span>
+              <span class="tag">Scapy</span>
+              <span class="tag">Kafka</span>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         SECCIÓN 6 — BLOCKCHAIN / WEB3
+         ══════════════════════════════════════════════ -->
+    <section id="blockchain" class="section section--blockchain" data-animate="fade-up" aria-label="Especialización en Blockchain y Web3">
+      <div class="section-container">
+
+        <div class="section-eyebrow">
+          <span class="eyebrow-code">// 05</span>
+          <span class="eyebrow-title">BLOCKCHAIN</span>
+        </div>
+        <h2 class="section-title">En la frontera de Web3</h2>
+
+        <div class="blockchain-grid">
+
+          <div class="blockchain-stats">
+            <div class="blockchain-stat-card">
+              <span class="bstat-num">47</span>
+              <span class="bstat-label">Smart Contracts desplegados</span>
+            </div>
+            <div class="blockchain-stat-card">
+              <span class="bstat-num">$4.2M</span>
+              <span class="bstat-label">TVL máximo gestionado</span>
+            </div>
+            <div class="blockchain-stat-card">
+              <span class="bstat-num">0</span>
+              <span class="bstat-label">Exploits en producción</span>
+            </div>
+            <div class="blockchain-stat-card">
+              <span class="bstat-num">12</span>
+              <span class="bstat-label">Auditorías completadas</span>
+            </div>
+          </div>
+
+          <div class="blockchain-chains">
+            <h3 class="chains-title">Ecosistemas</h3>
+            <div class="chains-list" role="list">
+              <div class="chain-item" role="listitem">
+                <div class="chain-indicator chain-indicator--eth" aria-hidden="true"></div>
+                <span>Ethereum / EVM</span>
+              </div>
+              <div class="chain-item" role="listitem">
+                <div class="chain-indicator chain-indicator--polygon" aria-hidden="true"></div>
+                <span>Polygon</span>
+              </div>
+              <div class="chain-item" role="listitem">
+                <div class="chain-indicator chain-indicator--base" aria-hidden="true"></div>
+                <span>Base</span>
+              </div>
+              <div class="chain-item" role="listitem">
+                <div class="chain-indicator chain-indicator--sol" aria-hidden="true"></div>
+                <span>Solana</span>
+              </div>
+              <div class="chain-item" role="listitem">
+                <div class="chain-indicator chain-indicator--arb" aria-hidden="true"></div>
+                <span>Arbitrum / L2</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         SECCIÓN 7 — CONTACTO
+         ══════════════════════════════════════════════ -->
+    <section id="contact" class="section section--contact" data-animate="fade-up" aria-label="Contacto">
+      <div class="section-container">
+
+        <div class="section-eyebrow">
+          <span class="eyebrow-code">// 06</span>
+          <span class="eyebrow-title">CONTACTO</span>
+        </div>
+        <h2 class="section-title">Iniciar una operación</h2>
+        <p class="section-subtitle">¿Tienes un proyecto de alto impacto? Hablemos.</p>
+
+        <div class="contact-grid">
+
+          <div class="contact-form-wrap">
+            <form class="contact-form" id="contact-form" novalidate aria-label="Formulario de contacto">
+
+              <div class="form-group">
+                <label class="form-label" for="contact-name">
+                  <span class="form-label-code" aria-hidden="true">01.</span> Nombre
+                </label>
+                <input type="text" id="contact-name" name="name" class="form-input"
+                  placeholder="Tu nombre" required autocomplete="name"
+                  aria-required="true" aria-describedby="name-error">
+                <span class="form-error" id="name-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-email">
+                  <span class="form-label-code" aria-hidden="true">02.</span> Email
+                </label>
+                <input type="email" id="contact-email" name="email" class="form-input"
+                  placeholder="tu@email.com" required autocomplete="email"
+                  aria-required="true" aria-describedby="email-error">
+                <span class="form-error" id="email-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-service">
+                  <span class="form-label-code" aria-hidden="true">03.</span> Servicio
+                </label>
+                <select id="contact-service" name="service" class="form-input form-select" aria-label="Tipo de servicio">
+                  <option value="">Seleccionar servicio</option>
+                  <option value="cybersecurity">Ciberseguridad / Pentesting</option>
+                  <option value="development">Desarrollo de Software</option>
+                  <option value="blockchain">Blockchain / Web3</option>
+                  <option value="ai">IA / Automatización</option>
+                  <option value="other">Otro</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-message">
+                  <span class="form-label-code" aria-hidden="true">04.</span> Mensaje
+                </label>
+                <textarea id="contact-message" name="message" class="form-input form-textarea"
+                  placeholder="Describe tu proyecto o consulta..." rows="4"
+                  required aria-required="true" aria-describedby="message-error"></textarea>
+                <span class="form-error" id="message-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <button type="submit" class="btn btn--primary btn--full" id="submit-btn">
+                <span id="submit-text">Enviar mensaje</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <line x1="22" y1="2" x2="11" y2="13"/>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                </svg>
+              </button>
+
+              <div class="form-success" id="form-success" hidden aria-live="polite">
+                <span>✓ Mensaje enviado. Te contactaré pronto.</span>
+              </div>
+
+            </form>
+          </div>
+
+          <div class="contact-info">
+
+            <div class="contact-info-item">
+              <span class="contact-info-label">Email</span>
+              <a href="mailto:tu@email.com" class="contact-info-value" id="contact-email-link">
+                tu@email.com
+              </a>
+              <button class="copy-btn" data-copy="tu@email.com" aria-label="Copiar email al portapapeles">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="contact-info-item">
+              <span class="contact-info-label">Ubicación</span>
+              <span class="contact-info-value">Remote · Worldwide</span>
+            </div>
+
+            <div class="contact-info-item">
+              <span class="contact-info-label">Disponibilidad</span>
+              <span class="contact-info-value">
+                <span class="availability-dot" aria-hidden="true"></span>
+                Abierto a proyectos
+              </span>
+            </div>
+
+            <div class="contact-socials" aria-label="Redes y perfiles profesionales">
+              <a href="https://github.com/[TU_USUARIO]"   class="contact-social-link" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+              <a href="https://linkedin.com/in/[TU]"      class="contact-social-link" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+              <a href="https://twitter.com/[TU_USUARIO]"  class="contact-social-link" target="_blank" rel="noopener" aria-label="Twitter">Twitter</a>
+              <a href="https://app.hackthebox.com/users/[ID]" class="contact-social-link" target="_blank" rel="noopener" aria-label="HackTheBox">HackTheBox</a>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="footer" role="contentinfo">
+    <div class="footer-container">
+
+      <div class="footer-left">
+        <span class="footer-logo">[Jesús Pérez Cuellar]</span>
+        <span class="footer-tagline">Arquitecto de sistemas seguros.</span>
+      </div>
+
+      <div class="footer-center">
+        <span class="footer-copy">
+          © <span id="footer-year"></span> — Diseñado y construido por [Jesús Pérez Cuellar].
+        </span>
+        <span class="footer-stack">
+          <span class="footer-stack-item">HTML5</span>
+          <span class="footer-stack-sep" aria-hidden="true">·</span>
+          <span class="footer-stack-item">CSS3</span>
+          <span class="footer-stack-sep" aria-hidden="true">·</span>
+          <span class="footer-stack-item">Vanilla JS</span>
+        </span>
+      </div>
+
+      <div class="footer-right">
+        <a href="#hero" class="footer-back-top" aria-label="Volver al inicio">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="18 15 12 9 6 15"/>
+          </svg>
+          <span>TOP</span>
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       SCRIPTS — ORDEN DE CARGA OBLIGATORIO
+       ============================================================ -->
+
+  <!-- Efectos de ambiente (F09–F10) -->
+  <script src="js/effects/HolographicGrid.js"></script>
+  <script src="js/effects/MatrixRain.js"></script>
+
+  <!-- UI (F14–F17) -->
+  <script src="js/ui/TypeWriter.js"></script>
+  <script src="js/ui/ScrollAnimations.js"></script>
+  <script src="js/ui/GlitchEffect.js"></script>
+  <script src="js/ui/CustomCursor.js"></script>
+
+  <!-- Secciones (F18–F20) -->
+  <script src="js/sections/ServicesSection.js"></script>
+  <script src="js/sections/ProjectsSection.js"></script>
+  <script src="js/sections/ContactSection.js"></script>
+
+  <!-- Audio (F21) -->
+  <script src="js/audio/AudioManager.js"></script>
+
+  <!-- Bootstrap principal (F22) -->
+  <script src="js/core/AppInit.js"></script>
+
+</body>
+</html>
