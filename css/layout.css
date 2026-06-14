@@ -2,7 +2,7 @@
   ============================================================
   CYBER PORTFOLIO — F11 · css/layout.css
   ============================================================
-  VERSIÓN: 1.5.0 — Hero spacing fix + scroll flicker fix
+  VERSIÓN: 1.5.1 — Solo fix spacing hero-content + scroll flicker
   ============================================================
 */
 
@@ -267,9 +267,15 @@
   gap: 0;
   position: relative;
   overflow: hidden;
-  /* FIX scroll flicker: will-change + transform en lugar de position tricks */
   background: #000000;
-  contain: layout style;
+}
+
+/* FIX scroll flicker: paint hint */
+.section--hero {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .section--hero::after {
@@ -278,25 +284,28 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 120px;
+  height: 180px;
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(5, 5, 8, 0.6) 50%,
-    rgba(5, 5, 8, 0.9) 80%,
+    rgba(5, 5, 8, 0.4) 40%,
+    rgba(5, 5, 8, 0.85) 75%,
     #050508 100%
   );
   pointer-events: none;
   z-index: var(--z-raised);
 }
 
-/* ── HERO CONTENT ── */
+/* ── HERO CONTENT ──
+   FIX: gap reducido y padding-top reducido para subir el contenido
+   y que los socials queden sobre el degradado.
+   El grid 1fr/1fr se mantiene intacto — solo tocamos el content.
+   ── */
 .hero-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* FIX: reducir padding top para subir el contenido */
-  padding: calc(var(--navbar-height) + var(--space-6)) var(--container-padding) var(--space-8);
+  padding: calc(var(--navbar-height) + var(--space-6)) var(--container-padding) var(--space-6);
   padding-left: max(var(--container-padding), calc((100vw - var(--container-wide)) / 2 + var(--container-padding)));
   gap: var(--space-3);
   position: relative;
@@ -482,7 +491,6 @@
   background: rgba(44, 182, 125, 0.06);
 }
 
-/* ── WHATSAPP ── */
 .social-link--whatsapp:hover {
   color: #25D366;
   border-color: rgba(37, 211, 102, 0.35);
