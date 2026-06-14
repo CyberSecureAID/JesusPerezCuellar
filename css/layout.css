@@ -561,7 +561,7 @@
 }
 
 .hud-tag--top { 
-  top: -28px !important; 
+  top: -22px !important; 
   left: 50%; 
   transform: translateX(-50%); 
   align-items: center; 
