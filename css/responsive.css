@@ -3,8 +3,12 @@
   CYBER PORTFOLIO — F13 · css/responsive.css
   ============================================================
   VERSIÓN: 2.1.0 — Fix mobile: hero-title-name font-size + hud-tag--bottom
-*/
+/* WhatsApp pill — solo mobile */
+.hero-status--mobile { display: none; }
 
+@media screen and (max-width: 768px) {
+  .hero-status--mobile { display: flex; }
+}
 /* ============================================================
    1. 4K / ULTRAWIDE (≥ 2560px)
    ============================================================ */
