@@ -560,7 +560,7 @@
   gap: 2px;
 }
 
-.hud-tag--top    { top: var(--space-8);    left: 50%; transform: translateX(-50%); align-items: center; }
+.hud-tag--top    { top: var(--space-9);    left: 50%; transform: translateX(-50%); align-items: center; }
 .hud-tag--bottom { bottom: var(--space-6); left: 50%; transform: translateX(-50%); align-items: center; }
 .hud-tag--left   { left: var(--space-4);   top: 50%;  transform: translateY(-50%); }
 .hud-tag--right  { right: var(--space-4);  top: 50%;  transform: translateY(-50%); align-items: flex-end; }
