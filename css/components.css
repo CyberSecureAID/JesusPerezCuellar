@@ -714,23 +714,22 @@
   background: var(--color-cyan-500);
   border-radius: var(--radius-full);
   box-shadow: 0 0 6px var(--color-cyan-500), 0 0 12px rgba(0, 255, 255, 0.4);
+  /* Centrado: el JS pone left/top en la posición del cursor;
+     este transform desplaza −50% del propio tamaño para centrar */
   transform: translate(-50%, -50%);
 }
 
 #cursor-ring {
   position: absolute;
-  top: 0;
-  left: 0;
+  /* Tamaño inicial — JS lo sobreescribe según hover state */
   width: 32px;
   height: 32px;
   border: 1px solid rgba(0, 255, 255, 0.5);
   border-radius: var(--radius-full);
-  /* FIX: centrar usando transform en lugar de top/left negativos */
+  /* FIX: centrado correcto — igual que #cursor-dot */
   transform: translate(-50%, -50%);
-  transition:
-    width var(--duration-fast) var(--ease-cyber),
-    height var(--duration-fast) var(--ease-cyber),
-    border-color var(--duration-fast) var(--ease-default);
+  /* Las transiciones de tamaño/color las gestiona CustomCursor.js
+     via el style.transition inline para poder cambiarlas dinámicamente */
 }
 
 /* ============================================================
