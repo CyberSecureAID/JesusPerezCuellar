@@ -1,7 +1,7 @@
 # ⬡ CYBER PORTFOLIO — PROJECT STATUS
 
-> **Especialista en:** Software Development · Ciberseguridad · Hacking Ético · Blockchain · Tecnologías Emergentes  
-> **Stack:** HTML5 · CSS3 · Vanilla JS ES6+ · Three.js r128 · Web Audio API · Canvas 2D · WebGL  
+> **Especialista en:** Software Development · Blockchain · Web3 · Tecnologías Emergentes  
+> **Stack:** HTML5 · CSS3 · Vanilla JS ES6+ · Web Audio API · Canvas 2D  
 > **Deploy:** GitHub Pages / Netlify / Vercel — sin build tools, sin frameworks
 
 ---
@@ -36,11 +36,6 @@ cyberportfolio/
 ├── js/
 │   ├── core/
 │   │   └── AppInit.js                  ✅ F22
-│   ├── robot/
-│   │   ├── RobotCore.js                ✅ F04
-│   │   ├── RobotHead.js                ✅ F05
-│   │   ├── RobotTracking.js            ✅ F06
-│   │   └── RobotAnimations.js          ✅ F07
 │   ├── effects/
 │   │   ├── ParticleField.js            ✅ F08
 │   │   ├── HolographicGrid.js          ✅ F09
@@ -58,7 +53,8 @@ cyberportfolio/
 │       └── AudioManager.js             ✅ F21
 │
 ├── assets/
-│   ├── favicon.svg                     ✅ (subir manualmente)
+│   ├── favicon.svg                     ✅
+│   ├── hero-visual.gif                 ✅ (subir manualmente)
 │   └── og-image.jpg                    ✅ (subir manualmente)
 │
 └── README.md                           ✅ F23
@@ -71,197 +67,176 @@ cyberportfolio/
 ---
 
 ### FASE 1 — Estructura Base & Sistema de Diseño
-> Fundación del proyecto. Sin esta fase nada funciona.
 
 | # | Archivo | Estado | Notas |
 |---|---|---|---|
-| F01 | `index.html` | ✅ **COMPLETADO** | HTML5 semántico completo, 7 secciones, hooks para todos los módulos JS |
-| F02 | `css/variables.css` | ✅ **COMPLETADO** | Design tokens completos: colores, tipografía, espaciado, sombras, glows, glassmorphism, z-index, transiciones, tokens de componentes y tokens JS |
-| F03 | `css/base.css` | ✅ **COMPLETADO** | Reset CSS moderno, tipografía base, scrollbar cian custom, accesibilidad (sr-only, skip-link, focus-visible), canvas fondo, print, reduced-motion |
+| F01 | `index.html` | ✅ **COMPLETADO** | v1.6.0 — Hero layout fix: GIF siempre a la derecha en desktop/tablet (≥769px), apilado en mobile (≤768px). Fix via media queries inline con `!important` para sobreescribir responsive.css |
+| F02 | `css/variables.css` | ✅ **COMPLETADO** | v1.2.0 — Design tokens completos: colores, tipografía, espaciado, sombras, glows, glassmorphism, z-index, transiciones, tokens JS. Hero negro puro (`#000`) |
+| F03 | `css/base.css` | ✅ **COMPLETADO** | v1.0.0 — Reset moderno, tipografía base, scrollbar cian 4px, accesibilidad (sr-only, skip-link, focus-visible), canvas fondo, print, reduced-motion |
 
-**Criterio de aceptación de la fase:** La página carga sin errores en consola, estructura visible aunque sin estilos definitivos. ✅
+**Criterio de aceptación:** La página carga sin errores en consola, estructura visible aunque sin estilos definitivos. ✅
 
 ---
 
-### FASE 2 — Robot 3D (Motor WebGL / Three.js)
-> El elemento visual más importante. Tracking de cursor incluido.
+### FASE 2 — Efectos de Ambiente (Canvas 2D)
+
+> ⚠️ **Nota v1.6.0:** Los módulos Three.js (RobotCore, RobotHead, RobotTracking, RobotAnimations — F04-F07) y ParticleField (F08) están disponibles en el repositorio pero **no se usan en la versión actual**. El hero usa un GIF (`assets/hero-visual.gif`) con `mix-blend-mode: screen` sobre fondo negro. AppInit.js (F22) no inicializa los módulos robot/3D.
 
 | # | Archivo | Estado | Notas |
 |---|---|---|---|
-| F04 | `js/robot/RobotCore.js` | ✅ **COMPLETADO** | Escena Three.js r128, cámara perspectiva 45°, renderer ACESFilmic + alpha, iluminación dramática 5 fuentes (cian/violeta/verde), fog volumétrico, grid holográfico, loop con callbacks, ResizeObserver, destroy() |
-| F05 | `js/robot/RobotHead.js` | ✅ **COMPLETADO** | Geometría procedural completa: cranio, facePanel, ojos emisivos con pupila, cejas, mandíbula, orejas, cuello, antenas coronales, scan lines HUD, glow rings orbitales. 100% sin archivos externos |
-| F06 | `js/robot/RobotTracking.js` | ✅ **COMPLETADO** | Tracking de cursor con lerp (factor 0.045), zona muerta ±10%, límites ±25°Y/±18°X, soporte giroscopio iOS/Android, IntersectionObserver para hero zone, retorno suave al centro |
-| F07 | `js/robot/RobotAnimations.js` | ✅ **COMPLETADO** | Idle loop completo: respiración, pulso de ojos, parpadeo aleatorio (3–7s), micro-tilt, jaw idle, scan lines animadas, glow rings rotativos, pulso de antenas en cascada, triggerGlitch() para F16 |
+| F08 | `js/effects/ParticleField.js` | ✅ archivado | Disponible, no activo — requiere Three.js CDN y RobotCore |
+| F09 | `js/effects/HolographicGrid.js` | ✅ **COMPLETADO** | Grid perspectivo synthwave Canvas 2D, punto de fuga 35% altura, 24 líneas verticales, 18 líneas horizontales perspectiva cúbica, línea de horizonte flicker cian/violeta, 3 scan lines descendentes, viñeta radial |
+| F10 | `js/effects/MatrixRain.js` | ✅ **COMPLETADO** | Lluvia de caracteres hex/bin sobre #bg-canvas compartido con F09, máscara lateral (columnas centrales invisibles), cabeza de gota blanca/cian, cola con fade, blending `lighter` aditivo |
 
-**Criterio de aceptación:** Robot 3D visible en hero, mirada sigue al cursor de forma fluida y natural. ✅
+**Criterio de aceptación:** Fondo cyberpunk inmersivo visible, sin impacto significativo en FPS. ✅
 
 ---
 
-### FASE 3 — Efectos de Ambiente & Partículas
-> Campo de partículas, matrix rain, grid holográfico.
+### FASE 3 — Layout & Secciones de Contenido
 
 | # | Archivo | Estado | Notas |
 |---|---|---|---|
-| F08 | `js/effects/ParticleField.js` | ✅ **COMPLETADO** | InstancedMesh 1 draw call, 2000 partículas desktop / 600 mobile, 3 zonas de distribución (esfera, banda ecuatorial, polvo cercano), drift senoidal por partícula, repulsión al cursor O(1), additive blending, colores cian 70% / violeta 30% con varianza de brillo |
-| F09 | `js/effects/HolographicGrid.js` | ✅ **COMPLETADO** | Grid perspectivo animado estilo synthwave, Canvas 2D, punto de fuga central, líneas horizontales con perspectiva exponencial, línea de horizonte con flicker cian/violeta, scan lines, viñeta radial, pause/resume/setIntensity/destroy |
-| F10 | `js/effects/MatrixRain.js` | ✅ **COMPLETADO** | Lluvia de caracteres hex/binarios sobre #bg-canvas, efecto lateral (columnas centrales atenuadas), cabeza de gota brillante, blending aditivo sobre F09, charsets por zona (hex/bin/mix), pause/resume/setDensity/setIntensity/destroy |
-
-**Criterio de aceptación:** Ambiente inmersivo visible, sin impacto significativo en FPS (target: 60fps estable). ✅
-
----
-
-### FASE 4 — Layout & Secciones de Contenido
-> CSS completo de todas las secciones.
-
-| # | Archivo | Estado | Notas |
-|---|---|---|---|
-| F11 | `css/layout.css` | ✅ **COMPLETADO** | Todas las secciones: navbar, hero, servicios, proyectos, skills, blockchain, footer |
-| F12 | `css/components.css` | ✅ **COMPLETADO** | Botones glow, cards holográficas, progress bars, tags, formulario |
-| F13 | `css/responsive.css` | ✅ **COMPLETADO** | Breakpoints: 4K, laptop, tablet, mobile (robot simplificado en mobile) |
+| F11 | `css/layout.css` | ✅ **COMPLETADO** | v1.5.1 — Layout completo: navbar, hero (grid 1fr/1fr), servicios, proyectos, skills, blockchain, footer. Fix spacing hero-content |
+| F12 | `css/components.css` | ✅ **COMPLETADO** | v1.0.1 — Botones glow, cards holográficas, progress bars, tags, formulario. Fix cursor-ring centering |
+| F13 | `css/responsive.css` | ✅ **COMPLETADO** | v1.1.0 — Breakpoints 4K/laptop/tablet/mobile. Fix menú móvil visible. En ≤1024px el hero original se apilaba — sobreescrito en index.html v1.6.0 |
 
 **Criterio de aceptación:** Página completamente estilizada y responsive en todos los dispositivos. ✅
 
 ---
 
-### FASE 5 — JavaScript: Interactividad & UX
-> Scroll animations, typewriter, glitch, cursor personalizado.
+### FASE 4 — JavaScript: Interactividad & UX
 
 | # | Archivo | Estado | Notas |
 |---|---|---|---|
-| F14 | `js/ui/TypeWriter.js` | ✅ **COMPLETADO** | Efecto typewriter con cursor parpadeante + glitch en transición |
-| F15 | `js/ui/ScrollAnimations.js` | ✅ **COMPLETADO** | Intersection Observer: reveal, counter animado, progress bars, parallax |
-| F16 | `js/ui/GlitchEffect.js` | ✅ **COMPLETADO** | Glitch aplicable: desplazamiento RGB, clip-path, activable en hover/scroll — llama a RobotAnimations.triggerGlitch() |
-| F17 | `js/ui/CustomCursor.js` | ✅ **COMPLETADO** | Cursor cian con halo, morphing en hover, trail de partículas |
+| F14 | `js/ui/TypeWriter.js` | ✅ **COMPLETADO** | v1.1.0 — Typewriter con cursor parpadeante + glitch en transición. Strings: Software Developer, Blockchain Developer, Web3 Engineer, Smart Contract Dev, Python Developer, Crypto Trader |
+| F15 | `js/ui/ScrollAnimations.js` | ✅ **COMPLETADO** | v1.0.0 — IntersectionObserver: reveal fade-up/fade-in, counter animado, progress bars, parallax sutil en desktop, nav activa, navbar--scrolled |
+| F16 | `js/ui/GlitchEffect.js` | ✅ **COMPLETADO** | v1.0.0 — Glitch RGB + clip-path, activable en hover/scroll/manual, sincronía opcional con RobotAnimations.triggerGlitch() (no-op si robot no está activo) |
+| F17 | `js/ui/CustomCursor.js` | ✅ **COMPLETADO** | v1.1.0 — Cursor cian con halo, morphing en hover (link/card/text/default), trail de partículas cian/violeta. Fix centrado ring |
 
 **Criterio de aceptación:** Experiencia UX inmersiva: animaciones fluidas, cursor personalizado funcional, typewriter rotando especialidades. ✅
 
 ---
 
-### FASE 6 — Secciones Interactivas de Contenido
-> Lógica JS de servicios, proyectos y contacto.
+### FASE 5 — Secciones Interactivas de Contenido
 
 | # | Archivo | Estado | Notas |
 |---|---|---|---|
-| F18 | `js/sections/ServicesSection.js` | ✅ **COMPLETADO** | Hover 3D tilt en cards, íconos SVG animados, modal de detalle |
-| F19 | `js/sections/ProjectsSection.js` | ✅ **COMPLETADO** | Filtro por categoría, grid animado, scroll horizontal en mobile |
-| F20 | `js/sections/ContactSection.js` | ✅ **COMPLETADO** | Validación JS, efecto terminal en inputs, copy al clipboard |
+| F18 | `js/sections/ServicesSection.js` | ✅ **COMPLETADO** | v1.0.0 — Hover 3D tilt en cards (perspective 800px), highlight radial que sigue al cursor, modal de detalle con focus trap y scroll-lock, datos de 4 servicios: Blockchain/Web3, Desarrollo, Trading, dApps/DeFi |
+| F19 | `js/sections/ProjectsSection.js` | ✅ **COMPLETADO** | v1.0.0 — Filtro por categoría con animación FLIP, contador de proyectos, scroll horizontal en mobile, roles ARIA tablist/tab |
+| F20 | `js/sections/ContactSection.js` | ✅ **COMPLETADO** | v1.0.0 — Validación JS en tiempo real, efecto terminal en labels (prompt ">"), contador de caracteres textarea, copy al clipboard, submit con spinner, mensaje de éxito animado |
 
 **Criterio de aceptación:** Filtro de proyectos funcional, formulario valida y muestra feedback, cards de servicios con tilt effect. ✅
 
 ---
 
-### FASE 7 — Audio
-> Ambient generado proceduralmente con Web Audio API.
+### FASE 6 — Audio
 
 | # | Archivo | Estado | Notas |
 |---|---|---|---|
-| F21 | `js/audio/AudioManager.js` | ✅ **COMPLETADO** | Ambient cyberpunk procedural, sonidos UI sintéticos, control mute/volumen |
+| F21 | `js/audio/AudioManager.js` | ✅ **COMPLETADO** | v1.0.0 — Ambient cyberpunk procedural (drone + pulse), sonidos UI sintéticos (hover, click, transition, type, glitch, error, success), control mute/volumen, preferencias en localStorage. Clase ES Module con singleton `audioManager` exportado |
 
-**Criterio de aceptación:** Sonido ambient inmersivo sin archivos externos, activable/desactivable por el usuario. ✅
+**Criterio de aceptación:** Sonido ambient inmersivo sin archivos externos, activable/desactivable. ✅
 
 ---
 
-### FASE 8 — Bootstrap, Optimización & Documentación Final
-> Loader real, gestión de errores, README completo.
+### FASE 7 — Bootstrap, Optimización & Documentación
 
 | # | Archivo | Estado | Notas |
 |---|---|---|---|
-| F22 | `js/core/AppInit.js` | ✅ **COMPLETADO** | Bootstrap completo: loader animado, detección WebGL, init ordenado de módulos |
-| F23 | `README.md` | ✅ **COMPLETADO** | Documentación técnica: setup, personalización, guía de deploy |
+| F22 | `js/core/AppInit.js` | ✅ **COMPLETADO** | v1.2.0 — Bootstrap sin Three.js: loader animado, detección capacidades (webAudio, reducedMotion, isMobile, isTouch), init ordenado HolographicGrid → MatrixRain → UI modules → Section modules → Audio. Navbar mobile toggle, footer year, scroll suave |
+| F23 | `README.md` | ✅ **COMPLETADO** | v2.0.0 — Documentación actualizada a arquitectura actual (GIF hero, sin Three.js activo) |
 
-**Criterio de aceptación:** Página carga con secuencia de entrada impactante, sin errores en consola, README explica todo el proyecto. ✅
-
----
-
-## ✅ Pendiente de Subir 0
-
-| Archivo | Notas |
-|---|---|
-| `assets/favicon.svg` | Crear y subir manualmente |
-| `assets/og-image.jpg` | Crear y subir manualmente |
+**Criterio de aceptación:** Página carga con secuencia de entrada impactante, sin errores en consola. ✅
 
 ---
 
-## 🔗 Dependencias entre Archivos
+## 🖼️ Hero Visual
+
+El panel derecho del hero usa un GIF animado:
 
 ```
-index.html (F01)
-    ├── css/variables.css (F02)  ← necesario para que F03, F11, F12 funcionen
-    ├── css/base.css (F03)       ← depende de F02
-    ├── css/layout.css (F11)     ← depende de F02 y F03
-    ├── css/components.css (F12) ← depende de F02 y F03
-    ├── css/responsive.css (F13) ← depende de F11 y F12
-    ├── THREE.js (CDN)           ← requerido por F04-F08
-    ├── RobotCore.js (F04)       ← depende de THREE.js
-    │   ├── RobotHead.js (F05)   ← depende de F04
-    │   ├── RobotTracking.js (F06) ← depende de F04 y F05
-    │   └── RobotAnimations.js (F07) ← depende de F04 y F05
-    ├── ParticleField.js (F08)   ← depende de THREE.js y RobotCore (scene + loop)
-    ├── HolographicGrid.js (F09) ← independiente (Canvas 2D)
-    ├── MatrixRain.js (F10)      ← depende de F09 (pinta encima, comparte canvas)
-    ├── TypeWriter.js (F14)      ← independiente
-    ├── ScrollAnimations.js (F15) ← independiente
-    ├── GlitchEffect.js (F16)   ← independiente (llama a RobotAnimations.triggerGlitch)
-    ├── CustomCursor.js (F17)   ← independiente
-    ├── ServicesSection.js (F18) ← depende de F16
-    ├── ProjectsSection.js (F19) ← independiente
-    ├── ContactSection.js (F20) ← independiente
-    ├── AudioManager.js (F21)   ← independiente
-    └── AppInit.js (F22)        ← depende de TODOS los anteriores
+assets/hero-visual.gif
+```
+
+**Requisitos del GIF:**
+- Fondo **negro puro** (`#000000`) o transparente
+- `mix-blend-mode: screen` en el CSS elimina el negro y deja solo el elemento brillante
+- Tamaño recomendado: cuadrado, mínimo 400×400px
+- Formato: GIF animado o WebP animado (renombrar a `.gif` o ajustar `src` en HTML)
+
+**Layout del hero:**
+- `≥769px` → dos columnas: contenido izquierda | GIF derecha
+- `≤768px` → columna única: GIF arriba | contenido abajo
+
+---
+
+## 🔗 Orden de Carga de Scripts
+
+```
+index.html
+    ├── js/effects/HolographicGrid.js   ← primero (gestiona clearRect del canvas)
+    ├── js/effects/MatrixRain.js        ← segundo (pinta encima de F09)
+    ├── js/ui/TypeWriter.js
+    ├── js/ui/ScrollAnimations.js
+    ├── js/ui/GlitchEffect.js
+    ├── js/ui/CustomCursor.js
+    ├── js/sections/ServicesSection.js
+    ├── js/sections/ProjectsSection.js
+    ├── js/sections/ContactSection.js
+    ├── js/audio/AudioManager.js
+    └── js/core/AppInit.js              ← último (inicializa todo)
 ```
 
 ---
 
 ## ✏️ Personalización Pendiente
 
-Antes del deploy, reemplazar en `index.html` todas las instancias de:
+Reemplazar en `index.html`:
 
 | Placeholder | Reemplazar con |
 |---|---|
-| `[ Jesús Pérez Cuellar]` | Tu nombre completo |
-| `[ Jesus | Developer & Trader ]` | Tus iniciales (ej: `JD`) |
-| `[@JesusDevTrader]` | Tu usuario de GitHub/Twitter |
-| `[TU_DOMINIO]` | Tu dominio web |
+| `Jesús — Dev & Trader` | Tu nombre y rol |
+| `[JPC]` | Tus iniciales |
+| `JesusDevTrader` | Tu usuario de redes |
+| `CyberSecureAID` | Tu usuario de GitHub |
+| `contacto@jesusdevtrader.com` | Tu email |
+| `wa.me/5358648458` | Tu número de WhatsApp |
 | `[AÑO]` | Tu año de inicio profesional |
-| `tu@email.com` | Tu email de contacto |
 | Los proyectos de ejemplo | Tus proyectos reales |
-| Las estadísticas de ejemplo | Tus datos reales |
+| Las estadísticas (5+, 40+, 15+) | Tus datos reales |
+| `assets/hero-visual.gif` | Tu GIF/visual animado |
 
 ---
 
-## 🛠️ Instrucciones de Setup (Preview Local)
+## 🛠️ Setup Local
 
 ```bash
-# Clonar el repositorio
-git clone https://github.com/[TU_USUARIO]/cyberportfolio.git
-cd cyberportfolio
-
-# Opción 1: Python (sin instalación)
+# Opción 1: Python
 python3 -m http.server 8080
-# Abrir: http://localhost:8080
+# → http://localhost:8080
 
 # Opción 2: Node.js
 npx serve .
-# Abrir: http://localhost:3000
+# → http://localhost:3000
 
 # Opción 3: VS Code
-# Instalar extensión "Live Server" → click derecho en index.html → Open with Live Server
+# Live Server → click derecho en index.html → Open with Live Server
 ```
 
-> ⚠️ **Importante:** Abrir `index.html` directo en el navegador (protocolo `file://`) puede causar errores CORS con los módulos JS. Usar siempre un servidor local.
+> ⚠️ No abrir `index.html` directo con `file://` — CORS bloqueará los módulos JS.
 
 ---
 
 ## 🚀 Deploy
 
+**Netlify (recomendado — más simple):**
+1. Arrastrar la carpeta a [app.netlify.com/drop](https://app.netlify.com/drop)
+2. URL automática al instante
+
 **GitHub Pages:**
-1. Subir el repositorio a GitHub
+1. Subir repo a GitHub
 2. Settings → Pages → Source: `main` branch → `/root`
 3. URL: `https://[TU_USUARIO].github.io/cyberportfolio`
-
-**Netlify (recomendado):**
-1. Arrastrar la carpeta del proyecto a [netlify.com/drop](https://app.netlify.com/drop)
-2. URL automática generada al instante
 
 **Vercel:**
 ```bash
@@ -272,48 +247,55 @@ npx vercel --prod
 
 ## 📝 Historial de Cambios
 
-| Fecha | Archivo | Acción | Notas |
+| Fecha | Archivo | Versión | Notas |
 |---|---|---|---|
-| 2026-06-09 | `PROJECT_STATUS.md` | Creado | Documento maestro inicial |
-| 2026-06-09 | `index.html` | ✅ Completado | F01 — Estructura HTML5 completa, 7 secciones |
-| 2026-06-09 | `css/variables.css` | ✅ Completado | F02 — Design tokens: paleta cian/violeta, tipografía fluid, espaciado, sombras, glows, glassmorphism, z-index, transiciones, tokens de componentes y variables JS |
-| 2026-06-09 | `css/base.css` | ✅ Completado | F03 — Reset moderno, tipografía base, scrollbar cian 4px, selection highlight, focus-visible accesible, canvas fondo fixed, sr-only, skip-link, print, reduced-motion |
-| 2026-06-09 | `js/robot/RobotCore.js` | ✅ Completado | F04 — Motor Three.js r128: escena, cámara, renderer WebGL ACESFilmic, 5 luces dramáticas cian/violeta/verde, fog, grid holográfico, loop con callbacks, ResizeObserver, API pública completa |
-| 2026-06-09 | `js/robot/RobotHead.js` | ✅ Completado | F05 — Geometría procedural completa sin archivos externos: cranio biselado, facePanel, ojos emisivos con pupila, cejas acento, mandíbula, orejas con ranuras, cuello, 3 antenas coronales, 4 scan lines HUD, 3 glow rings orbitales |
-| 2026-06-09 | `js/robot/RobotTracking.js` | ✅ Completado | F06 — Tracking cursor lerp suave, zona muerta ±10%, límites anatómicos ±25°Y / ±18°X, curva de potencia 1.3, soporte giroscopio iOS 13+ / Android, IntersectionObserver hero zone, retorno lento al centro |
-| 2026-06-09 | `js/robot/RobotAnimations.js` | ✅ Completado | F07 — Idle loop completo: respiración (bobbing + scale), pulso de ojos desfasado, parpadeo aleatorio 3–7s (closing 55ms / opening 80ms), micro-tilt con lerp 0.015, jaw noise, scan lines con opacity fade, glow rings multi-eje, antenas en cascada, triggerBlink(), triggerGlitch() para sincronía con F16, soporte reduced-motion |
-| 2026-06-09 | `js/effects/ParticleField.js` | ✅ Completado | F08 — InstancedMesh 1 draw call, 2000p desktop / 600p mobile, 3 zonas de distribución, drift senoidal individual, repulsión cursor O(1) proyección plano Z, additive blending, instanceColor por partícula, colores cian/violeta con varianza de brillo, destroy() limpio |
-| 2026-06-10 | `js/effects/HolographicGrid.js` | ✅ Completado | F09 — Grid perspectivo synthwave Canvas 2D, punto de fuga 35% altura, 24 líneas verticales, 18 líneas horizontales perspectiva cúbica, línea de horizonte flicker cian/violeta, 3 scan lines descendentes, viñeta radial, flicker global, pause/resume/setIntensity/destroy, reduced-motion |
-| 2026-06-10 | `js/effects/MatrixRain.js` | ✅ Completado | F10 — Lluvia de caracteres hex/bin sobre #bg-canvas compartido con F09, máscara lateral (columnas centrales invisibles), cabeza de gota blanca/cian, cola con fade, blending 'lighter' aditivo, 3 charsets por zona, tick acumulado ~18fps para columnas, pause/resume/setDensity/setIntensity/destroy |
-| 2026-06-10 | `css/layout.css` | ✅ Completado | F11 — Layout completo: navbar, hero, servicios, proyectos, skills, blockchain, footer |
-| 2026-06-10 | `css/components.css` | ✅ Completado | F12 — Botones glow, cards holográficas, progress bars, tags, formulario |
-| 2026-06-10 | `css/responsive.css` | ✅ Completado | F13 — Breakpoints 4K/laptop/tablet/mobile, robot simplificado en mobile |
-| 2026-06-10 | `js/ui/TypeWriter.js` | ✅ Completado | F14 — Typewriter con cursor parpadeante + glitch en transición |
-| 2026-06-10 | `js/ui/ScrollAnimations.js` | ✅ Completado | F15 — IntersectionObserver: reveal, counter animado, progress bars, parallax |
-| 2026-06-10 | `js/ui/GlitchEffect.js` | ✅ Completado | F16 — Glitch RGB, clip-path, hover/scroll, sincronía con RobotAnimations.triggerGlitch() |
-| 2026-06-10 | `js/ui/CustomCursor.js` | ✅ Completado | F17 — Cursor cian con halo, morphing en hover, trail de partículas |
-| 2026-06-10 | `js/sections/ServicesSection.js` | ✅ Completado | F18 — Hover 3D tilt en cards, íconos SVG animados, modal de detalle |
-| 2026-06-10 | `js/sections/ProjectsSection.js` | ✅ Completado | F19 — Filtro por categoría, grid animado, scroll horizontal en mobile |
-| 2026-06-10 | `js/sections/ContactSection.js` | ✅ Completado | F20 — Validación JS, efecto terminal en inputs, copy al clipboard |
-| 2026-06-10 | `js/audio/AudioManager.js` | ✅ Completado | F21 — Ambient cyberpunk procedural, sonidos UI sintéticos, control mute/volumen |
-| 2026-06-10 | `js/core/AppInit.js` | ✅ Completado | F22 — Bootstrap completo: loader animado, detección WebGL, init ordenado de módulos |
-| 2026-06-11 | `README.md` | ✅ Completado | F23 — Documentación técnica final actualizada |
+| 2026-06-09 | `index.html` | 1.0.0 | F01 — Estructura HTML5 completa, 7 secciones |
+| 2026-06-09 | `css/variables.css` | 1.0.0 | F02 — Design tokens completos |
+| 2026-06-09 | `css/base.css` | 1.0.0 | F03 — Reset moderno, accesibilidad |
+| 2026-06-09 | `js/robot/RobotCore.js` | 1.0.0 | F04 — Motor Three.js r128 (archivado) |
+| 2026-06-09 | `js/robot/RobotHead.js` | 1.0.0 | F05 — Geometría procedural (archivado) |
+| 2026-06-09 | `js/robot/RobotTracking.js` | 1.0.0 | F06 — Tracking cursor (archivado) |
+| 2026-06-09 | `js/robot/RobotAnimations.js` | 1.0.0 | F07 — Animaciones idle (archivado) |
+| 2026-06-09 | `js/effects/ParticleField.js` | 1.0.0 | F08 — Partículas Three.js (archivado) |
+| 2026-06-10 | `js/effects/HolographicGrid.js` | 1.0.0 | F09 — Grid synthwave Canvas 2D |
+| 2026-06-10 | `js/effects/MatrixRain.js` | 1.0.0 | F10 — Lluvia hex/bin Canvas 2D |
+| 2026-06-10 | `css/layout.css` | 1.0.0 | F11 — Layout completo todas las secciones |
+| 2026-06-10 | `css/components.css` | 1.0.0 | F12 — Botones, cards, formulario |
+| 2026-06-10 | `css/responsive.css` | 1.0.0 | F13 — Breakpoints 4K/laptop/tablet/mobile |
+| 2026-06-10 | `js/ui/TypeWriter.js` | 1.0.0 | F14 — Typewriter + glitch |
+| 2026-06-10 | `js/ui/ScrollAnimations.js` | 1.0.0 | F15 — IntersectionObserver: reveal, counters, parallax |
+| 2026-06-10 | `js/ui/GlitchEffect.js` | 1.0.0 | F16 — Glitch RGB clip-path |
+| 2026-06-10 | `js/ui/CustomCursor.js` | 1.0.0 | F17 — Cursor cian + trail |
+| 2026-06-10 | `js/sections/ServicesSection.js` | 1.0.0 | F18 — Tilt 3D + modal |
+| 2026-06-10 | `js/sections/ProjectsSection.js` | 1.0.0 | F19 — Filtro FLIP + contador |
+| 2026-06-10 | `js/sections/ContactSection.js` | 1.0.0 | F20 — Validación + terminal labels |
+| 2026-06-10 | `js/audio/AudioManager.js` | 1.0.0 | F21 — Audio procedural Web Audio API |
+| 2026-06-10 | `js/core/AppInit.js` | 1.0.0 | F22 — Bootstrap completo |
+| 2026-06-10 | `css/layout.css` | 1.5.1 | Fix spacing hero-content + scroll flicker |
+| 2026-06-10 | `css/components.css` | 1.0.1 | Fix cursor-ring centering |
+| 2026-06-10 | `css/responsive.css` | 1.1.0 | Fix menú móvil visible |
+| 2026-06-10 | `js/ui/CustomCursor.js` | 1.1.0 | Fix centrado dot + ring |
+| 2026-06-10 | `js/ui/TypeWriter.js` | 1.1.0 | Strings dev/trader actualizados |
+| 2026-06-10 | `js/core/AppInit.js` | 1.2.0 | Eliminadas referencias al robot 3D |
+| 2026-06-10 | `css/variables.css` | 1.2.0 | Hero negro puro #000 |
+| 2026-06-11 | `index.html` | 1.5.0 | Hero redesign: GIF + HUD corners |
+| 2026-06-14 | `index.html` | 1.6.0 | Fix hero layout: 2 columnas forzadas ≥769px, flex-column ≤768px |
+| 2026-06-14 | `README.md` | 2.0.0 | Documentación actualizada: arquitectura GIF hero, sin Three.js activo |
 
 ---
 
-## 📌 Notas para Otros Desarrolladores / IAs
+## 📌 Notas Técnicas
 
-Si retomas este proyecto en otra sesión o con otra herramienta:
+1. **Hero layout:** Los estilos del hero en `index.html` usan `!important` para sobreescribir el colapso de columna que `responsive.css` aplica en ≤1024px. No modificar sin revisar ambos archivos.
 
-1. **Lee este archivo primero.** Todo el estado del proyecto está aquí.
-2. **Respeta el orden de las fases.** Las dependencias entre archivos están mapeadas arriba.
-3. **Cada archivo entregado tiene un header de documentación** con su estado, versión y notas de integración.
-4. **Los placeholders `[EN_CORCHETES]`** en `index.html` son los textos que el propietario debe personalizar.
-5. **No modificar `index.html`** sin actualizar este documento.
-6. **El robot 3D** (F04-F07) se construye proceduralmente en Three.js — no requiere archivos de modelo externos (.glb/.gltf).
-7. **Target de performance:** 60fps estable en desktop, 30fps mínimo en mobile.
-8. **RobotAnimations.triggerGlitch()** debe ser llamado desde GlitchEffect.js (F16) para sincronizar el efecto CSS con la animación 3D del robot.
-9. **El idle tilt (F07)** usa `userData.idleTiltX/Y` para no pisar la rotación del tracking (F06). Si modificas el sistema de rotación, respeta esta separación.
-10. **ParticleField (F08)** se registra en el loop de RobotCore igual que los módulos del robot. Debe inicializarse DESPUÉS de RobotCore.init(). El count se lee del token CSS `--js-particle-count` definido en variables.css (F02).
-11. **HolographicGrid (F09)** gestiona el `clearRect()` del #bg-canvas. Debe inicializarse ANTES que MatrixRain (F10).
-12. **MatrixRain (F10)** pinta encima de F09 usando `globalCompositeOperation = 'lighter'`. No llama a `clearRect()` propio — depende del clear de F09 en cada frame. El orden de init() en index.html es obligatorio: primero F09, luego F10.
+2. **GIF hero:** `mix-blend-mode: screen` requiere fondo negro puro en el GIF. Cualquier gris o color aparecerá como tinte sobre el fondo.
+
+3. **HolographicGrid + MatrixRain:** Comparten `#bg-canvas`. F09 limpia el canvas con `clearRect()` cada frame; F10 pinta encima con `globalCompositeOperation = 'lighter'`. Orden de init obligatorio: F09 primero.
+
+4. **AudioManager:** Usa `export class` + singleton `export const audioManager`. AppInit lo importa como script clásico — el singleton queda en `window.audioManager` por el patrón del archivo.
+
+5. **GlitchEffect + RobotAnimations:** `GlitchEffect.trigger()` llama a `RobotAnimations.triggerGlitch()` solo si `window.RobotAnimations.isReady()` devuelve true. Como el robot no está activo, la llamada es silenciosa — no genera errores.
+
+6. **Reduced-motion:** Todos los módulos respetan `prefers-reduced-motion`. Las animaciones de Canvas se detienen, el typewriter rota sin animación, y los reveals son instantáneos.
+
+7. **Target de performance:** 60fps estable en desktop, 30fps mínimo en mobile. El count de partículas Matrix se reduce automáticamente via `--js-particle-count` en `responsive.css`.
