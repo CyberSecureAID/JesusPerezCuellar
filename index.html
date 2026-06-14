@@ -3,16 +3,7 @@
   ============================================================
   CYBER PORTFOLIO — F01 · index.html
   ============================================================
-  VERSIÓN: 1.4.0  — Fix GIF blend-mode + HUD corners alineados
-  ============================================================
-  CAMBIOS v1.4.0:
-    · Nuevo wrapper .hero-gif-wrapper alrededor del GIF y el HUD.
-      Esto asegura que los hud-corners se posicionen exactamente
-      sobre el área visible del GIF (no sobre el contenedor mayor).
-    · Los .orbital-ring siguen en .hero-robot (giran en el panel).
-    · El .section--hero tiene background:#000000 puro en layout.css
-      para que mix-blend-mode:screen funcione sin interferencias.
-    · Eliminado isolation:isolate del .hero-robot (rompía el blend).
+  VERSIÓN: 1.4.1  — Favicon fix: SVG + PNG fallbacks
   ============================================================
 -->
 <html lang="es">
@@ -38,7 +29,10 @@
 
   <title>[Jesús Pérez Cuellar] — Cyber Portfolio</title>
 
+  <!-- FAVICON — SVG moderno + PNG fallback para Safari/móvil -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="assets/favicon-192.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -157,9 +151,6 @@
 
   <main id="main-content" role="main">
 
-    <!-- ══════════════════════════════════════════════
-         SECCIÓN 1 — HERO
-         ══════════════════════════════════════════════ -->
     <section id="hero" class="section section--hero" data-animate="hero" aria-label="Presentación principal">
 
       <div class="hero-content">
@@ -239,21 +230,8 @@
 
       </div>
 
-      <!-- ═══════════════════════════════════════════════════════
-           PANEL DERECHO — GIF hero
-           
-           ESTRUCTURA v1.4.0:
-           .hero-robot                → columna derecha completa
-             .hero-gif-wrapper        → cuadrado centrado que
-                                        coincide con el área visible
-                                        del GIF (aspect-ratio: 1/1)
-               img.hero-gif-visual    → el GIF con blend-mode:screen
-               .robot-hud             → corners sobre el GIF exacto
-             .orbital-ring × 2        → anillos giratorios externos
-           ═══════════════════════════════════════════════════════ -->
       <div class="hero-robot" aria-hidden="true">
 
-        <!-- Wrapper que define el área exacta del GIF visible -->
         <div class="hero-gif-wrapper">
 
           <img id="hero-gif"
@@ -263,7 +241,6 @@
                loading="eager"
                decoding="async">
 
-          <!-- HUD decorativo alineado al wrapper del GIF -->
           <div class="robot-hud" aria-hidden="true">
             <div class="hud-corner hud-corner--tl"></div>
             <div class="hud-corner hud-corner--tr"></div>
@@ -287,13 +264,12 @@
             </div>
           </div>
 
-        </div><!-- /.hero-gif-wrapper -->
+        </div>
 
-        <!-- Anillos orbitales fuera del wrapper (giran en el panel completo) -->
         <div class="orbital-ring orbital-ring--1" aria-hidden="true"></div>
         <div class="orbital-ring orbital-ring--2" aria-hidden="true"></div>
 
-      </div><!-- /.hero-robot -->
+      </div>
 
       <div class="scroll-indicator" aria-label="Desplázate hacia abajo">
         <div class="scroll-arrow"></div>
@@ -302,9 +278,6 @@
 
     </section>
 
-    <!-- ══════════════════════════════════════════════
-         SECCIÓN 2 — SOBRE MÍ
-         ══════════════════════════════════════════════ -->
     <section id="about" class="section section--about" data-animate="fade-up" aria-label="Sobre mí">
       <div class="section-container">
 
@@ -372,9 +345,6 @@
       </div>
     </section>
 
-    <!-- ══════════════════════════════════════════════
-         SECCIÓN 3 — SERVICIOS
-         ══════════════════════════════════════════════ -->
     <section id="services" class="section section--services" data-animate="fade-up" aria-label="Servicios profesionales">
       <div class="section-container">
 
@@ -492,9 +462,6 @@
       </div>
     </section>
 
-    <!-- ══════════════════════════════════════════════
-         SECCIÓN 4 — SKILLS / TECNOLOGÍAS
-         ══════════════════════════════════════════════ -->
     <section id="skills" class="section section--skills" data-animate="fade-up" aria-label="Habilidades técnicas">
       <div class="section-container">
 
@@ -628,9 +595,6 @@
       </div>
     </section>
 
-    <!-- ══════════════════════════════════════════════
-         SECCIÓN 5 — PROYECTOS
-         ══════════════════════════════════════════════ -->
     <section id="projects" class="section section--projects" data-animate="fade-up" aria-label="Proyectos y productos">
       <div class="section-container">
 
@@ -658,9 +622,7 @@
               </div>
               <div class="project-links" aria-label="Links del proyecto">
                 <a href="#" class="project-link" aria-label="Ver código en GitHub" target="_blank" rel="noopener">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-                  </svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
                 </a>
                 <a href="#" class="project-link" aria-label="Ver demo en vivo" target="_blank" rel="noopener">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -752,9 +714,6 @@
       </div>
     </section>
 
-    <!-- ══════════════════════════════════════════════
-         SECCIÓN 6 — BLOCKCHAIN / WEB3
-         ══════════════════════════════════════════════ -->
     <section id="blockchain" class="section section--blockchain" data-animate="fade-up" aria-label="Especialización en Blockchain y Web3">
       <div class="section-container">
 
@@ -816,9 +775,6 @@
       </div>
     </section>
 
-    <!-- ══════════════════════════════════════════════
-         SECCIÓN 7 — CONTACTO
-         ══════════════════════════════════════════════ -->
     <section id="contact" class="section section--contact" data-animate="fade-up" aria-label="Contacto">
       <div class="section-container">
 
@@ -970,29 +926,16 @@
     </div>
   </footer>
 
-  <!-- ============================================================
-       SCRIPTS — ORDEN DE CARGA OBLIGATORIO
-       ============================================================ -->
-
-  <!-- Efectos de ambiente (F09–F10) -->
   <script src="js/effects/HolographicGrid.js"></script>
   <script src="js/effects/MatrixRain.js"></script>
-
-  <!-- UI (F14–F17) -->
   <script src="js/ui/TypeWriter.js"></script>
   <script src="js/ui/ScrollAnimations.js"></script>
   <script src="js/ui/GlitchEffect.js"></script>
   <script src="js/ui/CustomCursor.js"></script>
-
-  <!-- Secciones (F18–F20) -->
   <script src="js/sections/ServicesSection.js"></script>
   <script src="js/sections/ProjectsSection.js"></script>
   <script src="js/sections/ContactSection.js"></script>
-
-  <!-- Audio (F21) -->
   <script src="js/audio/AudioManager.js"></script>
-
-  <!-- Bootstrap principal (F22) -->
   <script src="js/core/AppInit.js"></script>
 
 </body>
