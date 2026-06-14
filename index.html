@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  CYBER PORTFOLIO — F01 · index.html
+  ============================================================
+  VERSIÓN: 1.7.0  — Fix hero mobile: stats en fila, layout limpio
+  ============================================================
+-->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Desarrollador de software especializado en Blockchain, Web3, Smart Contracts, Python, JavaScript y PineScript. Soluciones de alto rendimiento en múltiples plataformas.">
+  <meta name="keywords" content="desarrollo software, blockchain, web3, smart contracts, solidity, python, javascript, pinescript, DeFi, BSC, Ethereum">
+  <meta name="author" content="[Jesús Pérez Cuellar]">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / redes sociales -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jesusdevtrader.com/">
+  <meta property="og:title" content="[JPC] — Dev & Trader">
+  <meta property="og:description" content="Desarrollador especializado en Blockchain, Web3 y Smart Contracts.">
+  <meta property="og:image" content="assets/og-image.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="[JPC] — Dev & Trader">
+  <meta name="twitter:description" content="Desarrollador especializado en Blockchain, Web3 y Smart Contracts.">
+
+  <title>[JPC] — Dev & Trader</title>
+
+  <!-- FAVICON -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="assets/favicon-192.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    /* ── LOADER ── */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: #050508;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .loader-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: #00ffff;
+      text-transform: uppercase;
+    }
+    .loader-bar-wrap {
+      width: 200px;
+      height: 2px;
+      background: #1a1a2e;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .loader-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #00ffff, #7f5af0);
+      border-radius: 2px;
+      animation: loaderFill 1.8s ease forwards;
+    }
+    .loader-percent {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #8892a4;
+      letter-spacing: 2px;
+    }
+    @keyframes loaderFill {
+      0%   { width: 0%; }
+      60%  { width: 70%; }
+      100% { width: 100%; }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       HERO LAYOUT — Desktop: 2 columnas lado a lado
+       Mobile: columna única, GIF arriba, contenido abajo
+       El responsive.css maneja ≤768px.
+    ══════════════════════════════════════════════════════ */
+
+    /* Desktop y tablet landscape: siempre 2 columnas lado a lado */
+    @media screen and (min-width: 769px) {
+      .section--hero {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        grid-template-rows: 1fr !important;
+        align-items: center !important;
+      }
+      .hero-content {
+        order: 1 !important;
+        padding-top: calc(var(--navbar-height) + 2rem) !important;
+        padding-bottom: 2rem !important;
+        text-align: left !important;
+        align-items: flex-start !important;
+      }
+      .hero-robot {
+        order: 2 !important;
+        height: 100vh !important;
+      }
+      .hero-stats     { justify-content: flex-start !important; }
+      .hero-ctas      { justify-content: flex-start !important; }
+      .hero-social    { justify-content: flex-start !important; }
+      .hero-description { max-width: 420px !important; }
+    }
+
+    /* Tablet portrait (769px–1024px): 2 columnas, robot más pequeño */
+    @media screen and (min-width: 769px) and (max-width: 1024px) {
+      .hero-robot {
+        height: 100vh !important;
+        min-height: 400px !important;
+      }
+      .hero-gif-wrapper {
+        width: 85% !important;
+        max-width: 340px !important;
+      }
+      .hero-content {
+        padding-left: var(--container-padding) !important;
+      }
+    }
+
+    /* GIF: centrado dentro del wrapper */
+    .hero-gif-wrapper {
+      position: relative;
+      width: 72%;
+      max-width: 400px;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-gif-visual {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      will-change: transform;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="loader" role="status" aria-label="Cargando portfolio">
+    <div class="loader-logo">[ INICIALIZANDO SISTEMA ]</div>
+    <div class="loader-bar-wrap">
+      <div class="loader-bar" id="loader-bar"></div>
+    </div>
+    <div class="loader-percent" id="loader-percent">0%</div>
+  </div>
+
+  <div id="custom-cursor" aria-hidden="true">
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+  </div>
+
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <header id="navbar" role="banner">
+    <nav class="nav-container" role="navigation" aria-label="Navegación principal">
+
+      <a href="#hero" class="nav-logo" aria-label="Ir al inicio">
+        <span class="nav-logo-bracket">[</span>
+        <span class="nav-logo-text" id="nav-logo-text">JPC</span>
+        <span class="nav-logo-bracket">]</span>
+        <span class="nav-logo-cursor" aria-hidden="true">_</span>
+      </a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="#about"      class="nav-link" data-section="about">Sobre mí</a></li>
+        <li><a href="#services"   class="nav-link" data-section="services">Servicios</a></li>
+        <li><a href="#skills"     class="nav-link" data-section="skills">Skills</a></li>
+        <li><a href="#projects"   class="nav-link" data-section="projects">Proyectos</a></li>
+        <li><a href="#blockchain" class="nav-link" data-section="blockchain">Blockchain</a></li>
+        <li><a href="#contact"    class="nav-link nav-link--cta" data-section="contact">Contacto</a></li>
+      </ul>
+
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links-mobile" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+
+    </nav>
+
+    <div class="nav-mobile" id="nav-links-mobile" role="dialog" aria-modal="true" aria-label="Menú de navegación" hidden>
+      <ul role="list">
+        <li><a href="#about"      class="nav-mobile-link">Sobre mí</a></li>
+        <li><a href="#services"   class="nav-mobile-link">Servicios</a></li>
+        <li><a href="#skills"     class="nav-mobile-link">Skills</a></li>
+        <li><a href="#projects"   class="nav-mobile-link">Proyectos</a></li>
+        <li><a href="#blockchain" class="nav-mobile-link">Blockchain</a></li>
+        <li><a href="#contact"    class="nav-mobile-link">Contacto</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="main-content" role="main">
+
+    <!-- ═══════════════════════════════════════════════════════
+         HERO
+    ═══════════════════════════════════════════════════════ -->
+    <section id="hero" class="section section--hero" data-animate="hero" aria-label="Presentación principal">
+
+      <!-- COLUMNA IZQUIERDA: contenido -->
+      <div class="hero-content">
+
+        <div class="hero-status" aria-label="Estado del sistema">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span class="status-text" id="hero-status-text">DISPONIBLE PARA PROYECTOS</span>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="hero-title-name" id="hero-name">Jesús — Dev & Trader</span>
+          <br>
+          <span class="hero-title-role" id="typewriter-target" aria-live="polite">
+            Software Developer
+          </span>
+          <span class="typewriter-cursor" aria-hidden="true">|</span>
+        </h1>
+
+        <p class="hero-description">
+          Desarrollo software en múltiples lenguajes y plataformas.
+          Especializado en Blockchain, Web3, Smart Contracts, Python,
+          JavaScript, PineScript y soluciones DeFi en BSC y Ethereum.
+        </p>
+
+        <div class="hero-stats" role="list" aria-label="Estadísticas profesionales">
+          <div class="hero-stat" role="listitem">
+            <div class="hero-stat-row">
+              <span class="hero-stat-number" data-count="5">0</span>
+              <span class="hero-stat-unit">+</span>
+            </div>
+            <span class="hero-stat-label">años exp.</span>
+          </div>
+          <div class="hero-stat" role="listitem">
+            <div class="hero-stat-row">
+              <span class="hero-stat-number" data-count="40">0</span>
+              <span class="hero-stat-unit">+</span>
+            </div>
+            <span class="hero-stat-label">proyectos</span>
+          </div>
+          <div class="hero-stat" role="listitem">
+            <div class="hero-stat-row">
+              <span class="hero-stat-number" data-count="15">0</span>
+              <span class="hero-stat-unit">+</span>
+            </div>
+            <span class="hero-stat-label">tecnologías</span>
+          </div>
+        </div>
+
+        <div class="hero-ctas">
+          <a href="#projects" class="btn btn--primary">
+            <span>Ver proyectos</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="#contact" class="btn btn--ghost">Contactar</a>
+        </div>
+
+        <div class="hero-social" aria-label="Perfiles profesionales">
+          <a href="https://github.com/CyberSecureAID" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/in/JesusDevTrader" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+          <a href="https://x.com/JesusDevTrader" class="social-link" target="_blank" rel="noopener" aria-label="X / Twitter">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="https://t.me/JesusDevTrader" class="social-link" target="_blank" rel="noopener" aria-label="Telegram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/>
+            </svg>
+          </a>
+          <a href="https://www.instagram.com/jesusdevtrader/" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+            </svg>
+          </a>
+          <a href="https://www.facebook.com/JesusDevTrader/" class="social-link" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <a href="https://wa.me/5358648458" class="social-link social-link--whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+            </svg>
+          </a>
+        </div>
+
+      </div><!-- /hero-content -->
+
+      <!-- COLUMNA DERECHA: robot / GIF -->
+      <div class="hero-robot" aria-hidden="true">
+
+        <div class="hero-gif-wrapper">
+
+          <img id="hero-gif"
+               class="hero-gif-visual"
+               src="assets/hero-visual.gif"
+               alt=""
+               loading="eager"
+               decoding="async">
+
+          <div class="robot-hud" aria-hidden="true">
+            <div class="hud-corner hud-corner--tl"></div>
+            <div class="hud-corner hud-corner--tr"></div>
+            <div class="hud-corner hud-corner--bl"></div>
+            <div class="hud-corner hud-corner--br"></div>
+            <div class="hud-tag hud-tag--top">
+              <span class="hud-label">UNIT_ID</span>
+              <span class="hud-value" id="hud-unit-id">CYB-001</span>
+            </div>
+            <div class="hud-tag hud-tag--bottom">
+              <span class="hud-label">STATUS</span>
+              <span class="hud-value hud-value--green">ONLINE</span>
+            </div>
+            <div class="hud-tag hud-tag--left">
+              <span class="hud-label">THREAT_LVL</span>
+              <span class="hud-value hud-value--cyan">MAX</span>
+            </div>
+            <div class="hud-tag hud-tag--right">
+              <span class="hud-label">TRACKING</span>
+              <span class="hud-value hud-value--violet">ACTIVE</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="orbital-ring orbital-ring--1" aria-hidden="true"></div>
+        <div class="orbital-ring orbital-ring--2" aria-hidden="true"></div>
+
+      </div><!-- /hero-robot -->
+
+      <div class="scroll-indicator" aria-label="Desplázate hacia abajo">
+        <div class="scroll-arrow"></div>
+        <span class="scroll-text">SCROLL</span>
+      </div>
+
+    </section><!-- /hero -->
+
+    <!-- ═══════════════════════════════════════════════════════
+         ABOUT
+    ═══════════════════════════════════════════════════════ -->
+    <section id="about" class="section section--about" data-animate="fade-up" aria-label="Sobre mí">
+      <div class="section-container">
+
+        <div class="section-eyebrow">
+          <span class="eyebrow-code">// 01</span>
+          <span class="eyebrow-title">PERFIL</span>
+        </div>
+
+        <div class="about-grid">
+
+          <div class="about-text">
+            <h2 class="section-title">Desarrollador full-stack.<br>Especialista en Web3.</h2>
+            <p class="about-desc">
+              Desarrollo software en múltiples lenguajes y entornos: desde scripts de
+              trading automatizado en PineScript hasta contratos inteligentes en Solidity,
+              pasando por backends en Python, frontends en JavaScript y dApps completas
+              sobre BNB Smart Chain y Ethereum.
+            </p>
+            <p class="about-desc">
+              Experiencia práctica en arquitectura de protocolos DeFi, integración de
+              wallets, automatización de procesos on-chain y construcción de herramientas
+              de análisis y monitoreo para mercados crypto.
+            </p>
+
+            <div class="about-tags" role="list" aria-label="Especialidades">
+              <span class="tag" role="listitem">Blockchain Dev</span>
+              <span class="tag" role="listitem">Smart Contracts</span>
+              <span class="tag" role="listitem">Web3 / DeFi</span>
+              <span class="tag" role="listitem">Python Dev</span>
+              <span class="tag" role="listitem">PineScript</span>
+              <span class="tag" role="listitem">Crypto Trader</span>
+            </div>
+          </div>
+
+          <div class="about-terminal" aria-label="Terminal de información">
+            <div class="terminal-header">
+              <span class="terminal-dot terminal-dot--red"  aria-hidden="true"></span>
+              <span class="terminal-dot terminal-dot--yellow" aria-hidden="true"></span>
+              <span class="terminal-dot terminal-dot--green"  aria-hidden="true"></span>
+              <span class="terminal-title">profile.sh</span>
+            </div>
+            <div class="terminal-body">
+              <pre class="terminal-code"><code><span class="t-comment">$ whoami</span>
+<span class="t-output">Jesús Pérez Cuellar — Dev & Trader</span>
+
+<span class="t-comment">$ cat specialties.txt</span>
+<span class="t-key">→</span> <span class="t-value">Blockchain & Smart Contracts (Solidity)</span>
+<span class="t-key">→</span> <span class="t-value">Web3 / DeFi / BSC / Ethereum</span>
+<span class="t-key">→</span> <span class="t-value">Python · JavaScript · PineScript</span>
+<span class="t-key">→</span> <span class="t-value">Automated Trading Systems</span>
+<span class="t-key">→</span> <span class="t-value">Full-Stack dApp Development</span>
+
+<span class="t-comment">$ uptime</span>
+<span class="t-output">Online since [AÑO] · No downtime.</span>
+
+<span class="t-comment">$ status</span>
+<span class="t-green">✓ Available for projects</span>
+<span class="t-cursor" aria-hidden="true">█</span></code></pre>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SERVICES
+    ═══════════════════════════════════════════════════════ -->
+    <section id="services" class="section section--services" data-animate="fade-up" aria-label="Servicios profesionales">
+      <div class="section-container">
+
+        <div class="section-eyebrow">
+          <span class="eyebrow-code">// 02</span>
+          <span class="eyebrow-title">SERVICIOS</span>
+        </div>
+        <h2 class="section-title">Soluciones de alto impacto</h2>
+        <p class="section-subtitle">Código que funciona, contratos que resisten, sistemas que escalan.</p>
+
+        <div class="services-grid" role="list">
+
+          <article class="service-card service-card--featured" data-service-id="blockchain" role="listitem" tabindex="0" aria-label="Servicio: Blockchain y Web3">
+            <div class="service-icon-wrap" aria-hidden="true">
+              <svg class="service-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="20" y="8"  width="24" height="14" rx="2"/>
+                <rect x="8"  y="42" width="20" height="14" rx="2"/>
+                <rect x="36" y="42" width="20" height="14" rx="2"/>
+                <line x1="32" y1="22" x2="32" y2="34"/>
+                <line x1="32" y1="34" x2="18" y2="42"/>
+                <line x1="32" y1="34" x2="46" y2="42"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Blockchain &amp; Web3</h3>
+            <p class="service-desc">Desarrollo de smart contracts, protocolos DeFi, dApps completas y arquitecturas Web3 sobre BSC, Ethereum y redes EVM compatibles.</p>
+            <ul class="service-list" aria-label="Servicios incluidos">
+              <li>Smart Contracts (Solidity)</li>
+              <li>Protocolos DeFi &amp; AMM</li>
+              <li>Integración wallets &amp; ethers.js</li>
+              <li>Auditoría de contratos</li>
+            </ul>
+            <div class="service-footer">
+              <span class="service-tag">Solidity</span>
+              <span class="service-tag">BSC</span>
+              <span class="service-tag">Hardhat</span>
+            </div>
+          </article>
+
+          <article class="service-card" data-service-id="development" role="listitem" tabindex="0" aria-label="Servicio: Desarrollo de Software">
+            <div class="service-icon-wrap" aria-hidden="true">
+              <svg class="service-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                <polyline points="16,20 8,32 16,44"/>
+                <polyline points="48,20 56,32 48,44"/>
+                <line x1="24" y1="48" x2="40" y2="16"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Desarrollo de Software</h3>
+            <p class="service-desc">Aplicaciones web, bots, APIs y herramientas a medida. Desarrollo en Python, JavaScript y Node.js con foco en rendimiento y escalabilidad.</p>
+            <ul class="service-list" aria-label="Servicios incluidos">
+              <li>Bots &amp; automatización</li>
+              <li>APIs REST &amp; WebSocket</li>
+              <li>Scrapers &amp; data pipelines</li>
+              <li>Dashboards &amp; frontends</li>
+            </ul>
+            <div class="service-footer">
+              <span class="service-tag">Python</span>
+              <span class="service-tag">Node.js</span>
+              <span class="service-tag">JavaScript</span>
+            </div>
+          </article>
+
+          <article class="service-card" data-service-id="trading" role="listitem" tabindex="0" aria-label="Servicio: Trading & Automatización">
+            <div class="service-icon-wrap" aria-hidden="true">
+              <svg class="service-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                <polyline points="8,48 20,28 32,36 44,16 56,24"/>
+                <line x1="8" y1="56" x2="56" y2="56"/>
+                <line x1="8" y1="8" x2="8" y2="56"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Trading &amp; Automatización</h3>
+            <p class="service-desc">Estrategias algorítmicas, indicadores personalizados y sistemas de trading automatizado para crypto y mercados tradicionales con PineScript y Python.</p>
+            <ul class="service-list" aria-label="Servicios incluidos">
+              <li>Indicadores PineScript</li>
+              <li>Estrategias algorítmicas</li>
+              <li>Bots de trading on-chain</li>
+              <li>Análisis técnico avanzado</li>
+            </ul>
+            <div class="service-footer">
+              <span class="service-tag">PineScript</span>
+              <span class="service-tag">Python</span>
+              <span class="service-tag">TradingView</span>
+            </div>
+          </article>
+
+          <article class="service-card" data-service-id="defi" role="listitem" tabindex="0" aria-label="Servicio: dApps & DeFi">
+            <div class="service-icon-wrap" aria-hidden="true">
+              <svg class="service-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="32" cy="32" r="18"/>
+                <circle cx="32" cy="32" r="8"/>
+                <line x1="32" y1="8"  x2="32" y2="14"/>
+                <line x1="32" y1="50" x2="32" y2="56"/>
+                <line x1="8"  y1="32" x2="14" y2="32"/>
+                <line x1="50" y1="32" x2="56" y2="32"/>
+              </svg>
+            </div>
+            <h3 class="service-title">dApps &amp; DeFi</h3>
+            <p class="service-desc">Interfases Web3 completas con conexión a contratos inteligentes, integración de exchanges descentralizados, pools de liquidez y sistemas de recompensas.</p>
+            <ul class="service-list" aria-label="Servicios incluidos">
+              <li>Swap interfaces</li>
+              <li>Liquidity pool management</li>
+              <li>Reward distribution systems</li>
+              <li>Token dashboards</li>
+            </ul>
+            <div class="service-footer">
+              <span class="service-tag">ethers.js</span>
+              <span class="service-tag">PancakeSwap</span>
+              <span class="service-tag">Web3Modal</span>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SKILLS
+    ═══════════════════════════════════════════════════════ -->
+    <section id="skills" class="section section--skills" data-animate="fade-up" aria-label="Habilidades técnicas">
+      <div class="section-container">
+
+        <div class="section-eyebrow">
+          <span class="eyebrow-code">// 03</span>
+          <span class="eyebrow-title">TECH STACK</span>
+        </div>
+        <h2 class="section-title">Arsenal tecnológico</h2>
+
+        <div class="skills-grid">
+
+          <div class="skill-category">
+            <h3 class="skill-category-title">
+              <span class="skill-cat-icon" aria-hidden="true">⬡</span>
+              Blockchain &amp; Web3
+            </h3>
+            <div class="skill-bars" role="list">
+              <div class="skill-bar" role="listitem">
+                <div class="skill-bar-header">
+                  <span class="skill-name">Solidity / Smart Contracts</span>
+                  <span class="skill-percent" aria-label="90 por ciento">90%</span>
+                </div>
+                <div class="skill-bar-track" aria-hidden="true">
+                  <div class="skill-bar-fill" data-width="90"></div>
+                </div>
+              </div>
+              <div class="skill-bar" role="listitem">
+                <div class="skill-bar-header">
+                  <span class="skill-name">ethers.js / Web3Modal</span>
+                  <span class="skill-percent" aria-label="88 por ciento">88%</span>
+                </div>
+                <div class="skill-bar-track" aria-hidden="true">
+                  <div class="skill-bar-fill" data-width="85"></div>
+                </div>
+              </div>
+              <div class="skill-bar" role="listitem">
+                <div class="skill-bar-header">
+                  <span class="skill-name">DeFi / BSC / Ethereum</span>
+                  <span class="skill-percent" aria-label="85 por ciento">85%</span>
+                </div>
+                <div class="skill-bar-track" aria-hidden="true">
+                  <div class="skill-bar-fill" data-width="85"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3 class="skill-category-title">
+              <span class="skill-cat-icon" aria-hidden="true">⬡</span>
+              Desarrollo
+            </h3>
+            <div class="skill-bars" role="list">
+              <div class="skill-bar" role="listitem">
+                <div class="skill-bar-header">
+                  <span class="skill-name">JavaScript / Node.js</span>
+                  <span class="skill-percent" aria-label="92 por ciento">92%</span>
+                </div>
+                <div class="skill-bar-track" aria-hidden="true">
+                  <div class="skill-bar-fill" data-width="92"></div>
+                </div>
+              </div>
+              <div class="skill-bar" role="listitem">
+                <div class="skill-bar-header">
+                  <span class="skill-name">Python</span>
+                  <span class="skill-percent" aria-label="88 por ciento">88%</span>
+                </div>
+                <div class="skill-bar-track" aria-hidden="true">
+                  <div class="skill-bar-fill" data-width="88"></div>
+                </div>
+              </div>
+              <div class="skill-bar" role="listitem">
+                <div class="skill-bar-header">
+                  <span class="skill-name">HTML5 / CSS3</span>
+                  <span class="skill-percent" aria-label="90 por ciento">90%</span>
+                </div>
+                <div class="skill-bar-track" aria-hidden="true">
+                  <div class="skill-bar-fill" data-width="90"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3 class="skill-category-title">
+              <span class="skill-cat-icon" aria-hidden="true">⬡</span>
+              Herramientas &amp; Plataformas
+            </h3>
+            <div class="tech-icons-grid" role="list" aria-label="Tecnologías y herramientas">
+              <div class="tech-icon-item" role="listitem" aria-label="PineScript">
+                <div class="tech-icon-box">PS</div>
+                <span class="tech-icon-label">PineScript</span>
+              </div>
+              <div class="tech-icon-item" role="listitem" aria-label="Hardhat">
+                <div class="tech-icon-box">HH</div>
+                <span class="tech-icon-label">Hardhat</span>
+              </div>
+              <div class="tech-icon-item" role="listitem" aria-label="Ethereum">
+                <div class="tech-icon-box">ETH</div>
+                <span class="tech-icon-label">Ethereum</span>
+              </div>
+              <div class="tech-icon-item" role="listitem" aria-label="BNB Smart Chain">
+                <div class="tech-icon-box">BSC</div>
+                <span class="tech-icon-label">BSC</span>
+              </div>
+              <div class="tech-icon-item" role="listitem" aria-label="PancakeSwap">
+                <div class="tech-icon-box">🥞</div>
+                <span class="tech-icon-label">PancakeSwap</span>
+              </div>
+              <div class="tech-icon-item" role="listitem" aria-label="React">
+                <div class="tech-icon-box">⚛</div>
+                <span class="tech-icon-label">React</span>
+              </div>
+              <div class="tech-icon-item" role="listitem" aria-label="Docker">
+                <div class="tech-icon-box">🐳</div>
+                <span class="tech-icon-label">Docker</span>
+              </div>
+              <div class="tech-icon-item" role="listitem" aria-label="Git">
+                <div class="tech-icon-box">GIT</div>
+                <span class="tech-icon-label">Git</span>
+              </div>
+              <div class="tech-icon-item" role="listitem" aria-label="PostgreSQL">
+                <div class="tech-icon-box">PG</div>
+                <span class="tech-icon-label">PostgreSQL</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         PROJECTS
+    ═══════════════════════════════════════════════════════ -->
+    <section id="projects" class="section section--projects" data-animate="fade-up" aria-label="Proyectos y productos">
+      <div class="section-container">
+
+        <div class="section-eyebrow">
+          <span class="eyebrow-code">// 04</span>
+          <span class="eyebrow-title">PROYECTOS</span>
+        </div>
+        <h2 class="section-title">Proyectos desplegados</h2>
+
+        <div class="projects-filter" role="tablist" aria-label="Filtrar proyectos por categoría">
+          <button class="filter-btn filter-btn--active" role="tab" data-filter="all"      aria-selected="true">Todos</button>
+          <button class="filter-btn" role="tab" data-filter="web3"      aria-selected="false">Web3</button>
+          <button class="filter-btn" role="tab" data-filter="dev"       aria-selected="false">Dev</button>
+          <button class="filter-btn" role="tab" data-filter="trading"   aria-selected="false">Trading</button>
+          <button class="filter-btn" role="tab" data-filter="tools"     aria-selected="false">Tools</button>
+        </div>
+
+        <div class="projects-grid" id="projects-grid">
+
+          <article class="project-card project-card--featured" data-category="web3" aria-label="Proyecto: RewardDistributor BSC">
+            <div class="project-header">
+              <div class="project-meta">
+                <span class="project-type">WEB3</span>
+                <span class="project-year">2025</span>
+              </div>
+              <div class="project-links" aria-label="Links del proyecto">
+                <a href="#" class="project-link" aria-label="Ver código en GitHub" target="_blank" rel="noopener">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">RewardDistributor BSC</h3>
+            <p class="project-desc">Sistema automatizado de distribución de recompensas on-chain sobre BNB Smart Chain. Contrato Solidity con frontend modular ES6 para gestión de pagos y monitoreo de holders.</p>
+            <div class="project-tags" aria-label="Tecnologías usadas">
+              <span class="tag">Solidity</span>
+              <span class="tag">BSC</span>
+              <span class="tag">ethers.js</span>
+              <span class="tag">ES6</span>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="web3" aria-label="Proyecto: MiSwap">
+            <div class="project-header">
+              <div class="project-meta">
+                <span class="project-type">WEB3 / DEFI</span>
+                <span class="project-year">2024</span>
+              </div>
+              <div class="project-links" aria-label="Links del proyecto">
+                <a href="#" class="project-link" aria-label="Ver demo en vivo" target="_blank" rel="noopener">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15 3 21 3 21 9"/>
+                    <line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">MiSwap — Token Sale dApp</h3>
+            <p class="project-desc">dApp de venta de tokens sobre BSC con integración MetaMask, Trust Wallet y WalletConnect. Incluye forzado de red BSC, validaciones de seguridad y UI responsive.</p>
+            <div class="project-tags" aria-label="Tecnologías usadas">
+              <span class="tag">Web3Modal</span>
+              <span class="tag">PancakeSwap</span>
+              <span class="tag">BSC</span>
+              <span class="tag">Vanilla JS</span>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="tools" aria-label="Proyecto: TOKEN ALARM">
+            <div class="project-header">
+              <div class="project-meta">
+                <span class="project-type">TOOLS</span>
+                <span class="project-year">2024</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link" aria-label="Ver demo" target="_blank" rel="noopener">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15 3 21 3 21 9"/>
+                    <line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">TOKEN ALARM — BSC Monitor</h3>
+            <p class="project-desc">Plataforma de monitoreo de precios de tokens en BSC con integración DexScreener y PooCoin, gráficos en tiempo real, alertas configurables y adición manual de contratos.</p>
+            <div class="project-tags">
+              <span class="tag">DexScreener API</span>
+              <span class="tag">BscScan API</span>
+              <span class="tag">Chart.js</span>
+              <span class="tag">BSC</span>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="trading" aria-label="Proyecto: HeriExcel.Pro">
+            <div class="project-header">
+              <div class="project-meta">
+                <span class="project-type">DEV / TOOLS</span>
+                <span class="project-year">2025</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link" aria-label="Ver proyecto" target="_blank" rel="noopener">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15 3 21 3 21 9"/>
+                    <line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">HeriExcel.Pro</h3>
+            <p class="project-desc">Aplicación de hoja de cálculo basada en navegador con importación/exportación Excel fiel (colores, bordes, fuentes) usando xlsx-js-style. UI completa con toolbar y context menus.</p>
+            <div class="project-tags">
+              <span class="tag">xlsx-js-style</span>
+              <span class="tag">Vanilla JS</span>
+              <span class="tag">Canvas</span>
+              <span class="tag">ES6</span>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         BLOCKCHAIN
+    ═══════════════════════════════════════════════════════ -->
+    <section id="blockchain" class="section section--blockchain" data-animate="fade-up" aria-label="Especialización en Blockchain y Web3">
+      <div class="section-container">
+
+        <div class="section-eyebrow">
+          <span class="eyebrow-code">// 05</span>
+          <span class="eyebrow-title">BLOCKCHAIN</span>
+        </div>
+        <h2 class="section-title">En la frontera de Web3</h2>
+
+        <div class="blockchain-grid">
+
+          <div class="blockchain-stats">
+            <div class="blockchain-stat-card">
+              <span class="bstat-num">40+</span>
+              <span class="bstat-label">Smart Contracts desarrollados</span>
+            </div>
+            <div class="blockchain-stat-card">
+              <span class="bstat-num">5+</span>
+              <span class="bstat-label">Años en crypto markets</span>
+            </div>
+            <div class="blockchain-stat-card">
+              <span class="bstat-num">10+</span>
+              <span class="bstat-label">dApps en producción</span>
+            </div>
+            <div class="blockchain-stat-card">
+              <span class="bstat-num">EVM</span>
+              <span class="bstat-label">Stack principal</span>
+            </div>
+          </div>
+
+          <div class="blockchain-chains">
+            <h3 class="chains-title">Ecosistemas</h3>
+            <div class="chains-list" role="list">
+              <div class="chain-item" role="listitem">
+                <div class="chain-indicator chain-indicator--eth" aria-hidden="true"></div>
+                <span>BNB Smart Chain (BSC)</span>
+              </div>
+              <div class="chain-item" role="listitem">
+                <div class="chain-indicator chain-indicator--arb" aria-hidden="true"></div>
+                <span>Ethereum / EVM</span>
+              </div>
+              <div class="chain-item" role="listitem">
+                <div class="chain-indicator chain-indicator--polygon" aria-hidden="true"></div>
+                <span>Polygon</span>
+              </div>
+              <div class="chain-item" role="listitem">
+                <div class="chain-indicator chain-indicator--base" aria-hidden="true"></div>
+                <span>Base / L2</span>
+              </div>
+              <div class="chain-item" role="listitem">
+                <div class="chain-indicator chain-indicator--sol" aria-hidden="true"></div>
+                <span>Solana</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         CONTACT
+    ═══════════════════════════════════════════════════════ -->
+    <section id="contact" class="section section--contact" data-animate="fade-up" aria-label="Contacto">
+      <div class="section-container">
+
+        <div class="section-eyebrow">
+          <span class="eyebrow-code">// 06</span>
+          <span class="eyebrow-title">CONTACTO</span>
+        </div>
+        <h2 class="section-title">¿Tienes un proyecto?</h2>
+        <p class="section-subtitle">Hablemos. Respondo rápido.</p>
+
+        <div class="contact-grid">
+
+          <div class="contact-form-wrap">
+            <form class="contact-form" id="contact-form" novalidate aria-label="Formulario de contacto">
+
+              <div class="form-group">
+                <label class="form-label" for="contact-name">
+                  <span class="form-label-code" aria-hidden="true">01.</span> Nombre
+                </label>
+                <input type="text" id="contact-name" name="name" class="form-input"
+                  placeholder="Tu nombre" required autocomplete="name"
+                  aria-required="true" aria-describedby="name-error">
+                <span class="form-error" id="name-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-email">
+                  <span class="form-label-code" aria-hidden="true">02.</span> Email
+                </label>
+                <input type="email" id="contact-email" name="email" class="form-input"
+                  placeholder="contacto@jesusdevtrader.com" required autocomplete="email"
+                  aria-required="true" aria-describedby="email-error">
+                <span class="form-error" id="email-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-service">
+                  <span class="form-label-code" aria-hidden="true">03.</span> Servicio
+                </label>
+                <select id="contact-service" name="service" class="form-input form-select" aria-label="Tipo de servicio">
+                  <option value="">Seleccionar servicio</option>
+                  <option value="blockchain">Blockchain / Smart Contracts</option>
+                  <option value="web3">dApp / Web3 Frontend</option>
+                  <option value="development">Desarrollo de Software</option>
+                  <option value="trading">Trading / PineScript</option>
+                  <option value="other">Otro</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-message">
+                  <span class="form-label-code" aria-hidden="true">04.</span> Mensaje
+                </label>
+                <textarea id="contact-message" name="message" class="form-input form-textarea"
+                  placeholder="Describe tu proyecto..." rows="4"
+                  required aria-required="true" aria-describedby="message-error"></textarea>
+                <span class="form-error" id="message-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <button type="submit" class="btn btn--primary btn--full" id="submit-btn">
+                <span id="submit-text">Enviar mensaje</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <line x1="22" y1="2" x2="11" y2="13"/>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                </svg>
+              </button>
+
+              <div class="form-success" id="form-success" hidden aria-live="polite">
+                <span>✓ Mensaje enviado. Te contactaré pronto.</span>
+              </div>
+
+            </form>
+          </div>
+
+          <div class="contact-info">
+
+            <div class="contact-info-item">
+              <span class="contact-info-label">Email</span>
+              <a href="mailto:contacto@jesusdevtrader.com" class="contact-info-value" id="contact-email-link">
+                contacto@jesusdevtrader.com
+              </a>
+              <button class="copy-btn" data-copy="contacto@jesusdevtrader.com" aria-label="Copiar email al portapapeles">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="contact-info-item">
+              <span class="contact-info-label">Ubicación</span>
+              <span class="contact-info-value">Remote · Worldwide</span>
+            </div>
+
+            <div class="contact-info-item">
+              <span class="contact-info-label">Disponibilidad</span>
+              <span class="contact-info-value">
+                <span class="availability-dot" aria-hidden="true"></span>
+                Abierto a proyectos
+              </span>
+            </div>
+
+            <div class="contact-socials" aria-label="Redes y perfiles profesionales">
+              <a href="https://github.com/CyberSecureAID"              class="contact-social-link" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+              <a href="https://www.linkedin.com/in/JesusDevTrader"     class="contact-social-link" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+              <a href="https://x.com/JesusDevTrader"                   class="contact-social-link" target="_blank" rel="noopener" aria-label="X / Twitter">Twitter / X</a>
+              <a href="https://t.me/JesusDevTrader"                    class="contact-social-link" target="_blank" rel="noopener" aria-label="Telegram">Telegram</a>
+              <a href="https://www.instagram.com/jesusdevtrader/"      class="contact-social-link" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+              <a href="https://www.facebook.com/JesusDevTrader/"       class="contact-social-link" target="_blank" rel="noopener" aria-label="Facebook">Facebook</a>
+              <a href="https://wa.me/5358648458"                       class="contact-social-link" target="_blank" rel="noopener" aria-label="WhatsApp">WhatsApp</a>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════════ -->
+  <footer id="footer" role="contentinfo">
+    <div class="footer-container">
+
+      <div class="footer-left">
+        <span class="footer-logo">[JPC] — Dev &amp; Trader</span>
+        <span class="footer-tagline">Blockchain · Web3 · Software Development</span>
+      </div>
+
+      <div class="footer-center">
+        <span class="footer-copy">
+          © <span id="footer-year"></span> — Diseñado y construido por Jesús Pérez Cuellar.
+        </span>
+        <span class="footer-stack">
+          <span class="footer-stack-item">HTML5</span>
+          <span class="footer-stack-sep" aria-hidden="true">·</span>
+          <span class="footer-stack-item">CSS3</span>
+          <span class="footer-stack-sep" aria-hidden="true">·</span>
+          <span class="footer-stack-item">Vanilla JS</span>
+        </span>
+      </div>
+
+      <div class="footer-right">
+        <a href="#hero" class="footer-back-top" aria-label="Volver al inicio">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="18 15 12 9 6 15"/>
+          </svg>
+          <span>TOP</span>
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SCRIPTS — orden de carga obligatorio
+  ═══════════════════════════════════════════════════════ -->
+  <script src="js/effects/HolographicGrid.js"></script>
+  <script src="js/effects/MatrixRain.js"></script>
+  <script src="js/ui/TypeWriter.js"></script>
+  <script src="js/ui/ScrollAnimations.js"></script>
+  <script src="js/ui/GlitchEffect.js"></script>
+  <script src="js/ui/CustomCursor.js"></script>
+  <script src="js/sections/ServicesSection.js"></script>
+  <script src="js/sections/ProjectsSection.js"></script>
+  <script src="js/sections/ContactSection.js"></script>
+  <script src="js/audio/AudioManager.js"></script>
+  <script src="js/core/AppInit.js"></script>
+
+</body>
+</html>
