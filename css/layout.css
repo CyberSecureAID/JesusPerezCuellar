@@ -711,7 +711,7 @@
 /* Título de la sección Perfil — tamaño controlado y propio,
    independiente de .section-title genérico */
 .section--about .section-title {
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-size: clamp(1.25rem, 2.8vw, 1.75rem);
   line-height: 1.25;
   max-width: 18ch;
 }
