@@ -372,6 +372,14 @@
 
     </section><!-- /hero -->
 
+ <!-- ═══════════════════════════════════════════════════════
+         BOOKFOLIO
+    ═══════════════════════════════════════════════════════ -->
+<div id="portfolio"></div>
+<script src="js/components/bookfolio/BookFolio.js"></script>
+<script>
+  const gallery = new BookFolio('#portfolio', { projects: [] });
+</script>
     <!-- ═══════════════════════════════════════════════════════
          ABOUT
     ═══════════════════════════════════════════════════════ -->
@@ -1059,6 +1067,7 @@
   <script src="js/sections/ProjectsSection.js"></script>
   <script src="js/sections/ContactSection.js"></script>
   <script src="js/audio/AudioManager.js"></script>
+  <script>const gallery = new BookFolio('#portfolio', { projects: [] });</script>
   <script src="js/core/AppInit.js"></script>
 
 </body>
