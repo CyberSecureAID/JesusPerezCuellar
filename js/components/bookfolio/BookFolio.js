@@ -1,10 +1,10 @@
 /**
  * ════════════════════════════════════════════════════════════════════════════
- * BookFolio 2.0 — Carrusel 3D para portafolio con imágenes panorámicas ultrawide
+ * BookFolio 3D — Galería estilo abanico de libros con perspectiva 3D
  * ════════════════════════════════════════════════════════════════════════════
- * VERSIÓN: 2.0.0
- * Presentación interactiva estilo abanico/carrusel 3D para imágenes 1536x674 (ultrawide)
- * Soporta rotación, zoom y navegación táctil.
+ * VERSIÓN: 3.0.0
+ * Efecto visual de libros abiertos en perspectiva 3D estilo abanico
+ * Soporta imágenes ultrawide panorámicas (1536x674 píxeles)
  */
 
 class BookFolio {
@@ -16,11 +16,6 @@ class BookFolio {
     }
 
     this.projects = options.projects || [];
-    this.currentIndex = 0;
-    this.autoRotate = options.autoRotate !== false;
-    this.rotationSpeed = options.rotationSpeed || 3;
-    this.autoRotateInterval = null;
-
     this.init();
   }
 
@@ -28,552 +23,426 @@ class BookFolio {
     this.createDOM();
     this.render();
     this.attachEvents();
-    if (this.autoRotate) {
-      this.startAutoRotate();
-    }
   }
 
   createDOM() {
     this.container.innerHTML = `
-      <div class="bookfolio-container">
-        <!-- 3D Carousel scene -->
-        <div class="bookfolio-scene">
-          <div class="bookfolio-carousel" id="bookfolio-carousel">
-            <!-- items generados dinámicamente -->
-          </div>
-        </div>
-
-        <!-- Controles inferiores -->
-        <div class="bookfolio-controls">
-          <button class="carousel-btn carousel-btn--prev" id="carousel-prev" aria-label="Anterior">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M15 19l-7-7 7-7"/>
-            </svg>
-          </button>
-
-          <div class="carousel-indicators" id="carousel-indicators" role="tablist" aria-label="Seleccionar imagen">
-            <!-- generados dinámicamente -->
-          </div>
-
-          <button class="carousel-btn carousel-btn--next" id="carousel-next" aria-label="Siguiente">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 19l7-7-7-7"/>
-            </svg>
-          </button>
-        </div>
-
-        <!-- Info del proyecto actual -->
-        <div class="carousel-info" id="carousel-info">
-          <h3 class="carousel-info-title" id="carousel-title">---</h3>
-          <p class="carousel-info-desc" id="carousel-desc">---</p>
-          <div class="carousel-info-tags" id="carousel-tags"></div>
+      <div class="bookfolio-wrapper">
+        <div class="bookfolio-fan" id="bookfolio-fan">
+          <!-- items generados dinámicamente -->
         </div>
       </div>
     `;
 
     // Inyectar estilos CSS
-    if (!document.getElementById('bookfolio-styles-v2')) {
+    if (!document.getElementById('bookfolio-styles-3d')) {
       const style = document.createElement('style');
-      style.id = 'bookfolio-styles-v2';
+      style.id = 'bookfolio-styles-3d';
       style.textContent = this.getStyles();
       document.head.appendChild(style);
     }
   }
 
   render() {
-    const carousel = document.getElementById('bookfolio-carousel');
-    const indicators = document.getElementById('carousel-indicators');
-    
-    if (!carousel || !indicators) return;
+    const fan = document.getElementById('bookfolio-fan');
+    if (!fan) return;
 
-    carousel.innerHTML = '';
-    indicators.innerHTML = '';
+    fan.innerHTML = '';
+
+    const totalItems = this.projects.length;
+    const angleSpread = 180; // grados totales del abanico
+    const anglePerItem = angleSpread / (totalItems - 1);
 
     this.projects.forEach((project, index) => {
-      // Item carrusel
-      const item = document.createElement('div');
-      item.className = 'carousel-item';
-      item.dataset.index = index;
-      if (index === this.currentIndex) item.classList.add('active');
+      const angle = -angleSpread / 2 + index * anglePerItem;
       
-      item.innerHTML = `
-        <div class="carousel-item-inner">
-          <img src="${project.image}" alt="${project.title}" class="carousel-image" loading="lazy" />
-          <div class="carousel-item-overlay" aria-hidden="true"></div>
+      const book = document.createElement('div');
+      book.className = 'book-item';
+      book.style.setProperty('--book-angle', `${angle}deg`);
+      book.style.setProperty('--book-index', index);
+      book.dataset.index = index;
+
+      book.innerHTML = `
+        <div class="book-container">
+          <div class="book-spine" aria-hidden="true"></div>
+          <div class="book-cover">
+            <img src="${project.image}" alt="${project.title}" class="book-image" loading="lazy" />
+            <div class="book-overlay">
+              <div class="book-label">
+                <span class="book-title">${project.title}</span>
+                <span class="book-category">${project.category}</span>
+              </div>
+            </div>
+          </div>
         </div>
       `;
 
-      carousel.appendChild(item);
-
-      // Indicador
-      const indicator = document.createElement('button');
-      indicator.className = 'carousel-indicator';
-      if (index === this.currentIndex) indicator.classList.add('active');
-      indicator.dataset.index = index;
-      indicator.role = 'tab';
-      indicator.setAttribute('aria-selected', index === this.currentIndex ? 'true' : 'false');
-      indicator.setAttribute('aria-label', `Ir a ${project.title}`);
-      indicator.innerHTML = `<span class="indicator-dot"></span>`;
-      
-      indicators.appendChild(indicator);
+      fan.appendChild(book);
     });
-
-    this.updateInfo();
-  }
-
-  updateInfo() {
-    const project = this.projects[this.currentIndex];
-    if (!project) return;
-
-    document.getElementById('carousel-title').textContent = project.title;
-    document.getElementById('carousel-desc').textContent = project.description;
-    
-    const tagsContainer = document.getElementById('carousel-tags');
-    tagsContainer.innerHTML = '';
-    // Mostrar categoría como tag
-    const tag = document.createElement('span');
-    tag.className = 'carousel-tag';
-    tag.textContent = project.category;
-    tagsContainer.appendChild(tag);
-
-    // Actualizar indicadores
-    document.querySelectorAll('.carousel-indicator').forEach((ind, i) => {
-      const isActive = i === this.currentIndex;
-      ind.classList.toggle('active', isActive);
-      ind.setAttribute('aria-selected', isActive ? 'true' : 'false');
-    });
-
-    // Actualizar items
-    document.querySelectorAll('.carousel-item').forEach((item, i) => {
-      const isActive = i === this.currentIndex;
-      item.classList.toggle('active', isActive);
-      const offset = i - this.currentIndex;
-      item.style.setProperty('--item-offset', offset);
-    });
-  }
-
-  goToSlide(index) {
-    if (index >= 0 && index < this.projects.length) {
-      this.currentIndex = index;
-      this.updateInfo();
-      this.resetAutoRotate();
-    }
-  }
-
-  next() {
-    this.goToSlide((this.currentIndex + 1) % this.projects.length);
-  }
-
-  prev() {
-    this.goToSlide((this.currentIndex - 1 + this.projects.length) % this.projects.length);
-  }
-
-  startAutoRotate() {
-    if (this.autoRotateInterval) clearInterval(this.autoRotateInterval);
-    this.autoRotateInterval = setInterval(() => this.next(), this.rotationSpeed * 1000);
-  }
-
-  resetAutoRotate() {
-    if (this.autoRotate) {
-      clearInterval(this.autoRotateInterval);
-      this.startAutoRotate();
-    }
   }
 
   attachEvents() {
-    const prevBtn = document.getElementById('carousel-prev');
-    const nextBtn = document.getElementById('carousel-next');
-    const indicators = document.querySelectorAll('.carousel-indicator');
+    const books = document.querySelectorAll('.book-item');
+    
+    books.forEach((book) => {
+      book.addEventListener('mouseenter', () => {
+        this.highlightBook(book);
+      });
+      
+      book.addEventListener('mouseleave', () => {
+        this.unhighlightBook(book);
+      });
 
-    prevBtn?.addEventListener('click', () => this.prev());
-    nextBtn?.addEventListener('click', () => this.next());
-
-    indicators.forEach(ind => {
-      ind.addEventListener('click', () => {
-        const index = parseInt(ind.dataset.index, 10);
-        this.goToSlide(index);
+      book.addEventListener('click', () => {
+        const index = parseInt(book.dataset.index, 10);
+        const project = this.projects[index];
+        if (project.link && project.link !== '#') {
+          window.open(project.link, '_blank');
+        }
       });
     });
+  }
 
-    // Pausa autorotate en hover
-    this.container?.addEventListener('mouseenter', () => {
-      if (this.autoRotate) clearInterval(this.autoRotateInterval);
+  highlightBook(book) {
+    document.querySelectorAll('.book-item').forEach(b => {
+      b.classList.remove('highlighted');
     });
-    this.container?.addEventListener('mouseleave', () => {
-      if (this.autoRotate) this.startAutoRotate();
-    });
+    book.classList.add('highlighted');
+  }
 
-    // Soporte teclado
-    document.addEventListener('keydown', (e) => {
-      if (document.activeElement?.closest('#portfolio')) {
-        if (e.key === 'ArrowLeft') this.prev();
-        if (e.key === 'ArrowRight') this.next();
-      }
-    });
+  unhighlightBook(book) {
+    book.classList.remove('highlighted');
   }
 
   getStyles() {
     return `
       /* ═══════════════════════════════════════════════════════════════════════════
-         BOOKFOLIO 2.0 — Carrusel 3D para imágenes panorámicas ultrawide
+         BOOKFOLIO 3D — Abanico de libros con perspectiva 3D
       ═══════════════════════════════════════════════════════════════════════════ */
 
-      .bookfolio-container {
+      .bookfolio-wrapper {
         width: 100%;
-        max-width: 100%;
-        margin: 0 auto;
-        padding: 2rem 1rem;
-        font-family: 'Inter', sans-serif;
-      }
-
-      /* ESCENA 3D */
-      .bookfolio-scene {
-        width: 100%;
-        height: 100%;
-        perspective: 1200px;
+        padding: 3rem 1rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 500px;
-        margin-bottom: 2rem;
-        background: radial-gradient(ellipse at center, rgba(0, 255, 255, 0.03) 0%, transparent 70%);
-        border-radius: 16px;
-        overflow: hidden;
+        perspective: 2000px;
+        background: radial-gradient(ellipse at center, rgba(0, 255, 255, 0.02) 0%, rgba(0, 0, 0, 0) 70%);
+        min-height: 700px;
       }
 
-      /* CARRUSEL 3D */
-      .bookfolio-carousel {
+      .bookfolio-fan {
         position: relative;
         width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        max-width: 1400px;
+        height: 600px;
+        perspective: 2000px;
         transform-style: preserve-3d;
       }
 
-      /* ITEMS */
-      .carousel-item {
+      /* ITEMS INDIVIDUALES */
+      .book-item {
         position: absolute;
-        width: 85%;
-        max-width: 900px;
-        aspect-ratio: 1536 / 674;
+        left: 50%;
+        top: 50%;
+        width: 380px;
+        height: 170px;
+        margin-left: -190px;
+        margin-top: -85px;
         cursor: pointer;
-        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        opacity: 0;
         transform: 
-          translateX(calc(var(--item-offset, 0) * 100px))
-          rotateY(calc(var(--item-offset, 0) * 35deg))
-          scale(calc(1 - abs(var(--item-offset, 0)) * 0.15));
-        z-index: calc(10 - abs(var(--item-offset, 0)) * 5);
-        pointer-events: none;
+          translateZ(0)
+          rotateY(var(--book-angle))
+          rotateZ(0deg)
+          translateZ(320px);
+        transform-style: preserve-3d;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        z-index: calc(20 - abs(var(--book-index, 0) - 5) * 2);
       }
 
-      .carousel-item.active {
-        opacity: 1;
-        pointer-events: auto;
+      .book-item:hover {
+        transform: 
+          translateZ(0)
+          rotateY(var(--book-angle))
+          rotateZ(0deg)
+          translateZ(360px)
+          scale(1.05);
+        z-index: 100;
       }
 
-      .carousel-item-inner {
+      /* CONTENEDOR DEL LIBRO */
+      .book-container {
         position: relative;
         width: 100%;
         height: 100%;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 
-          0 20px 60px rgba(0, 0, 0, 0.5),
-          0 0 40px rgba(0, 255, 255, 0.1);
-        border: 1px solid rgba(0, 255, 255, 0.2);
-        background: #0a0e27;
+        transform-style: preserve-3d;
       }
 
-      .carousel-image {
+      /* LOMO LATERAL (spine) */
+      .book-spine {
+        position: absolute;
+        left: -12px;
+        top: 0;
+        width: 12px;
+        height: 100%;
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 100%);
+        border-left: 1px solid rgba(0, 255, 255, 0.1);
+        transform: rotateY(90deg);
+        transform-origin: left center;
+      }
+
+      /* CUBIERTA DEL LIBRO */
+      .book-cover {
+        position: relative;
         width: 100%;
         height: 100%;
-        object-fit: contain;
+        border-radius: 4px;
+        overflow: hidden;
+        background: #0a0e27;
+        border: 2px solid rgba(0, 255, 255, 0.3);
+        box-shadow: 
+          inset 0 0 20px rgba(0, 0, 0, 0.5),
+          -8px 12px 30px rgba(0, 0, 0, 0.6),
+          0 0 40px rgba(0, 255, 255, 0.1);
+        transform-style: preserve-3d;
+      }
+
+      .book-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
         object-position: center;
         display: block;
+        transition: transform 0.4s ease;
       }
 
-      .carousel-item-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(135deg, rgba(0, 255, 255, 0.05) 0%, rgba(127, 90, 240, 0.05) 100%);
-        pointer-events: none;
-        mix-blend-mode: overlay;
-      }
-
-      /* CONTROLES */
-      .bookfolio-controls {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-        margin-bottom: 2rem;
-        flex-wrap: wrap;
-      }
-
-      .carousel-btn {
-        width: 44px;
-        height: 44px;
-        border: 1px solid rgba(0, 255, 255, 0.4);
-        background: rgba(15, 15, 46, 0.6);
-        color: #00ffff;
-        border-radius: 8px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(8px);
-        font-weight: 600;
-      }
-
-      .carousel-btn:hover {
-        background: rgba(0, 255, 255, 0.1);
-        border-color: rgba(0, 255, 255, 0.8);
-        box-shadow: 0 0 16px rgba(0, 255, 255, 0.3);
+      .book-item:hover .book-image {
         transform: scale(1.08);
       }
 
-      .carousel-btn:active {
-        transform: scale(0.96);
+      /* OVERLAY DE INFORMACIÓN */
+      .book-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, 
+          rgba(0, 0, 0, 0) 0%, 
+          rgba(0, 0, 0, 0.3) 50%, 
+          rgba(0, 0, 0, 0.7) 100%);
+        display: flex;
+        align-items: flex-end;
+        padding: 1rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
       }
 
-      /* INDICADORES */
-      .carousel-indicators {
-        display: flex;
-        gap: 0.8rem;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
+      .book-item:hover .book-overlay {
+        opacity: 1;
       }
 
-      .carousel-indicator {
-        padding: 0.4rem 0.8rem;
-        background: rgba(15, 15, 46, 0.4);
-        border: 1px solid rgba(0, 255, 255, 0.2);
-        border-radius: 6px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-size: 0.8rem;
-        color: #8892a4;
+      .book-label {
         display: flex;
-        align-items: center;
+        flex-direction: column;
         gap: 0.4rem;
-        backdrop-filter: blur(8px);
       }
 
-      .carousel-indicator:hover {
-        border-color: rgba(0, 255, 255, 0.5);
-        color: #00ffff;
-      }
-
-      .carousel-indicator.active {
-        background: rgba(0, 255, 255, 0.15);
-        border-color: rgba(0, 255, 255, 0.6);
-        color: #00ffff;
-        box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
-      }
-
-      .indicator-dot {
-        width: 6px;
-        height: 6px;
-        background: currentColor;
-        border-radius: 50%;
-        transition: all 0.3s ease;
-      }
-
-      .carousel-indicator.active .indicator-dot {
-        width: 8px;
-        height: 8px;
-        box-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
-      }
-
-      /* INFO DEL PROYECTO */
-      .carousel-info {
-        text-align: center;
-        padding: 1.5rem;
-        background: linear-gradient(135deg, rgba(0, 255, 255, 0.05) 0%, rgba(127, 90, 240, 0.05) 100%);
-        border: 1px solid rgba(0, 255, 255, 0.1);
-        border-radius: 12px;
-        backdrop-filter: blur(8px);
-        animation: fadeInUp 0.6s ease-out;
-      }
-
-      .carousel-info-title {
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: #00ffff;
-        margin-bottom: 0.5rem;
-        text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
-      }
-
-      .carousel-info-desc {
+      .book-title {
         font-size: 0.95rem;
-        color: #a0a0c0;
-        line-height: 1.6;
-        margin-bottom: 1rem;
-        max-width: 700px;
-        margin-left: auto;
-        margin-right: auto;
+        font-weight: 700;
+        color: #ffffff;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
       }
 
-      .carousel-info-tags {
-        display: flex;
-        gap: 0.5rem;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      .carousel-tag {
-        display: inline-block;
-        background: rgba(0, 255, 255, 0.15);
-        color: #00ffff;
-        padding: 0.35rem 0.75rem;
-        border-radius: 4px;
+      .book-category {
         font-size: 0.75rem;
-        font-weight: 600;
+        color: #00ffff;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
-        border: 1px solid rgba(0, 255, 255, 0.3);
+        letter-spacing: 1px;
+        font-weight: 600;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
       }
 
-      /* ANIMACIONES */
-      @keyframes fadeInUp {
+      /* ESTADO DESTACADO */
+      .book-item.highlighted {
+        z-index: 100 !important;
+        transform: 
+          translateZ(0)
+          rotateY(var(--book-angle))
+          rotateZ(0deg)
+          translateZ(360px)
+          scale(1.1);
+      }
+
+      .book-item.highlighted .book-cover {
+        border-color: rgba(0, 255, 255, 0.8);
+        box-shadow: 
+          inset 0 0 20px rgba(0, 0, 0, 0.5),
+          -8px 12px 30px rgba(0, 0, 0, 0.6),
+          0 0 60px rgba(0, 255, 255, 0.4);
+      }
+
+      /* ANIMACIÓN DE ENTRADA */
+      @keyframes bookFanEntry {
         from {
           opacity: 0;
-          transform: translateY(20px);
+          transform: translateZ(0) rotateY(var(--book-angle)) translateZ(200px) scale(0.8);
         }
         to {
           opacity: 1;
-          transform: translateY(0);
+          transform: translateZ(0) rotateY(var(--book-angle)) translateZ(320px) scale(1);
         }
       }
 
+      .book-item {
+        animation: bookFanEntry 0.6s ease-out forwards;
+        animation-delay: calc(var(--book-index) * 0.05s);
+      }
+
       /* RESPONSIVE */
-      @media (max-width: 1024px) {
-        .bookfolio-scene {
-          min-height: 400px;
+      @media (max-width: 1200px) {
+        .bookfolio-wrapper {
+          min-height: 600px;
+          padding: 2rem 1rem;
         }
 
-        .carousel-item {
-          width: 90%;
-          max-width: 800px;
+        .bookfolio-fan {
+          height: 500px;
         }
 
-        .bookfolio-controls {
-          gap: 1.5rem;
+        .book-item {
+          width: 320px;
+          height: 145px;
+          margin-left: -160px;
+          margin-top: -72.5px;
+          transform: 
+            translateZ(0)
+            rotateY(var(--book-angle))
+            translateZ(260px);
         }
 
-        .carousel-info-title {
-          font-size: 1.2rem;
-        }
-
-        .carousel-info-desc {
-          font-size: 0.9rem;
+        .book-item:hover {
+          transform: 
+            translateZ(0)
+            rotateY(var(--book-angle))
+            translateZ(300px)
+            scale(1.05);
         }
       }
 
       @media (max-width: 768px) {
-        .bookfolio-container {
+        .bookfolio-wrapper {
+          min-height: 500px;
           padding: 1.5rem 0.75rem;
         }
 
-        .bookfolio-scene {
-          min-height: 320px;
-          margin-bottom: 1.5rem;
+        .bookfolio-fan {
+          height: 400px;
         }
 
-        .carousel-item {
-          width: 95%;
-          max-width: 600px;
+        .book-item {
+          width: 260px;
+          height: 120px;
+          margin-left: -130px;
+          margin-top: -60px;
+          transform: 
+            translateZ(0)
+            rotateY(var(--book-angle))
+            translateZ(200px);
         }
 
-        .carousel-btn {
-          width: 40px;
-          height: 40px;
+        .book-item:hover {
+          transform: 
+            translateZ(0)
+            rotateY(var(--book-angle))
+            translateZ(230px)
+            scale(1.04);
         }
 
-        .carousel-indicators {
-          gap: 0.5rem;
-        }
-
-        .carousel-indicator {
-          padding: 0.3rem 0.6rem;
-          font-size: 0.7rem;
-        }
-
-        .carousel-info {
-          padding: 1rem;
-        }
-
-        .carousel-info-title {
-          font-size: 1.1rem;
-        }
-
-        .carousel-info-desc {
+        .book-title {
           font-size: 0.85rem;
+        }
+
+        .book-category {
+          font-size: 0.7rem;
         }
       }
 
       @media (max-width: 480px) {
-        .bookfolio-container {
+        .bookfolio-wrapper {
+          min-height: 400px;
           padding: 1rem 0.5rem;
         }
 
-        .bookfolio-scene {
-          min-height: 280px;
-          margin-bottom: 1rem;
+        .bookfolio-fan {
+          height: 320px;
         }
 
-        .carousel-item {
-          width: 100%;
-          max-width: 100%;
+        .book-item {
+          width: 200px;
+          height: 90px;
+          margin-left: -100px;
+          margin-top: -45px;
+          transform: 
+            translateZ(0)
+            rotateY(var(--book-angle))
+            translateZ(140px);
         }
 
-        .bookfolio-controls {
-          gap: 1rem;
+        .book-item:hover {
+          transform: 
+            translateZ(0)
+            rotateY(var(--book-angle))
+            translateZ(160px)
+            scale(1.03);
         }
 
-        .carousel-btn {
-          width: 36px;
-          height: 36px;
-          font-size: 0.9rem;
+        .book-spine {
+          width: 8px;
+          left: -8px;
         }
 
-        .carousel-indicators {
-          gap: 0.4rem;
+        .book-cover {
+          border-radius: 2px;
+          border-width: 1px;
         }
 
-        .carousel-indicator {
-          padding: 0.25rem 0.5rem;
-          font-size: 0.65rem;
+        .book-label {
+          padding: 0.5rem;
+          gap: 0.2rem;
         }
 
-        .carousel-info {
-          padding: 0.75rem;
+        .book-title {
+          font-size: 0.75rem;
         }
 
-        .carousel-info-title {
-          font-size: 1rem;
-          margin-bottom: 0.4rem;
-        }
-
-        .carousel-info-desc {
-          font-size: 0.8rem;
-          margin-bottom: 0.75rem;
+        .book-category {
+          font-size: 0.6rem;
         }
       }
 
       /* PREFERS REDUCED MOTION */
       @media (prefers-reduced-motion: reduce) {
-        .carousel-item,
-        .carousel-btn,
-        .carousel-indicator,
-        .carousel-info {
-          transition: none !important;
+        .book-item {
           animation: none !important;
+          transition: none !important;
+        }
+
+        .book-image,
+        .book-overlay {
+          transition: none !important;
+        }
+      }
+
+      /* 3D SUPPORT */
+      @supports not (transform: rotateY(1deg)) {
+        .book-item {
+          transform: none;
+          display: inline-block;
+          margin: 1rem;
+        }
+
+        .book-spine {
+          display: none;
         }
       }
     `;
