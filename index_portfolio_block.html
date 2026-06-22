@@ -1,0 +1,66 @@
+<!-- ═══════════════════════════════════════════════════════════════════
+     BOOKFOLIO — Galería de proyectos con panel admin oculto
+     Para abrir el admin: 5 clicks en la esquina inferior izquierda.
+     Datos persistidos en localStorage ('bookfolio_projects').
+═══════════════════════════════════════════════════════════════════ -->
+<section id="projects" class="section section--projects" aria-label="Proyectos y productos">
+  <div id="portfolio"></div>
+</section>
+
+<script src="js/components/bookfolio/BookFolio.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new BookFolio('#portfolio', {
+      projects: [
+        {
+          id:          'p01',
+          title:       'RewardDistributor BSC',
+          category:    'Blockchain',
+          description: 'Sistema automatizado de distribución de recompensas on-chain sobre BNB Smart Chain. Contrato Solidity con frontend modular ES6 para gestión de pagos y monitoreo de holders.',
+          link:        '#',
+          image:       'assets/projects/images/image1.webp',
+        },
+        {
+          id:          'p02',
+          title:       'MiSwap — Token Sale dApp',
+          category:    'Web3',
+          description: 'dApp de venta de tokens sobre BSC con integración MetaMask, Trust Wallet y WalletConnect. Incluye forzado de red BSC, validaciones de seguridad y UI responsive.',
+          link:        '#',
+          image:       'assets/projects/images/image2.webp',
+        },
+        {
+          id:          'p03',
+          title:       'TOKEN ALARM — BSC Monitor',
+          category:    'Tools',
+          description: 'Plataforma de monitoreo de precios de tokens en BSC con integración DexScreener y PooCoin, gráficos en tiempo real, alertas configurables y adición manual de contratos.',
+          link:        '#',
+          image:       'assets/projects/images/image3.webp',
+        },
+        {
+          id:          'p04',
+          title:       'HeriExcel.Pro',
+          category:    'Dev',
+          description: 'Aplicación de hoja de cálculo basada en navegador con importación/exportación Excel fiel (colores, bordes, fuentes) usando xlsx-js-style. UI completa con toolbar y context menus.',
+          link:        '#',
+          image:       'assets/projects/images/image4.webp',
+        },
+        {
+          id:          'p05',
+          title:       'NASOC Dashboard',
+          category:    'Dev',
+          description: 'Network operations center app con ping real, 27 nodos cubanos en Leaflet.js, visualizaciones Chart.js y alarmas Web Audio API.',
+          link:        '#',
+          image:       'assets/projects/images/image5.webp',
+        },
+        {
+          id:          'p06',
+          title:       'BNB Shine Vault PRO',
+          category:    'DeFi',
+          description: 'Plataforma de staking multi-iteración sobre BSC con sistema de referidos, integración gaming y controles de branding admin.',
+          link:        '#',
+          image:       'assets/projects/images/image6.webp',
+        },
+      ]
+    });
+  });
+</script>
