@@ -941,3 +941,81 @@
     transition: none;
   }
 }
+
+/* ============================================================
+   TOP BANNER — Franja promocional sobre el hero
+   ============================================================ */
+
+.top-banner {
+  position: relative;
+  width: 100%;
+  margin-top: var(--navbar-height);
+  background: var(--color-bg-base);
+  border-bottom: 1px solid var(--color-border-cyan);
+  overflow: hidden;
+}
+
+.top-banner-inner {
+  max-width: var(--container-wide);
+  margin: 0 auto;
+  padding: var(--space-3) var(--container-padding);
+}
+
+.top-banner-link {
+  display: block;
+  border-radius: var(--radius-md, 8px);
+  overflow: hidden;
+  transition: box-shadow var(--duration-normal) var(--ease-default),
+              transform var(--duration-normal) var(--ease-default);
+}
+
+.top-banner-link:hover,
+.top-banner-link:focus-visible {
+  box-shadow: 0 0 0 1px var(--color-cyan-400), var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.top-banner-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1983 / 793;
+  object-fit: cover;
+}
+
+.top-banner-close {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-glass);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--color-border-cyan);
+  border-radius: 50%;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  z-index: 2;
+  transition: color var(--duration-fast) var(--ease-default),
+              border-color var(--duration-fast) var(--ease-default);
+}
+
+.top-banner-close:hover {
+  color: var(--color-cyan-400);
+  border-color: var(--color-cyan-400);
+}
+
+@media (max-width: 768px) {
+  .top-banner {
+    margin-top: var(--navbar-height-mobile);
+  }
+  .top-banner-inner {
+    padding: var(--space-2) var(--container-padding);
+  }
+}
