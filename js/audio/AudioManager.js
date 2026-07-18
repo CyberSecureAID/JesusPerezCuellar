@@ -10,7 +10,7 @@
  * ============================================================
  */
 
-export class AudioManager {
+class AudioManager {
   constructor() {
     this.ctx = null;
     this.masterGain = null;
@@ -449,4 +449,5 @@ export class AudioManager {
 }
 
 // Singleton exportado para uso global
-export const audioManager = new AudioManager();
+// Singleton global (usado por AppInit como window.audioManager)
+window.audioManager = new AudioManager();
