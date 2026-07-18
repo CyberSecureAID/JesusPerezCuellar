@@ -47,9 +47,9 @@ const AppInit = (() => {
   }
 
   function _setProgress(pct, _status) {
+    // El loader (barra + %) lo controla un módulo autónomo en index.html,
+    // para que el progreso se vea siempre. Aquí solo guardamos el estado.
     _progress = Math.min(100, Math.max(0, pct));
-    if (_loaderBar)     _loaderBar.style.width = _progress + '%';
-    if (_loaderPercent) _loaderPercent.textContent = Math.round(_progress) + '%';
   }
 
   async function _hideLoader() {
