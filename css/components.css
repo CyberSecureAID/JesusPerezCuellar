@@ -1644,7 +1644,7 @@ textarea.wiz-input { resize: vertical; min-height: 90px; }
 /* Tarjeta de cristal por paso del flujo (efecto como las de servicios) */
 .flow-card { margin-top: .25rem; width: 100%; min-height: 190px; perspective: 1200px; background: transparent; border: none; }
 .flow-card-inner { position: relative; width: 100%; min-height: 190px; transition: transform .6s cubic-bezier(.4,.2,.2,1); transform-style: preserve-3d; }
-.flow-card:hover .flow-card-inner, .flow-card:focus-within .flow-card-inner, .flow-card.flipped .flow-card-inner { transform: rotateY(180deg); }
+.flow-card.flipped .flow-card-inner { transform: rotateY(180deg); }
 .flow-card-face {
   position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
   padding: 1.15rem 1rem; background: var(--color-bg-surface); border: 1px solid var(--color-border); border-radius: 14px;
@@ -1653,9 +1653,8 @@ textarea.wiz-input { resize: vertical; min-height: 90px; }
 }
 .flow-card-back { transform: rotateY(180deg); border-color: var(--color-border-cyan); }
 .flow-card-back p { color: var(--color-text-secondary); font-size: .82rem; line-height: 1.55; }
-.flow-card:hover .flow-card-face, .flow-card:focus-within .flow-card-face, .flow-card.flipped .flow-card-face {
-  box-shadow: var(--glow-cyan-sm), 0 14px 32px rgba(0,0,0,.4); border-color: var(--color-border-cyan);
-}
+.flow-card.flipped .flow-card-face { box-shadow: var(--glow-cyan-sm), 0 14px 32px rgba(0,0,0,.4); border-color: var(--color-border-cyan); }
+.flow-step:hover .flow-card-front { box-shadow: var(--glow-cyan-sm), 0 10px 26px rgba(0,0,0,.35); border-color: var(--color-border-cyan); }
 .flow-flip-hint { margin-top: .7rem; font-family: var(--font-mono, monospace); font-size: .66rem; letter-spacing: .06em; text-transform: uppercase; color: var(--color-cyan-400); opacity: .75; }
 .flow-step { cursor: pointer; }
 
@@ -1703,25 +1702,6 @@ textarea.wiz-input { resize: vertical; min-height: 90px; }
   background: var(--color-cyan-glow-sm); box-shadow: 0 8px 20px rgba(0,0,0,.32);
 }
 
-/* ============================================================
-   SOBRE MÍ — cursor lupa (magnifier)
-   ============================================================ */
-#about { position: relative; }
-.about-lens {
-  position: absolute; width: 190px; height: 190px; border-radius: 50%;
-  border: 2px solid var(--color-cyan-400); overflow: hidden; pointer-events: none;
-  background: var(--color-bg-base);
-  box-shadow: 0 0 0 5px rgba(0,229,229,.10), 0 16px 44px rgba(0,0,0,.55), inset 0 0 34px rgba(0,229,229,.10);
-  opacity: 0; transition: opacity .18s ease; z-index: 30; display: none; will-change: left, top;
-}
-.about-lens.on { opacity: 1; display: block; }
-.about-lens::after {
-  content: ""; position: absolute; inset: 0; border-radius: 50%;
-  box-shadow: inset 0 0 40px rgba(0,0,0,.35); pointer-events: none;
-}
-.about-lens-content { position: absolute; top: 0; left: 0; transform-origin: 0 0; }
-.about-lens-content .about-lead--dim { color: var(--color-text-secondary); }
-@media (hover: none) { .about-lens { display: none !important; } }
 
 /* Ocultar el eyebrow "// 04 PROYECTOS" de la galería */
 .bpf-eyebrow { display: none !important; }
@@ -1743,3 +1723,48 @@ textarea.wiz-input { resize: vertical; min-height: 90px; }
   .svc-start-lead { text-align: center; }
   .svc-start-eyebrow { display: block; }
 }
+
+/* Botón "Contacto" del navbar: efecto tornasol como los demás */
+.nav-link--cta {
+  position: relative; overflow: hidden; border-radius: 9px;
+  background: linear-gradient(135deg, rgba(0,229,229,.14), rgba(127,90,240,.12));
+  border: 1px solid var(--color-cyan-400) !important; color: #eafffe !important;
+  transition: transform .2s var(--ease-default), box-shadow .3s var(--ease-out), background .3s, border-color .2s;
+}
+.nav-link--cta::after {
+  content: ""; position: absolute; top: 0; left: -130%; width: 55%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.28), transparent);
+  transform: skewX(-18deg); transition: left .6s ease; pointer-events: none;
+}
+.nav-link--cta:hover::after { left: 150%; }
+.nav-link--cta:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, rgba(0,229,229,.22), rgba(127,90,240,.18));
+  box-shadow: 0 8px 22px rgba(0,229,229,.28), var(--glow-cyan-sm);
+}
+/* quitar el subrayado/línea inferior que traen los nav-link normales */
+.nav-link--cta::before { display: none !important; }
+
+/* ============================================================
+   PIE DE PÁGINA — interacción (ya no se ve muerto)
+   ============================================================ */
+#footer { position: relative; }
+#footer::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-cyan-400), var(--color-violet-400, #7f5af0), transparent);
+  background-size: 200% 100%; animation: footerLine 6s linear infinite; opacity: .7;
+}
+@keyframes footerLine { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+.footer-badge { transition: color .25s ease, border-color .25s ease, background .25s ease, transform .2s ease, box-shadow .3s ease; cursor: default; }
+.footer-badge:hover {
+  color: var(--color-cyan-400); border-color: var(--color-border-cyan);
+  background: var(--color-cyan-glow-sm); transform: translateY(-2px);
+  box-shadow: 0 5px 16px rgba(0,229,229,.18);
+}
+.footer-logo { transition: color .25s ease, text-shadow .25s ease; cursor: default; display: inline-block; }
+.footer-logo:hover { color: var(--color-cyan-400); text-shadow: 0 0 18px var(--color-cyan-glow); }
+.footer-col-title { transition: text-shadow .25s ease; }
+.footer-col-title:hover { text-shadow: 0 0 14px var(--color-cyan-glow); }
+.footer-copy { transition: color .25s ease; }
+.footer-copy:hover { color: var(--color-text-secondary); }
