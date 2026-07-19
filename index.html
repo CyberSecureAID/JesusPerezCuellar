@@ -341,8 +341,8 @@
 
       <ul class="nav-links" role="list">
         <li><a href="#inicio"     class="nav-link" data-section="inicio">Inicio</a></li>
-        <li><a href="#services"   class="nav-link" data-section="services">Servicios</a></li>
         <li><a href="#projects"   class="nav-link" data-section="projects">Proyectos</a></li>
+        <li><a href="#services"   class="nav-link" data-section="services">Servicios</a></li>
         <li><a href="#about"      class="nav-link" data-section="about">Sobre mí</a></li>
         <li><a href="#contact"    class="nav-link nav-link--cta" data-section="contact">Contacto</a></li>
       </ul>
@@ -357,8 +357,8 @@
     <div class="nav-mobile" id="nav-links-mobile" role="dialog" aria-modal="true" aria-label="Menú de navegación" hidden>
       <ul role="list">
         <li><a href="#inicio"     class="nav-mobile-link">Inicio</a></li>
-        <li><a href="#services"   class="nav-mobile-link">Servicios</a></li>
         <li><a href="#projects"   class="nav-mobile-link">Proyectos</a></li>
+        <li><a href="#services"   class="nav-mobile-link">Servicios</a></li>
         <li><a href="#about"      class="nav-mobile-link">Sobre mí</a></li>
         <li><a href="#contact"    class="nav-mobile-link">Contacto</a></li>
       </ul>
@@ -491,6 +491,15 @@
 
 
     <!-- ═══════════════════════════════════════════════════════
+         BOOKFOLIO — Galería de proyectos con panel admin oculto
+         Para abrir el admin: 5 clicks en la esquina inferior izquierda.
+         Datos persistidos en localStorage ('bookfolio_projects').
+    ═══════════════════════════════════════════════════════ -->
+    <section id="projects" class="section section--projects" aria-label="Proyectos y productos">
+      <div id="portfolio"></div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
          SERVICES
     ═══════════════════════════════════════════════════════ -->
     <section id="services" class="section section--services" data-animate="fade-up" aria-label="Servicios profesionales">
@@ -609,14 +618,6 @@
     </section>
 
 
-    <!-- ═══════════════════════════════════════════════════════
-         BOOKFOLIO — Galería de proyectos con panel admin oculto
-         Para abrir el admin: 5 clicks en la esquina inferior izquierda.
-         Datos persistidos en localStorage ('bookfolio_projects').
-    ═══════════════════════════════════════════════════════ -->
-    <section id="projects" class="section section--projects" aria-label="Proyectos y productos">
-      <div id="portfolio"></div>
-    </section>
 
     <script src="js/components/bookfolio/BookFolio.js"></script>
     <script src="js/data/projects.js"></script>
