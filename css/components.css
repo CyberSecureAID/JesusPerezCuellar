@@ -1072,38 +1072,37 @@
   pointer-events: none;
 }
 
-/* Cada cinta es una BANDA sólida con borde, más ancha que el
-   viewport, para que llegue a los dos bordes de la pantalla. */
+/* Cada cinta es una BANDA con bordes DIFUMINADOS (sin arista dura),
+   más ancha que el viewport para llegar a los dos bordes. */
 .tmx-strip {
   position: absolute;
   left: -14%;
   width: 128%;
-  height: 46px;
+  height: 56px;
   display: flex;
   align-items: center;
   overflow: hidden;
-  border-top: 1px solid;
-  border-bottom: 1px solid;
   box-sizing: border-box;
+  /* Los bordes superior e inferior se funden → nada de corte recto */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 32%, #000 68%, transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0%, #000 32%, #000 68%, transparent 100%);
 }
 
-/* ATRÁS — derecha → izquierda. Menos opaca, queda por debajo. */
+/* ATRÁS — derecha → izquierda. Translúcida, queda por debajo. */
 .tmx-strip--b {
-  top: 26%;
+  top: 24%;
   transform: rotate(6deg);
   z-index: 1;
-  background: color-mix(in srgb, var(--color-bg-base) 82%, transparent);
-  border-color: var(--color-border-violet, rgba(127, 90, 240, 0.30));
+  background: color-mix(in srgb, var(--color-bg-base) 55%, transparent);
 }
 
-/* DELANTE — izquierda → derecha. Opaca: TAPA a la de atrás. */
+/* DELANTE — izquierda → derecha. Opaca en el centro: TAPA a la de atrás,
+   pero con los bordes difuminados no se ve ningún corte. */
 .tmx-strip--a {
   top: 50%;
   transform: rotate(-5deg);
   z-index: 3;
   background: var(--color-bg-base);
-  border-color: var(--color-border-cyan, rgba(0, 255, 255, 0.30));
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
 }
 
 .tmx-track {
@@ -1135,7 +1134,7 @@
 
 @media (max-width: 768px) {
   .tmx { --tmx-h: clamp(140px, 40vw, 190px); }
-  .tmx-strip { height: 40px; }
+  .tmx-strip { height: 50px; }
   .tmx-strip--a { top: 50%; transform: rotate(-7deg); }
   .tmx-strip--b { top: 24%; transform: rotate(8deg); }
 }
