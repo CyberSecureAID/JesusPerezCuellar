@@ -1060,49 +1060,48 @@
    CINTAS EN X — dos bandas diagonales cruzadas (delante/atrás)
    ============================================================ */
 .tmx {
-  --tmx-h: clamp(150px, 17vw, 200px);
-  position: relative;
-  z-index: 20;
-  height: var(--tmx-h);
-  /* Se solapa media altura sobre el hero y media sobre la sección
-     siguiente → une ambas secciones pasando POR ENCIMA, sin corte. */
-  margin-top: calc(var(--tmx-h) / -2);
-  margin-bottom: calc(var(--tmx-h) / -2);
-  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 67%;                 /* justo debajo de las redes (GitHub) */
+  height: clamp(150px, 18vw, 195px);
+  overflow: hidden;         /* recorta SOLO horizontalmente en el borde de pantalla */
   pointer-events: none;
+  z-index: 6;               /* por encima del fondo del hero, sin recortarse */
 }
 
-/* Cada cinta es una BANDA con bordes DIFUMINADOS (sin arista dura),
+/* Cada cinta es una BANDA con BORDES visibles (los "bacanos"),
    más ancha que el viewport para llegar a los dos bordes. */
 .tmx-strip {
   position: absolute;
   left: -14%;
   width: 128%;
-  height: 56px;
+  height: 50px;
   display: flex;
   align-items: center;
   overflow: hidden;
   box-sizing: border-box;
-  /* Los bordes superior e inferior se funden → nada de corte recto */
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 32%, #000 68%, transparent 100%);
-          mask-image: linear-gradient(to bottom, transparent 0%, #000 32%, #000 68%, transparent 100%);
+  border-top: 1px solid;
+  border-bottom: 1px solid;
 }
 
 /* ATRÁS — derecha → izquierda. Translúcida, queda por debajo. */
 .tmx-strip--b {
-  top: 24%;
+  top: 8%;
   transform: rotate(6deg);
   z-index: 1;
-  background: color-mix(in srgb, var(--color-bg-base) 55%, transparent);
+  background: color-mix(in srgb, var(--color-bg-base) 80%, transparent);
+  border-color: var(--color-border-violet, rgba(127, 90, 240, 0.40));
 }
 
-/* DELANTE — izquierda → derecha. Opaca en el centro: TAPA a la de atrás,
-   pero con los bordes difuminados no se ve ningún corte. */
+/* DELANTE — izquierda → derecha. Opaca: TAPA a la de atrás. */
 .tmx-strip--a {
-  top: 50%;
+  top: 42%;
   transform: rotate(-5deg);
   z-index: 3;
   background: var(--color-bg-base);
+  border-color: var(--color-border-cyan, rgba(0, 255, 255, 0.42));
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.4);
 }
 
 .tmx-track {
@@ -1133,10 +1132,10 @@
 .tmx-dot--v{ color: var(--color-violet-400, #9b7cf4); opacity: .55; font-size: .6em; }
 
 @media (max-width: 768px) {
-  .tmx { --tmx-h: clamp(140px, 40vw, 190px); }
-  .tmx-strip { height: 50px; }
-  .tmx-strip--a { top: 50%; transform: rotate(-7deg); }
-  .tmx-strip--b { top: 24%; transform: rotate(8deg); }
+  .tmx { top: 66%; height: clamp(130px, 40vw, 180px); }
+  .tmx-strip { height: 44px; }
+  .tmx-strip--a { top: 44%; transform: rotate(-7deg); }
+  .tmx-strip--b { top: 6%; transform: rotate(8deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {

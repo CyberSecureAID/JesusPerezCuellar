@@ -1491,3 +1491,74 @@ a.contact-info-value:hover { color: var(--color-cyan-400); }
   border-color: var(--color-cyan-300);
   background: var(--color-cyan-glow-sm);
 }
+
+/* ============================================================
+   DECK — "scroll sin scroll": secciones que hacen crossfade
+   Solo activo con html.deck-on (lo pone DeckScroll.js).
+   ============================================================ */
+html.deck-on,
+html.deck-on body {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Cada sección + el footer = panel a pantalla completa, superpuestos */
+html.deck-on #main-content > section,
+html.deck-on #footer {
+  position: fixed;
+  inset: 0;
+  margin: 0;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 1;                 /* por debajo del navbar (--z-sticky: 50) */
+  transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+html.deck-on #main-content > section.is-active,
+html.deck-on #footer.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 4;
+}
+
+/* Imagen de fondo (fotograma) en cada panel que NO es el hero.
+   Va en un ::before FIJO para que quede quieta mientras el
+   contenido del panel se desplaza por dentro. De momento es la
+   portada; luego se reemplaza por los fotogramas reales. */
+html.deck-on #main-content > section:not(.section--hero)::before,
+html.deck-on #footer::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(10,12,22,0.86) 0%, rgba(10,12,22,0.92) 100%),
+    url("assets/banner/blockchain-developer-banner.jpg") center center / cover no-repeat;
+  pointer-events: none;
+}
+
+/* Deja sitio a la navbar fija dentro de cada panel */
+html.deck-on #main-content > section:not(.section--hero),
+html.deck-on #footer {
+  padding-top: calc(var(--navbar-height) + var(--space-6, 2.5rem));
+}
+
+/* El hero conserva su propio fondo/velo; solo lo fijamos como panel */
+html.deck-on .section--hero { padding-top: calc(var(--navbar-height) + 1rem); }
+
+/* Indicador sutil de progreso del deck (puntos laterales) — opcional,
+   discreto: se apoya en la nav activa existente, sin añadir nada nuevo. */
+html.deck-on #footer { padding-bottom: var(--space-6, 2.5rem); }
+
+/* En modo deck, el contenido se muestra siempre (el crossfade ES la
+   aparición); si no, los [data-animate] quedarían ocultos sin scroll. */
+html.deck-on [data-animate] {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
