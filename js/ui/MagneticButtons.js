@@ -28,7 +28,7 @@
 
 window.MagneticButtons = (function () {
 
-  const SELECTOR   = '.btn, .nav-link--cta';
+  const SELECTOR   = '.btn, .nav-link--cta, .social-link';
   const STRENGTH   = 0.28;   // 0 = nada, 1 = sigue al cursor 1:1
   const MAX_SHIFT  = 14;     // desplazamiento máximo en px (evita saltos feos)
 
