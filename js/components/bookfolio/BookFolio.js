@@ -286,7 +286,7 @@ class BookFolio {
         style="animation-delay:${i * 60}ms">
         <div class="bpf-card-img-wrap">
           ${p.image
-            ? `<img class="bpf-card-img" src="${this._esc(p.image)}" alt="${this._esc(p.title)}" loading="lazy" onerror="this.style.display='none'">`
+            ? `<img class="bpf-card-img" src="${this._esc(p.image)}" alt="${this._esc(p.title)}" loading="eager" decoding="async" fetchpriority="high" onerror="this.style.display='none'">`
             : ''
           }
           <div class="bpf-card-img-fallback" aria-hidden="true"><span>⬡</span></div>
