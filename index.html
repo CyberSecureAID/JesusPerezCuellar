@@ -104,111 +104,100 @@
        El responsive.css maneja ≤768px.
     ══════════════════════════════════════════════════════ */
 
-    /* Desktop y tablet landscape: siempre 2 columnas lado a lado */
-    @media screen and (min-width: 769px) {
-      .section--hero {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        grid-template-rows: 1fr !important;
-        align-items: center !important;
-      }
-      .hero-content {
-        order: 1 !important;
-        padding-top: calc(var(--navbar-height) + 2rem) !important;
-        padding-bottom: 2rem !important;
-        text-align: left !important;
-        align-items: flex-start !important;
-      }
-      .hero-robot {
-        order: 2 !important;
-        height: 100vh !important;
-      }
-      .hero-stats     { justify-content: flex-start !important; }
-      .hero-ctas      { justify-content: flex-start !important; }
-      .hero-social    { justify-content: flex-start !important; }
-      .hero-description { max-width: 420px !important; }
+    /* ══════════════════════════════════════════════════════
+       HERO FUSIONADO — imagen de fondo + lockup izquierda + cintas
+    ══════════════════════════════════════════════════════ */
+    .section--hero {
+      position: relative;
+      display: flex !important;
+      align-items: center;
+      min-height: 100vh;
+      padding: calc(var(--navbar-height) + 1.5rem) 0 0 !important;
+      overflow: hidden;
     }
 
-    /* Tablet portrait (769px–1024px): 2 columnas, robot más pequeño */
-    @media screen and (min-width: 769px) and (max-width: 1024px) {
-      .hero-robot {
-        height: 100vh !important;
-        min-height: 400px !important;
-      }
-      .hero-gif-wrapper {
-        width: 85% !important;
-        max-width: 340px !important;
-      }
-      .hero-content {
-        padding-left: var(--container-padding) !important;
-      }
+    /* Fondo imagen — SIN zoom ni hover */
+    .hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+    .hero-bg-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: 72% center;
+      display: block;
+    }
+    .hero-bg-scrim {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(90deg, rgba(3,3,6,0.96) 0%, rgba(3,3,6,0.88) 30%, rgba(3,3,6,0.48) 60%, rgba(3,3,6,0.12) 100%),
+        linear-gradient(0deg, rgba(3,3,6,0.92) 0%, rgba(3,3,6,0.08) 44%);
     }
 
-    /* GIF: centrado dentro del wrapper */
+    /* Lockup: columna anclada a la izquierda */
+    .hero-lockup {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      max-width: 660px;
+      margin-right: auto;
+      padding: 0 var(--container-padding);
+      padding-bottom: clamp(150px, 22vh, 240px);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* GIF pequeño + nombre en fila */
+    .hero-id { display: flex; align-items: center; gap: 1.4rem; }
     .hero-gif-wrapper {
       position: relative;
-      width: 72%;
-      max-width: 400px;
+      width: 128px; height: 128px;
+      flex-shrink: 0;
       aspect-ratio: 1 / 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
     }
     .hero-gif-visual {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
       object-fit: contain;
-      pointer-events: none;
       mix-blend-mode: screen;
-      will-change: transform;
-      transform: translateZ(0);
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
+      pointer-events: none;
     }
+    /* Halo orbital modesto alrededor del GIF pequeño */
+    .hero-gif-wrapper .orbital-ring--1 { width: 158px; height: 158px; margin: -79px 0 0 -79px; }
+    .hero-gif-wrapper .orbital-ring--2 { width: 210px; height: 210px; margin: -105px 0 0 -105px; }
 
-    /* ══════════════════════════════════════════════════════
-       MEJORAS v1.9 — auditoría (banner-portada, hero, footer)
-    ══════════════════════════════════════════════════════ */
+    .hero-title { display: flex; flex-direction: column; gap: .2rem; margin: 0; }
 
-    /* El banner es la portada #inicio: compensa la navbar fija al anclar */
-    #inicio { scroll-margin-top: var(--navbar-height, 72px); }
+    .hero-description { max-width: 540px; line-height: 1.7; margin: 0; }
+    .hero-ctas   { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: flex-start; }
+    .hero-social { display: flex; gap: .6rem; flex-wrap: wrap; justify-content: flex-start; }
 
-    /* ── HERO: más aire y ritmo entre bloques ── */
-    @media screen and (min-width: 769px) {
-      .hero-content { gap: 1.6rem !important; }
-    }
-    .hero-description { line-height: 1.7; }
-
-    /* Stats con separadores verticales — se leen como un bloque de datos */
-    .hero-stats {
-      gap: 0 !important;
-      border-top: 1px solid var(--color-border);
-      border-bottom: 1px solid var(--color-border);
-      padding: 1rem 0;
-      margin: 0.4rem 0;
-    }
-    .hero-stat {
-      padding: 0 1.6rem;
-      position: relative;
-    }
-    .hero-stat:first-child { padding-left: 0; }
-    .hero-stat:not(:last-child)::after {
-      content: "";
+    /* Cintas dentro del hero, ancladas abajo */
+    .section--hero .tmx {
       position: absolute;
-      right: 0; top: 50%;
-      transform: translateY(-50%);
-      width: 1px; height: 60%;
-      background: var(--color-border);
+      left: 0; right: 0; bottom: 0;
+      margin: 0;
+      height: clamp(150px, 20vh, 210px);
+      z-index: 2;
+      pointer-events: none;
     }
 
-    /* Redes: separadas del resto y con respiro */
-    .hero-social {
-      gap: 0.6rem !important;
-      margin-top: 0.4rem;
-      padding-top: 1rem;
-      border-top: 1px dashed var(--color-border);
+    /* ── Responsive del hero fusionado ── */
+    @media screen and (max-width: 768px) {
+      .section--hero { padding-top: calc(var(--navbar-height-mobile, 64px) + 1rem) !important; }
+      .hero-lockup { max-width: 100%; gap: 1.15rem; padding-bottom: clamp(130px, 24vh, 190px); }
+      .hero-id { gap: 1rem; }
+      .hero-gif-wrapper { width: 94px !important; max-width: 94px !important; height: 94px !important; }
+      .hero-gif-wrapper .orbital-ring--1 { width: 118px; height: 118px; margin: -59px 0 0 -59px; }
+      .hero-gif-wrapper .orbital-ring--2 { width: 156px; height: 156px; margin: -78px 0 0 -78px; }
+      .hero-bg-scrim {
+        background:
+          linear-gradient(180deg, rgba(3,3,6,0.62) 0%, rgba(3,3,6,0.82) 52%, rgba(3,3,6,0.96) 100%),
+          linear-gradient(90deg, rgba(3,3,6,0.72), rgba(3,3,6,0.5));
+      }
+    }
+    @media screen and (max-width: 480px) {
+      .hero-gif-wrapper { width: 78px !important; max-width: 78px !important; height: 78px !important; }
+      .hero-id { gap: .8rem; }
     }
 
     /* ── FOOTER corporativo ── */
@@ -348,7 +337,7 @@
   <header id="navbar" role="banner">
     <nav class="nav-container" role="navigation" aria-label="Navegación principal">
 
-      <a href="#hero" class="nav-logo" aria-label="Ir al inicio">
+      <a href="#inicio" class="nav-logo" aria-label="Ir al inicio">
         <span class="nav-logo-bracket">[</span>
         <span class="nav-logo-text" id="nav-logo-text">JPC</span>
         <span class="nav-logo-bracket">]</span>
@@ -387,74 +376,43 @@
   <main id="main-content" role="main">
 
     <!-- ═══════════════════════════════════════════════════════
-         TOP BANNER
+         HERO FUSIONADO — imagen de fondo + lockup izquierda + cintas
     ═══════════════════════════════════════════════════════ -->
-    <div class="top-banner" id="inicio" data-animate="fade-in">
-      <div class="top-banner-inner">
-        <a href="#blockchain" class="top-banner-link" aria-label="Ver especialización en Blockchain — Smart Contracts, Web3, DeFi, dApps y Security">
-          <img
-            src="assets/banner/blockchain-developer-banner.jpg"
-            alt="Blockchain Developer — Building the decentralized future. Smart Contracts, Web3, DeFi, dApps, Security."
-            class="top-banner-img"
-            width="1983"
-            height="793"
-            loading="eager"
-            decoding="async"
-          >
-        </a>
+    <section id="inicio" class="section section--hero" data-animate="hero" aria-label="Presentación principal">
+
+      <!-- Fondo: imagen de portada (sin efecto de zoom) -->
+      <div class="hero-bg" aria-hidden="true">
+        <img src="assets/banner/blockchain-developer-banner.jpg" alt="" class="hero-bg-img" loading="eager" decoding="async">
+        <div class="hero-bg-scrim"></div>
       </div>
-    </div>
 
-    <!-- ═══════════════════════════════════════════════════════
-         HERO
-    ═══════════════════════════════════════════════════════ -->
-    <section id="hero" class="section section--hero" data-animate="hero" aria-label="Presentación principal">
+      <!-- Contenido anclado a la izquierda -->
+      <div class="hero-lockup">
 
-      <!-- COLUMNA IZQUIERDA: contenido -->
-      <div class="hero-content">
-
-        <a href="https://wa.me/5358648458" target="_blank" rel="noopener" class="hero-status hero-status--mobile" aria-label="Contactar por WhatsApp" style="text-decoration:none; cursor:pointer;">          <span class="status-dot" aria-hidden="true"></span>
-          <span class="status-text" id="hero-status-text">WHATSAPP</span>
-        </a>
-
-        <h1 class="hero-title">
-          <span class="hero-title-name" id="hero-name">Jesús — Dev & Trader</span>
-          <br>
-          <span class="hero-title-role" id="typewriter-target" aria-live="polite">
-            Software Developer
-          </span>
-          <span class="typewriter-cursor" aria-hidden="true">|</span>
-        </h1>
+        <div class="hero-id">
+          <div class="hero-gif-wrapper">
+            <img id="hero-gif" class="hero-gif-visual" src="assets/hero-visual.gif" alt="" loading="eager" decoding="async">
+            <div class="robot-hud" aria-hidden="true">
+              <div class="hud-corner hud-corner--tl"></div>
+              <div class="hud-corner hud-corner--tr"></div>
+              <div class="hud-corner hud-corner--bl"></div>
+              <div class="hud-corner hud-corner--br"></div>
+            </div>
+            <div class="orbital-ring orbital-ring--1" aria-hidden="true"></div>
+            <div class="orbital-ring orbital-ring--2" aria-hidden="true"></div>
+          </div>
+          <h1 class="hero-title">
+            <span class="hero-title-name" id="hero-name">Jesús — Dev &amp; Trader</span>
+            <span class="hero-title-role" id="typewriter-target" aria-live="polite">Software Developer</span>
+            <span class="typewriter-cursor" aria-hidden="true">|</span>
+          </h1>
+        </div>
 
         <p class="hero-description">
           Desarrollo software en múltiples lenguajes y plataformas.
           Especializado en Blockchain, Web3, Smart Contracts, Python,
           JavaScript, PineScript y soluciones DeFi en BSC y Ethereum.
         </p>
-
-        <div class="hero-stats" role="list" aria-label="Estadísticas profesionales">
-          <div class="hero-stat" role="listitem">
-            <div class="hero-stat-row">
-              <span class="hero-stat-number" data-count="5">0</span>
-              <span class="hero-stat-unit">+</span>
-            </div>
-            <span class="hero-stat-label">años exp.</span>
-          </div>
-          <div class="hero-stat" role="listitem">
-            <div class="hero-stat-row">
-              <span class="hero-stat-number" data-count="40">0</span>
-              <span class="hero-stat-unit">+</span>
-            </div>
-            <span class="hero-stat-label">proyectos</span>
-          </div>
-          <div class="hero-stat" role="listitem">
-            <div class="hero-stat-row">
-              <span class="hero-stat-number" data-count="15">0</span>
-              <span class="hero-stat-unit">+</span>
-            </div>
-            <span class="hero-stat-label">tecnologías</span>
-          </div>
-        </div>
 
         <div class="hero-ctas">
           <a href="#projects" class="btn btn--primary">
@@ -467,148 +425,122 @@
         </div>
 
         <div class="hero-social" aria-label="Perfiles profesionales">
-          <a href="https://github.com/CyberSecureAID" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-            </svg>
-          </a>
-          <a href="https://www.linkedin.com/in/JesusDevTrader" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-            </svg>
-          </a>
-          <a href="https://x.com/JesusDevTrader" class="social-link" target="_blank" rel="noopener" aria-label="X / Twitter">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-            </svg>
-          </a>
-          <a href="https://t.me/JesusDevTrader" class="social-link" target="_blank" rel="noopener" aria-label="Telegram">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/>
-            </svg>
-          </a>
-          <a href="https://www.instagram.com/jesusdevtrader/" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
-            </svg>
-          </a>
-          <a href="https://www.facebook.com/JesusDevTrader/" class="social-link" target="_blank" rel="noopener" aria-label="Facebook">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-            </svg>
-          </a>
-          <a href="https://wa.me/5358648458" class="social-link social-link--whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
-            </svg>
-          </a>
-        </div>
+                  <a href="https://github.com/CyberSecureAID" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                  </a>
+                  <a href="https://www.linkedin.com/in/JesusDevTrader" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                  </a>
+                  <a href="https://x.com/JesusDevTrader" class="social-link" target="_blank" rel="noopener" aria-label="X / Twitter">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                  </a>
+                  <a href="https://t.me/JesusDevTrader" class="social-link" target="_blank" rel="noopener" aria-label="Telegram">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/>
+                    </svg>
+                  </a>
+                  <a href="https://www.instagram.com/jesusdevtrader/" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+                    </svg>
+                  </a>
+                  <a href="https://www.facebook.com/JesusDevTrader/" class="social-link" target="_blank" rel="noopener" aria-label="Facebook">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                  </a>
+                  <a href="https://wa.me/5358648458" class="social-link social-link--whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+                    </svg>
+                  </a>
+                </div>
 
-      </div><!-- /hero-content -->
+      </div><!-- /hero-lockup -->
 
-      <!-- COLUMNA DERECHA: robot / GIF -->
-      <div class="hero-robot" aria-hidden="true">
-
-        <div class="hero-gif-wrapper">
-
-          <img id="hero-gif"
-               class="hero-gif-visual"
-               src="assets/hero-visual.gif"
-               alt=""
-               loading="eager"
-               decoding="async">
-
-          <div class="robot-hud" aria-hidden="true">
-            <div class="hud-corner hud-corner--tl"></div>
-            <div class="hud-corner hud-corner--tr"></div>
-            <div class="hud-corner hud-corner--bl"></div>
-            <div class="hud-corner hud-corner--br"></div>
-            <div class="hud-tag hud-tag--bottom" style="display:none;">
-              <span class="hud-label">UNIT_ID</span>
-              <span class="hud-value" id="hud-unit-id">CYB-001</span>
-            </div>
-            <div class="hud-tag hud-tag--bottom" style="display:none;">
-              <span class="hud-label">STATUS</span>
-              <span class="hud-value hud-value--green">ONLINE</span>
-            </div>
-            <div class="hud-tag hud-tag--bottom" style="display:none;">
-              <span class="hud-label">THREAT_LVL</span>
-              <span class="hud-value hud-value--cyan">MAX</span>
-            </div>
-            <div class="hud-tag hud-tag--bottom" style="display:none;">
-              <span class="hud-label">TRACKING</span>
-              <span class="hud-value hud-value--violet">ACTIVE</span>
-            </div>
+      <!-- Dos cintas infinitas cruzadas (dentro del hero, abajo) -->
+      <div class="tmx" aria-label="Stack tecnológico">
+        <div class="tmx-strip tmx-strip--a">
+          <div class="tmx-track tmx-track--a">
+            <span class="tmx-chip">Solidity</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">Smart Contracts</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">Web3</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">DeFi</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">ethers.js</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">Hardhat</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">BSC</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">Ethereum</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">PancakeSwap</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">dApps</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">On-Chain</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">Tokenomics</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">Auditoría</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">Liquidez</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">EVM</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">Web3Modal</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">Solidity</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">Smart Contracts</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">Web3</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">DeFi</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">ethers.js</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">Hardhat</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">BSC</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">Ethereum</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">PancakeSwap</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">dApps</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">On-Chain</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">Tokenomics</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">Auditoría</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">Liquidez</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">EVM</span><span class="tmx-dot">◆</span>
+            <span class="tmx-chip">Web3Modal</span><span class="tmx-dot">◆</span>
           </div>
-
         </div>
-
-        <div class="orbital-ring orbital-ring--1" aria-hidden="true"></div>
-        <div class="orbital-ring orbital-ring--2" aria-hidden="true"></div>
-
-      </div><!-- /hero-robot -->
-
-      <div class="scroll-indicator" aria-label="Desplázate hacia abajo">
-        <div class="scroll-arrow"></div>
-        <span class="scroll-text">SCROLL</span>
+        <div class="tmx-strip tmx-strip--b">
+          <div class="tmx-track tmx-track--b">
+            <span class="tmx-chip tmx-chip--v">Python</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">JavaScript</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">TypeScript</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">Node.js</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">PineScript</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">React</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">Docker</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">Git</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">TradingView</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">APIs REST</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">WebSocket</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">Bots</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">Automatización</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">Full-Stack</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">Escalable</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">Producción</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">Python</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">JavaScript</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">TypeScript</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">Node.js</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">PineScript</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">React</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">Docker</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">Git</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">TradingView</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">APIs REST</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">WebSocket</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">Bots</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">Automatización</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">Full-Stack</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">Escalable</span><span class="tmx-dot tmx-dot--v">◆</span>
+            <span class="tmx-chip tmx-chip--v">Producción</span><span class="tmx-dot tmx-dot--v">◆</span>
+          </div>
+        </div>
       </div>
 
     </section><!-- /hero -->
-
-    <!-- ═══════════════════════════════════════════════════════
-         MARQUEE EN X — dos cintas diagonales asimétricas
-    ═══════════════════════════════════════════════════════ -->
-    <div class="tmx" aria-label="Stack tecnológico" data-animate="fade-in">
-
-      <!-- Cinta A: blockchain / web3 — inclinada, izquierda→derecha -->
-      <div class="tmx-strip tmx-strip--a">
-        <div class="tmx-track tmx-track--a">
-          <span class="tmx-chip">Solidity</span><span class="tmx-dot">◆</span>
-          <span class="tmx-chip">Smart Contracts</span><span class="tmx-dot">◆</span>
-          <span class="tmx-chip">Web3</span><span class="tmx-dot">◆</span>
-          <span class="tmx-chip">DeFi</span><span class="tmx-dot">◆</span>
-          <span class="tmx-chip">ethers.js</span><span class="tmx-dot">◆</span>
-          <span class="tmx-chip">Hardhat</span><span class="tmx-dot">◆</span>
-          <span class="tmx-chip">BSC</span><span class="tmx-dot">◆</span>
-          <span class="tmx-chip">Ethereum</span><span class="tmx-dot">◆</span>
-          <span class="tmx-chip">PancakeSwap</span><span class="tmx-dot">◆</span>
-          <!-- copia para loop sin costura -->
-          <span class="tmx-chip">Solidity</span><span class="tmx-dot">◆</span>
-          <span class="tmx-chip">Smart Contracts</span><span class="tmx-dot">◆</span>
-          <span class="tmx-chip">Web3</span><span class="tmx-dot">◆</span>
-          <span class="tmx-chip">DeFi</span><span class="tmx-dot">◆</span>
-          <span class="tmx-chip">ethers.js</span><span class="tmx-dot">◆</span>
-          <span class="tmx-chip">Hardhat</span><span class="tmx-dot">◆</span>
-          <span class="tmx-chip">BSC</span><span class="tmx-dot">◆</span>
-          <span class="tmx-chip">Ethereum</span><span class="tmx-dot">◆</span>
-          <span class="tmx-chip">PancakeSwap</span><span class="tmx-dot">◆</span>
-        </div>
-      </div>
-
-      <!-- Cinta B: lenguajes / herramientas — otra inclinación, derecha→izquierda -->
-      <div class="tmx-strip tmx-strip--b">
-        <div class="tmx-track tmx-track--b">
-          <span class="tmx-chip tmx-chip--v">Python</span><span class="tmx-dot tmx-dot--v">◆</span>
-          <span class="tmx-chip tmx-chip--v">JavaScript</span><span class="tmx-dot tmx-dot--v">◆</span>
-          <span class="tmx-chip tmx-chip--v">Node.js</span><span class="tmx-dot tmx-dot--v">◆</span>
-          <span class="tmx-chip tmx-chip--v">PineScript</span><span class="tmx-dot tmx-dot--v">◆</span>
-          <span class="tmx-chip tmx-chip--v">React</span><span class="tmx-dot tmx-dot--v">◆</span>
-          <span class="tmx-chip tmx-chip--v">Docker</span><span class="tmx-dot tmx-dot--v">◆</span>
-          <span class="tmx-chip tmx-chip--v">Git</span><span class="tmx-dot tmx-dot--v">◆</span>
-          <span class="tmx-chip tmx-chip--v">TradingView</span><span class="tmx-dot tmx-dot--v">◆</span>
-          <!-- copia para loop sin costura -->
-          <span class="tmx-chip tmx-chip--v">Python</span><span class="tmx-dot tmx-dot--v">◆</span>
-          <span class="tmx-chip tmx-chip--v">JavaScript</span><span class="tmx-dot tmx-dot--v">◆</span>
-          <span class="tmx-chip tmx-chip--v">Node.js</span><span class="tmx-dot tmx-dot--v">◆</span>
-          <span class="tmx-chip tmx-chip--v">PineScript</span><span class="tmx-dot tmx-dot--v">◆</span>
-          <span class="tmx-chip tmx-chip--v">React</span><span class="tmx-dot tmx-dot--v">◆</span>
-          <span class="tmx-chip tmx-chip--v">Docker</span><span class="tmx-dot tmx-dot--v">◆</span>
-          <span class="tmx-chip tmx-chip--v">Git</span><span class="tmx-dot tmx-dot--v">◆</span>
-          <span class="tmx-chip tmx-chip--v">TradingView</span><span class="tmx-dot tmx-dot--v">◆</span>
-        </div>
-      </div>
-
-    </div>
 
     <!-- ═══════════════════════════════════════════════════════
          ABOUT
