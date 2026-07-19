@@ -600,8 +600,10 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
                 <span class="flow-num">01</span>
               </div>
-              <h4>Hablamos</h4>
-              <p>Me cuentas tu idea y te doy un aproximado de lo que costaría. Te paso un formulario para que vuelques con calma todos los datos de tu proyecto — y yo me encargo del resto.</p>
+              <div class="flow-card">
+                <h4>Hablamos</h4>
+                <p>Me cuentas tu idea y te doy un aproximado de lo que costaría. Te paso un formulario para que vuelques con calma todos los datos de tu proyecto — y yo me encargo del resto.</p>
+              </div>
             </div>
 
             <div class="flow-step" tabindex="0">
@@ -609,8 +611,10 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
                 <span class="flow-num">02</span>
               </div>
-              <h4>Te muestro el diseño</h4>
-              <p>Antes de programar nada, te entrego una imagen de cómo se verá tu proyecto — colores, estilo, logo. Solo cuando te gusta y lo apruebas, empiezo.</p>
+              <div class="flow-card">
+                <h4>Te muestro el diseño</h4>
+                <p>Antes de programar nada, te entrego una imagen de cómo se verá tu proyecto — colores, estilo, logo. Solo cuando te gusta y lo apruebas, empiezo.</p>
+              </div>
             </div>
 
             <div class="flow-step" tabindex="0">
@@ -618,8 +622,10 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                 <span class="flow-num">03</span>
               </div>
-              <h4>Lo construyo</h4>
-              <p>Desarrollo todo con rapidez y con seguridad. Te lo entrego en tu propia cuenta, protegido y listo para que sea solo tuyo. Sigues el avance en todo momento.</p>
+              <div class="flow-card">
+                <h4>Lo construyo</h4>
+                <p>Desarrollo todo con rapidez y con seguridad. Te lo entrego en tu propia cuenta, protegido y listo para que sea solo tuyo. Sigues el avance en todo momento.</p>
+              </div>
             </div>
 
             <div class="flow-step" tabindex="0">
@@ -627,8 +633,10 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg>
                 <span class="flow-num">04</span>
               </div>
-              <h4>Se despliega</h4>
-              <p>Yo me encargo del despliegue: tu proyecto queda publicado y funcionando, con <strong>30 días de garantía</strong> por si hay que ajustar algo. Soporte continuo opcional, cuando lo necesites.</p>
+              <div class="flow-card">
+                <h4>Se despliega</h4>
+                <p>Yo me encargo del despliegue: tu proyecto queda publicado y funcionando, con <strong>30 días de garantía</strong> por si hay que ajustar algo. Soporte continuo opcional, cuando lo necesites.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -668,10 +676,9 @@
       const PROJECTS_VERSION = 'v7';
       document.addEventListener('DOMContentLoaded', function () {
         try {
-          if (localStorage.getItem('bookfolio_seed_version') !== PROJECTS_VERSION) {
-            localStorage.removeItem('bookfolio_projects');
-            localStorage.setItem('bookfolio_seed_version', PROJECTS_VERSION);
-          }
+          // Siempre partir de los datos frescos de projects.js (evita rutas viejas)
+          localStorage.removeItem('bookfolio_projects');
+          localStorage.setItem('bookfolio_seed_version', PROJECTS_VERSION);
         } catch (e) {}
         new BookFolio('#portfolio', { projects: window.NP_PROJECTS || [] });
       });
@@ -723,86 +730,105 @@
         <div class="wiz">
           <div class="wiz-card" id="wiz-card">
 
-            <div class="wiz-progress" id="wiz-progress" aria-hidden="true"></div>
-
-            <!-- PASO 1 -->
             <div class="wiz-step is-active" data-step="1">
               <span class="wiz-kicker">Paso 1</span>
               <h3 class="wiz-q">¿Qué quieres desarrollar?</h3>
-              <div class="wiz-chips" id="wiz-type">
-                <button type="button" class="wiz-chip" data-val="Una front page (presencia digital)">Front page <small>presencia digital</small></button>
-                <button type="button" class="wiz-chip" data-val="Una página web de negocio">Página web <small>para tu negocio</small></button>
-                <button type="button" class="wiz-chip" data-val="Una tienda online">Tienda online <small>vender por internet</small></button>
-                <button type="button" class="wiz-chip" data-val="Una criptomoneda / proyecto Web3">Criptomoneda <small>proyecto Web3</small></button>
-                <button type="button" class="wiz-chip" data-val="Una app o sistema a medida">App o sistema <small>a medida</small></button>
-                <button type="button" class="wiz-chip" data-val="Un bot de trading / automatización">Bot de trading <small>automatización</small></button>
+              <p class="wiz-help">Selecciona una o varias opciones según lo que necesites. Si no sabes cuál, sáltalo y lo vemos juntos.</p>
+              <div class="wiz-chips wiz-multi" id="wiz-type">
+                <button type="button" class="wiz-chip" data-val="Una página sencilla que me presente y lleve a la gente a mis redes">Una página para presentarme <small>y llevar a la gente a mis redes</small></button>
+                <button type="button" class="wiz-chip" data-val="Una página web para mi negocio">La web de mi negocio <small>para que me encuentren</small></button>
+                <button type="button" class="wiz-chip" data-val="Una tienda para vender por internet">Vender por internet <small>una tienda online</small></button>
+                <button type="button" class="wiz-chip" data-val="Mi propia moneda digital / proyecto cripto">Mi propia moneda digital <small>o proyecto cripto</small></button>
+                <button type="button" class="wiz-chip" data-val="Un programa o sistema a la medida de mi negocio">Un programa a mi medida <small>para organizar mi negocio</small></button>
+                <button type="button" class="wiz-chip" data-val="Algo que trabaje o vigile solo (automatización)">Algo automático <small>que trabaje solo por mí</small></button>
               </div>
-              <input type="text" class="wiz-input wiz-other" id="wiz-type-other" placeholder="O escríbelo tú mismo (otra cosa)…">
-              <div class="wiz-nav">
-                <span></span>
-                <button type="button" class="btn btn--primary wiz-next" data-next>Siguiente paso →</button>
-              </div>
+              <input type="text" class="wiz-input wiz-other" id="wiz-type-other" placeholder="O escríbelo con tus palabras…">
+              <div class="wiz-nav"><span></span><button type="button" class="btn btn--primary wiz-next" data-next>Siguiente →</button></div>
             </div>
 
-            <!-- PASO 2 -->
             <div class="wiz-step" data-step="2">
               <span class="wiz-kicker">Paso 2</span>
-              <h3 class="wiz-q">¿Cuál es tu nombre?</h3>
-              <input type="text" class="wiz-input" id="wiz-name" placeholder="Escribe tu nombre" autocomplete="name">
-              <div class="wiz-nav">
-                <button type="button" class="btn btn--ghost wiz-back" data-back>← Atrás</button>
-                <button type="button" class="btn btn--primary wiz-next" data-next>Siguiente paso →</button>
-              </div>
+              <h3 class="wiz-q">¿Cómo te llamas?</h3>
+              <p class="wiz-help">Solo tu nombre, para saber cómo dirigirme a ti.</p>
+              <input type="text" class="wiz-input" id="wiz-name" placeholder="Tu nombre" autocomplete="name">
+              <div class="wiz-nav"><button type="button" class="btn btn--ghost wiz-back" data-back>← Atrás</button><button type="button" class="btn btn--primary wiz-next" data-next>Siguiente →</button></div>
             </div>
 
-            <!-- PASO 3 -->
             <div class="wiz-step" data-step="3">
               <span class="wiz-kicker">Paso 3</span>
-              <h3 class="wiz-q">Tu número de WhatsApp</h3>
-              <input type="tel" class="wiz-input" id="wiz-phone" placeholder="Con código de país. Ej: +1 305 000 0000" autocomplete="tel">
-              <div class="wiz-nav">
-                <button type="button" class="btn btn--ghost wiz-back" data-back>← Atrás</button>
-                <button type="button" class="btn btn--primary wiz-next" data-next>Siguiente paso →</button>
-              </div>
+              <h3 class="wiz-q">¿Cómo te contacto?</h3>
+              <p class="wiz-help">Déjame tu WhatsApp o tu correo (con uno basta). Es por donde te responderé.</p>
+              <input type="tel" class="wiz-input" id="wiz-phone" placeholder="Tu WhatsApp (con código de país)" autocomplete="tel">
+              <input type="email" class="wiz-input" id="wiz-email" placeholder="O tu correo electrónico" autocomplete="email">
+              <div class="wiz-nav"><button type="button" class="btn btn--ghost wiz-back" data-back>← Atrás</button><button type="button" class="btn btn--primary wiz-next" data-next>Siguiente →</button></div>
             </div>
 
-            <!-- PASO 4 -->
             <div class="wiz-step" data-step="4">
               <span class="wiz-kicker">Paso 4 · opcional</span>
-              <h3 class="wiz-q">Cuéntame un poco más</h3>
-              <textarea class="wiz-input" id="wiz-desc" rows="3" placeholder="Una idea breve de lo que quieres. No hace falta que lo detalles todo aquí."></textarea>
-              <div class="wiz-nav">
-                <button type="button" class="btn btn--ghost wiz-back" data-back>← Atrás</button>
-                <button type="button" class="btn btn--primary wiz-next" data-next>Siguiente paso →</button>
-              </div>
+              <h3 class="wiz-q">¿Cómo se llama tu negocio o proyecto?</h3>
+              <p class="wiz-help">Si aún no tiene nombre, no te preocupes, déjalo en blanco.</p>
+              <input type="text" class="wiz-input" id="wiz-biz" placeholder="Nombre de tu negocio o proyecto">
+              <div class="wiz-nav"><button type="button" class="btn btn--ghost wiz-back" data-back>← Atrás</button><button type="button" class="btn btn--primary wiz-next" data-next>Siguiente →</button></div>
             </div>
 
-            <!-- PASO 5 -->
             <div class="wiz-step" data-step="5">
               <span class="wiz-kicker">Paso 5 · opcional</span>
-              <h3 class="wiz-q">Presupuesto y plazo</h3>
-              <input type="text" class="wiz-input" id="wiz-budget" placeholder="Presupuesto aproximado (opcional)">
-              <input type="text" class="wiz-input" id="wiz-when" placeholder="¿Para cuándo? (opcional)">
-              <div class="wiz-nav">
-                <button type="button" class="btn btn--ghost wiz-back" data-back>← Atrás</button>
-                <button type="button" class="btn btn--primary wiz-next" data-next>Casi listo →</button>
-              </div>
+              <h3 class="wiz-q">¿A qué te dedicas?</h3>
+              <p class="wiz-help">En una frase: qué haces o qué vendes. Así entiendo tu mundo.</p>
+              <input type="text" class="wiz-input" id="wiz-activity" placeholder="Ej: Vendo muebles de madera hechos a mano">
+              <div class="wiz-nav"><button type="button" class="btn btn--ghost wiz-back" data-back>← Atrás</button><button type="button" class="btn btn--primary wiz-next" data-next>Siguiente →</button></div>
             </div>
 
-            <!-- PASO 6 · FINAL -->
-            <div class="wiz-step wiz-step--final" data-step="6">
-              <div class="wiz-check" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-              </div>
+            <div class="wiz-step" data-step="6">
+              <span class="wiz-kicker">Paso 6 · opcional</span>
+              <h3 class="wiz-q">¿Ya tienes algo en internet?</h3>
+              <p class="wiz-help">Si tienes una web, redes sociales o un logo, pégame aquí los enlaces. Si no tienes nada, también está perfecto.</p>
+              <textarea class="wiz-input" id="wiz-have" rows="2" placeholder="Enlaces de tu web o redes, o escribe 'no tengo nada todavía'"></textarea>
+              <div class="wiz-nav"><button type="button" class="btn btn--ghost wiz-back" data-back>← Atrás</button><button type="button" class="btn btn--primary wiz-next" data-next>Siguiente →</button></div>
+            </div>
+
+            <div class="wiz-step" data-step="7">
+              <span class="wiz-kicker">Paso 7 · opcional</span>
+              <h3 class="wiz-q">¿Tienes colores o un estilo en mente?</h3>
+              <p class="wiz-help">Colores favoritos, si lo quieres elegante, moderno, colorido… lo que sea. Si no, yo te propongo.</p>
+              <input type="text" class="wiz-input" id="wiz-style" placeholder="Ej: Azul y blanco, estilo elegante y serio">
+              <div class="wiz-nav"><button type="button" class="btn btn--ghost wiz-back" data-back>← Atrás</button><button type="button" class="btn btn--primary wiz-next" data-next>Siguiente →</button></div>
+            </div>
+
+            <div class="wiz-step" data-step="8">
+              <span class="wiz-kicker">Paso 8 · opcional</span>
+              <h3 class="wiz-q">¿Hay alguna página que te guste?</h3>
+              <p class="wiz-help">Si viste una web que te encantó, pégame el enlace. Me sirve muchísimo para entender lo que buscas.</p>
+              <input type="text" class="wiz-input" id="wiz-ref" placeholder="Enlace de una web que te guste">
+              <div class="wiz-nav"><button type="button" class="btn btn--ghost wiz-back" data-back>← Atrás</button><button type="button" class="btn btn--primary wiz-next" data-next>Siguiente →</button></div>
+            </div>
+
+            <div class="wiz-step" data-step="9">
+              <span class="wiz-kicker">Paso 9 · opcional</span>
+              <h3 class="wiz-q">¿Quieres contarme algo más?</h3>
+              <p class="wiz-help">Cualquier idea, detalle o duda que tengas. No hace falta que sepas de tecnología, con que me expliques qué imaginas basta.</p>
+              <textarea class="wiz-input" id="wiz-desc" rows="3" placeholder="Cuéntame con tus palabras…"></textarea>
+              <div class="wiz-nav"><button type="button" class="btn btn--ghost wiz-back" data-back>← Atrás</button><button type="button" class="btn btn--primary wiz-next" data-next>Siguiente →</button></div>
+            </div>
+
+            <div class="wiz-step" data-step="10">
+              <span class="wiz-kicker">Paso 10 · opcional</span>
+              <h3 class="wiz-q">Presupuesto y plazo</h3>
+              <p class="wiz-help">Si tienes una idea de cuánto quieres invertir y para cuándo lo necesitas, dímelo. Si no, lo hablamos.</p>
+              <input type="text" class="wiz-input" id="wiz-budget" placeholder="Presupuesto aproximado (opcional)">
+              <input type="text" class="wiz-input" id="wiz-when" placeholder="¿Para cuándo lo quieres? (opcional)">
+              <div class="wiz-nav"><button type="button" class="btn btn--ghost wiz-back" data-back>← Atrás</button><button type="button" class="btn btn--primary wiz-next" data-next>Casi listo →</button></div>
+            </div>
+
+            <div class="wiz-step wiz-step--final" data-step="11">
+              <div class="wiz-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></div>
               <h3 class="wiz-q">¡Todo listo!</h3>
-              <p class="wiz-final-note">Toca el botón de abajo: accederás a mi WhatsApp con tu solicitud ya escrita. Solo tienes que <strong>enviarla</strong> y te respondo en breve para coordinar todo.</p>
-              <a href="#" id="wiz-wa" class="btn btn--primary btn--full wiz-wa" target="_blank" rel="noopener">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-                <span>Enviar por WhatsApp</span>
-              </a>
+              <p class="wiz-final-note">Toca el botón de abajo: se abrirá mi WhatsApp con toda tu información ya escrita. Solo tienes que <strong>enviarla</strong> y te respondo en breve para coordinar una reunión y arrancar.</p>
+              <a href="#" id="wiz-wa" class="btn btn--primary btn--full wiz-wa" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg><span>Enviar por WhatsApp</span></a>
               <button type="button" class="btn btn--ghost wiz-back" data-back>← Atrás</button>
             </div>
 
+            <div class="wiz-progress" id="wiz-progress" aria-hidden="true"></div>
           </div>
         </div>
       </div>
@@ -887,7 +913,7 @@
 <script src="js/core/AppInit.js"></script>
 
 <script>
-/* ===== Asistente de Contacto paso a paso (envía por WhatsApp) ===== */
+/* ===== Asistente de Contacto (multi-paso, envía por WhatsApp) ===== */
 (function(){
   var WA = "5358648458";
   var card = document.getElementById('wiz-card');
@@ -895,79 +921,69 @@
   var steps = [].slice.call(card.querySelectorAll('.wiz-step'));
   var total = steps.length;
   var cur = 0;
-  var data = { type:"", name:"", phone:"", desc:"", budget:"", when:"" };
 
-  // Puntos de progreso
   var prog = document.getElementById('wiz-progress');
   for(var i=0;i<total;i++){ var d=document.createElement('span'); d.className='wiz-dot'; prog.appendChild(d); }
   var dots = [].slice.call(prog.children);
 
+  function val(id){ var el=document.getElementById(id); return el? el.value.trim() : ""; }
+
+  function selectedTypes(){
+    var out=[];
+    card.querySelectorAll('#wiz-type .wiz-chip.sel').forEach(function(c){ out.push(c.getAttribute('data-val')); });
+    var o=val('wiz-type-other'); if(o) out.push(o);
+    return out;
+  }
+
   function paint(){
     steps.forEach(function(s,idx){ s.classList.toggle('is-active', idx===cur); });
-    // reiniciar animación
     var active = steps[cur];
     active.classList.remove('wiz-in'); void active.offsetWidth; active.classList.add('wiz-in');
     dots.forEach(function(d,idx){ d.classList.toggle('done', idx<cur); d.classList.toggle('now', idx===cur); });
-    var focusable = active.querySelector('.wiz-input, .wiz-chip');
-    if(focusable && focusable.tagName==='INPUT') setTimeout(function(){ try{focusable.focus();}catch(e){} }, 260);
+    var inp = active.querySelector('input, textarea');
+    if(inp) setTimeout(function(){ try{inp.focus();}catch(e){} }, 280);
   }
 
-  function collect(){
-    var n=document.getElementById('wiz-name'), p=document.getElementById('wiz-phone'),
-        d=document.getElementById('wiz-desc'), b=document.getElementById('wiz-budget'),
-        w=document.getElementById('wiz-when'), o=document.getElementById('wiz-type-other');
-    if(n) data.name=n.value.trim();
-    if(p) data.phone=p.value.trim();
-    if(d) data.desc=d.value.trim();
-    if(b) data.budget=b.value.trim();
-    if(w) data.when=w.value.trim();
-    if(o && o.value.trim()) data.type=o.value.trim();
-  }
+  function shake(){ card.classList.remove('wiz-shake'); void card.offsetWidth; card.classList.add('wiz-shake'); }
 
   function validate(){
     var step = cur+1;
-    if(step===1 && !data.type){ shake(); return false; }
-    if(step===2 && !data.name){ shake(); return false; }
-    if(step===3 && !data.phone){ shake(); return false; }
+    if(step===2 && !val('wiz-name')){ shake(); return false; }              // nombre obligatorio
+    if(step===3 && !val('wiz-phone') && !val('wiz-email')){ shake(); return false; } // al menos un contacto
     return true;
   }
-  function shake(){ card.classList.remove('wiz-shake'); void card.offsetWidth; card.classList.add('wiz-shake'); }
 
   function buildMsg(){
+    var types = selectedTypes();
     var L=["Hola Jesús, quiero desarrollar un proyecto.",""];
-    L.push("• Qué quiero: "+(data.type||"—"));
-    L.push("• Nombre: "+(data.name||"—"));
-    L.push("• WhatsApp: "+(data.phone||"—"));
-    if(data.desc)   L.push("• Detalles: "+data.desc);
-    if(data.budget) L.push("• Presupuesto: "+data.budget);
-    if(data.when)   L.push("• Para cuándo: "+data.when);
+    L.push("Qué quiero: " + (types.length? types.join(" / ") : "—"));
+    L.push("Nombre: " + (val('wiz-name')||"—"));
+    var contacto=[]; if(val('wiz-phone')) contacto.push("WhatsApp "+val('wiz-phone')); if(val('wiz-email')) contacto.push("Correo "+val('wiz-email'));
+    L.push("Contacto: " + (contacto.length? contacto.join(" · ") : "—"));
+    if(val('wiz-biz'))      L.push("Negocio/proyecto: "+val('wiz-biz'));
+    if(val('wiz-activity')) L.push("Se dedica a: "+val('wiz-activity'));
+    if(val('wiz-have'))     L.push("Ya tiene: "+val('wiz-have'));
+    if(val('wiz-style'))    L.push("Colores/estilo: "+val('wiz-style'));
+    if(val('wiz-ref'))      L.push("Referencia que le gusta: "+val('wiz-ref'));
+    if(val('wiz-desc'))     L.push("Detalles: "+val('wiz-desc'));
+    if(val('wiz-budget'))   L.push("Presupuesto: "+val('wiz-budget'));
+    if(val('wiz-when'))     L.push("Para cuándo: "+val('wiz-when'));
     return L.join(String.fromCharCode(10));
   }
 
-  // Chips (paso 1)
-  var chips = card.querySelectorAll('#wiz-type .wiz-chip');
-  chips.forEach(function(c){
-    c.addEventListener('click', function(){
-      chips.forEach(function(x){ x.classList.remove('sel'); });
-      c.classList.add('sel');
-      data.type = c.getAttribute('data-val');
-      var o=document.getElementById('wiz-type-other'); if(o) o.value='';
-    });
-  });
-  var other=document.getElementById('wiz-type-other');
-  if(other) other.addEventListener('input', function(){
-    if(other.value.trim()){ chips.forEach(function(x){ x.classList.remove('sel'); }); data.type=other.value.trim(); }
+  // Chips multi-selección (paso 1)
+  card.querySelectorAll('#wiz-type .wiz-chip').forEach(function(c){
+    c.addEventListener('click', function(){ c.classList.toggle('sel'); });
   });
 
   card.addEventListener('click', function(e){
     var nx=e.target.closest('[data-next]'), bk=e.target.closest('[data-back]');
-    if(nx){ collect(); if(!validate()) return; if(cur<total-1){ cur++; paint(); if(cur===total-1) prepFinal(); } }
+    if(nx){ if(!validate()) return; if(cur<total-1){ cur++; paint(); if(cur===total-1) prepFinal(); } }
     if(bk){ if(cur>0){ cur--; paint(); } }
   });
 
   function prepFinal(){
-    var wa=document.getElementById('wiz-wa');
-    wa.href = "https://wa.me/"+WA+"?text="+encodeURIComponent(buildMsg());
+    document.getElementById('wiz-wa').href = "https://wa.me/"+WA+"?text="+encodeURIComponent(buildMsg());
   }
 
   paint();
