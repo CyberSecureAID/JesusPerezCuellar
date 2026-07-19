@@ -726,7 +726,7 @@ class BookFolio {
 .bpf-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.5rem; transition:opacity .3s ease,transform .3s cubic-bezier(.23,1,.32,1); }
 
 @keyframes bpf-card-in { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
-.bpf-card { position:relative; display:flex; flex-direction:column; background:var(--color-bg-surface,#0d0d14); border:1px solid rgba(255,255,255,.06); border-radius:8px; overflow:hidden; cursor:pointer; outline:none; animation:bpf-card-in .45s cubic-bezier(.23,1,.32,1) both; transition:border-color .25s,box-shadow .4s; will-change:transform; }
+.bpf-card { position:relative; display:flex; flex-direction:column; background:var(--color-bg-surface,#0d0d14); border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden; cursor:pointer; outline:none; animation:bpf-card-in .45s cubic-bezier(.23,1,.32,1) both; transition:border-color .25s,box-shadow .4s; will-change:transform; }
 .bpf-card:hover,.bpf-card:focus-visible { border-color:rgba(0,255,255,.25); box-shadow:0 0 20px rgba(0,255,255,.08),0 8px 32px rgba(0,0,0,.4); }
 .bpf-card:focus-visible { outline:2px solid rgba(0,255,255,.5); outline-offset:2px; }
 
@@ -743,7 +743,7 @@ class BookFolio {
 .bpf-card-cat { font-family:var(--font-mono,monospace); font-size:.65rem; letter-spacing:.15em; text-transform:uppercase; color:var(--color-cyan-300,#00cccc); padding:2px 6px; background:rgba(0,255,255,.06); border:1px solid rgba(0,255,255,.15); border-radius:2px; }
 .bpf-card-title { font-family:var(--font-display,monospace); font-size:1rem; font-weight:700; letter-spacing:-.01em; color:var(--color-text-primary,#e8eaf0); margin:0; line-height:1.3; transition:color .15s; }
 .bpf-card:hover .bpf-card-title { color:var(--color-cyan-400,#00e5e5); }
-.bpf-card-desc { font-family:var(--font-body,sans-serif); font-size:.8125rem; line-height:1.6; color:var(--color-text-secondary,#8892a4); margin:0; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+.bpf-card-desc { display:none !important; font-family:var(--font-body,sans-serif); font-size:.8125rem; line-height:1.6; color:var(--color-text-secondary,#8892a4); margin:0; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
 
 .bpf-card-corner { position:absolute; width:12px; height:12px; border-color:rgba(0,255,255,.25); border-style:solid; opacity:0; transition:opacity .25s; }
 .bpf-card:hover .bpf-card-corner { opacity:1; }
