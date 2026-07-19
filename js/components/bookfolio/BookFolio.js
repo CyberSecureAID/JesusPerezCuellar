@@ -129,7 +129,7 @@ class BookFolio {
       <div class="bpf-modal-backdrop" id="bpf-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="bpf-modal-title">
         <div class="bpf-modal" id="bpf-modal">
           <button class="bpf-modal-close" id="bpf-modal-close" aria-label="Cerrar">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
               <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
           </button>
@@ -146,7 +146,7 @@ class BookFolio {
             <div class="bpf-modal-actions">
               <a class="bpf-modal-link btn btn--primary" id="bpf-modal-link" href="#" target="_blank" rel="noopener">
                 Ver proyecto
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
                   <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
                 </svg>
@@ -226,7 +226,7 @@ class BookFolio {
 
                 <div class="bpf-form-actions">
                   <button class="bpf-btn-save" id="bpf-btn-save">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
                       <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
                       <polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
                     </svg>
@@ -730,7 +730,7 @@ class BookFolio {
 .bpf-card:hover,.bpf-card:focus-visible { border-color:rgba(0,255,255,.25); box-shadow:0 0 20px rgba(0,255,255,.08),0 8px 32px rgba(0,0,0,.4); }
 .bpf-card:focus-visible { outline:2px solid rgba(0,255,255,.5); outline-offset:2px; }
 
-.bpf-card-img-wrap { position:relative; aspect-ratio:16/9; background:var(--color-bg-elevated,#13131e); overflow:hidden; flex-shrink:0; }
+.bpf-card-img-wrap { position:relative; aspect-ratio:1200/527; background:var(--color-bg-elevated,#13131e); overflow:hidden; flex-shrink:0; }
 .bpf-card-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .5s cubic-bezier(.23,1,.32,1); z-index:1; }
 .bpf-card:hover .bpf-card-img { transform:scale(1.05); }
 .bpf-card-img-fallback { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:2rem; color:rgba(0,255,255,.12); z-index:0; }
@@ -763,12 +763,12 @@ class BookFolio {
 
 .bpf-modal-backdrop { position:fixed; inset:0; background:rgba(5,5,8,.88); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); z-index:200; display:flex; align-items:center; justify-content:center; padding:1.5rem; opacity:0; pointer-events:none; transition:opacity .25s; }
 .bpf-modal-backdrop--open { opacity:1; pointer-events:all; }
-.bpf-modal { position:relative; width:100%; max-width:640px; background:var(--color-bg-elevated,#13131e); border:1px solid rgba(0,255,255,.2); border-radius:8px; overflow:hidden; box-shadow:0 0 40px rgba(0,255,255,.08),0 20px 60px rgba(0,0,0,.7); transform:translateY(12px); transition:transform .3s cubic-bezier(.23,1,.32,1); }
+.bpf-modal { position:relative; width:100%; max-width:680px; max-height:92vh; overflow:hidden auto; background:var(--color-bg-elevated,#13131e); border:1px solid rgba(0,255,255,.2); border-radius:12px; box-shadow:0 0 40px rgba(0,255,255,.08),0 20px 60px rgba(0,0,0,.7); transform:translateY(12px); transition:transform .3s cubic-bezier(.23,1,.32,1); }
 .bpf-modal-backdrop--open .bpf-modal { transform:translateY(0); }
-.bpf-modal-close { position:absolute; top:.75rem; right:.75rem; z-index:10; width:30px; height:30px; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.6); border:1px solid rgba(255,255,255,.08); border-radius:4px; color:var(--color-text-muted,#4a5568); cursor:pointer; transition:color .15s,border-color .15s; }
-.bpf-modal-close:hover { color:var(--color-cyan-400,#00e5e5); border-color:rgba(0,255,255,.3); }
-.bpf-modal-img-wrap { position:relative; width:100%; aspect-ratio:16/9; background:var(--color-bg-surface,#0d0d14); overflow:hidden; }
-.bpf-modal-img { width:100%; height:100%; object-fit:cover; }
+.bpf-modal-close { position:absolute; top:.85rem; right:.85rem; z-index:10; width:40px; height:40px; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.72); border:1px solid rgba(0,255,255,.4); border-radius:10px; color:#eaf7f7; cursor:pointer; transition:color .15s,border-color .15s,background .15s,transform .15s; }
+.bpf-modal-close:hover { color:#00e5e5; border-color:#00e5e5; background:rgba(0,229,229,.12); transform:scale(1.06); }
+.bpf-modal-img-wrap { position:relative; width:100%; aspect-ratio:1200/527; background:#05060b; overflow:hidden; }
+.bpf-modal-img { width:100%; height:100%; object-fit:contain; }
 .bpf-modal-img-overlay { position:absolute; bottom:0; left:0; right:0; height:60%; background:linear-gradient(to top,var(--color-bg-elevated,#13131e),transparent); pointer-events:none; }
 .bpf-modal-body { padding:1.5rem; }
 .bpf-modal-meta { margin-bottom:.75rem; }
