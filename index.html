@@ -893,7 +893,7 @@
       /* Los proyectos viven en js/data/projects.js (window.NP_PROJECTS).
          Sube PROJECTS_VERSION cada vez que edites esa lista para que la
          galería se refresque en los navegadores que ya la visitaron. */
-      const PROJECTS_VERSION = 'v3';
+      const PROJECTS_VERSION = 'v4';
       document.addEventListener('DOMContentLoaded', function () {
         try {
           if (localStorage.getItem('bookfolio_seed_version') !== PROJECTS_VERSION) {
@@ -1167,7 +1167,6 @@
   <script src="js/ui/GlitchEffect.js"></script>
   <script src="js/ui/CustomCursor.js"></script>
   <script src="js/sections/ServicesSection.js"></script>
-  <script src="js/sections/ProjectsSection.js"></script>
   <script src="js/sections/ContactSection.js"></script>
   <script src="js/audio/AudioManager.js"></script>
 <script src="js/core/AppInit.js"></script>
