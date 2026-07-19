@@ -101,7 +101,7 @@ const AppInit = (() => {
 
     // UI modules
     _setProgress(40);
-    const uiModules = ['TopBanner', 'TypeWriter', 'ScrollAnimations', 'GlitchEffect', 'CustomCursor', 'MagneticButtons', 'DeckScroll'];
+    const uiModules = ['TopBanner', 'TypeWriter', 'ScrollAnimations', 'GlitchEffect', 'CustomCursor', 'MagneticButtons'];
     for (let i = 0; i < uiModules.length; i++) {
       const key = uiModules[i];
       if (window[key]) {
