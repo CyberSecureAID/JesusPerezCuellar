@@ -1054,41 +1054,6 @@
 })();
 </script>
 <script>
-/* Sobre mí: cursor LUPA que amplía el texto debajo */
-(function(){
-  var section = document.getElementById('about');
-  var content = section ? section.querySelector('.about-center') : null;
-  if(!section || !content) return;
-  var SCALE = 1.75, R = 95; // radio de la lente (190/2)
-
-  var lens = document.createElement('div');
-  lens.className = 'about-lens';
-  var inner = content.cloneNode(true);
-  inner.removeAttribute('id');
-  inner.className = 'about-lens-content';
-  lens.appendChild(inner);
-  section.appendChild(lens);
-
-  function sync(){ inner.style.width = content.offsetWidth + 'px'; }
-  sync(); window.addEventListener('resize', sync);
-
-  section.addEventListener('mousemove', function(e){
-    var cR = content.getBoundingClientRect();
-    var sR = section.getBoundingClientRect();
-    // solo dentro del bloque de contenido
-    if(e.clientX < cR.left || e.clientX > cR.right || e.clientY < cR.top || e.clientY > cR.bottom){
-      lens.classList.remove('on'); return;
-    }
-    lens.classList.add('on');
-    var x = e.clientX - cR.left, y = e.clientY - cR.top;
-    lens.style.left = (e.clientX - sR.left - R) + 'px';
-    lens.style.top  = (e.clientY - sR.top  - R) + 'px';
-    inner.style.transform = 'translate(' + (R - x*SCALE) + 'px,' + (R - y*SCALE) + 'px) scale(' + SCALE + ')';
-  });
-  section.addEventListener('mouseleave', function(){ lens.classList.remove('on'); });
-})();
-</script>
-<script>
 /* Flip de las tarjetas "Cómo trabajamos" al tocar (móvil/touch) */
 (function(){
   document.querySelectorAll('.flow-step').forEach(function(step){
