@@ -1621,3 +1621,7 @@ html.deck-on [data-animate] {
   color: #25D366; border-color: rgba(37,211,102,.6); background: rgba(37,211,102,.10);
   box-shadow: 0 0 14px rgba(37,211,102,.35);
 }
+
+/* Redes sociales: se elevan al pasar el cursor (como los botones) */
+.social-link { transition: color .2s var(--ease-default), border-color .2s var(--ease-default), background-color .2s var(--ease-default), box-shadow .2s var(--ease-default), transform .2s var(--ease-default); }
+.social-link:hover { transform: translateY(-4px); }
