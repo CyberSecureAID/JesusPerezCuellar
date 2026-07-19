@@ -140,7 +140,7 @@
       max-width: 660px;
       margin-right: auto;
       padding: 0 var(--container-padding);
-      padding-bottom: 1.5rem;
+      padding-bottom: clamp(80px, 12vh, 110px);
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
@@ -170,7 +170,7 @@
 
     .hero-description { max-width: 540px; line-height: 1.7; margin: 0; }
     .hero-ctas   { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: flex-start; }
-    .hero-social { display: flex; gap: .95rem; flex-wrap: wrap; justify-content: flex-start; }
+    .hero-social { display: flex; gap: 1.15rem; flex-wrap: wrap; justify-content: flex-start; }
 
     /* Cintas dentro del hero, ancladas abajo */
     /* La cinta (.tmx) ya NO vive dentro del hero: es hermana entre
@@ -454,20 +454,26 @@
                 </div>
 
 
-        <div class="hero-trust" aria-label="Prueba y disponibilidad">
-          <a href="https://github.com/CyberSecureAID" target="_blank" rel="noopener" class="hero-trust-gh">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            <span>GitHub</span><span class="hero-trust-arrow" aria-hidden="true">→</span>
-          </a>
-          <div class="hero-trust-stats">
-            <span class="hero-trust-stat"><b>9</b>&nbsp;proyectos en vivo</span>
-            <span class="hero-trust-stat"><b>5+</b>&nbsp;años</span>
-            <span class="hero-trust-stat"><b>Full-Stack</b>&nbsp;Senior</span>
-          </div>
-          <span class="hero-trust-avail"><span class="hero-trust-dot" aria-hidden="true"></span>Disponible</span>
-        </div>
 
       </div><!-- /hero-lockup -->
+      <!-- Barra full-width al fondo del hero -->
+      <div class="hero-bar" aria-label="Confianza y disponibilidad">
+        <div class="hero-bar-inner">
+          <a href="https://github.com/CyberSecureAID" target="_blank" rel="noopener" class="hero-bar-gh">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span>Ver mi código en GitHub</span><span class="hero-bar-arrow" aria-hidden="true">→</span>
+          </a>
+          <div class="hero-bar-facts">
+            <span class="hero-bar-fact"><b>Full-Stack Senior</b></span>
+            <span class="hero-bar-div" aria-hidden="true"></span>
+            <span class="hero-bar-fact">Blockchain · Web · Trading</span>
+            <span class="hero-bar-div" aria-hidden="true"></span>
+            <span class="hero-bar-fact"><b>5+</b> años</span>
+          </div>
+          <div class="hero-bar-avail"><span class="hero-bar-dot" aria-hidden="true"></span>Disponible · Remote</div>
+        </div>
+      </div>
+
 
 
     </section><!-- /hero -->
@@ -582,57 +588,65 @@
 
         </div>
 
-        <!-- Cómo trabajamos -->
+        <!-- Cómo trabajamos: flujo interactivo -->
         <div class="svc-process" data-animate="fade-up">
           <h3 class="svc-process-title">Cómo trabajamos juntos</h3>
-          <p class="svc-process-sub">Sin tecnicismos y sin sorpresas. Cuatro pasos claros:</p>
-          <ol class="svc-steps">
-            <li class="svc-step">
-              <span class="svc-step-num">1</span>
-              <div>
-                <h4>Hablamos</h4>
-                <p>Me cuentas tu idea y te doy un aproximado de lo que costaría. Para que no te compliques, te paso un formulario donde vuelcas con calma todos los datos de tu proyecto: los de tu empresa, qué quieres lograr, tus redes… y yo me encargo del resto.</p>
+          <p class="svc-process-sub">Cuatro pasos claros, sin tecnicismos ni sorpresas.</p>
+          <div class="flow">
+            <div class="flow-line" aria-hidden="true"></div>
+
+            <div class="flow-step" tabindex="0">
+              <div class="flow-node">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <span class="flow-num">01</span>
               </div>
-            </li>
-            <li class="svc-step">
-              <span class="svc-step-num">2</span>
-              <div>
-                <h4>Te muestro el diseño</h4>
-                <p>Antes de programar nada, te entrego una imagen de cómo se va a ver tu proyecto —colores, estilo, logo—. Solo cuando te gusta y lo apruebas, empiezo a construir.</p>
+              <h4>Hablamos</h4>
+              <p>Me cuentas tu idea y te doy un aproximado de lo que costaría. Te paso un formulario para que vuelques con calma todos los datos de tu proyecto — y yo me encargo del resto.</p>
+            </div>
+
+            <div class="flow-step" tabindex="0">
+              <div class="flow-node">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span class="flow-num">02</span>
               </div>
-            </li>
-            <li class="svc-step">
-              <span class="svc-step-num">3</span>
-              <div>
-                <h4>Lo construyo</h4>
-                <p>Desarrollo todo con rapidez y con seguridad. Te lo entrego en tu propia cuenta y con tu correo corporativo, protegido y listo para que sea solo tuyo. Sigues el avance en todo momento.</p>
+              <h4>Te muestro el diseño</h4>
+              <p>Antes de programar nada, te entrego una imagen de cómo se verá tu proyecto — colores, estilo, logo. Solo cuando te gusta y lo apruebas, empiezo.</p>
+            </div>
+
+            <div class="flow-step" tabindex="0">
+              <div class="flow-node">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                <span class="flow-num">03</span>
               </div>
-            </li>
-            <li class="svc-step">
-              <span class="svc-step-num">4</span>
-              <div>
-                <h4>Lo lanzas</h4>
-                <p>Recibes tu proyecto completo y funcionando, con <strong>30 días de garantía</strong> por si hay que ajustar algo. El soporte continuo es opcional, cuando lo necesites.</p>
+              <h4>Lo construyo</h4>
+              <p>Desarrollo todo con rapidez y con seguridad. Te lo entrego en tu propia cuenta, protegido y listo para que sea solo tuyo. Sigues el avance en todo momento.</p>
+            </div>
+
+            <div class="flow-step" tabindex="0">
+              <div class="flow-node">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg>
+                <span class="flow-num">04</span>
               </div>
-            </li>
-          </ol>
+              <h4>Lo lanzas</h4>
+              <p>Recibes tu proyecto completo y funcionando, con <strong>30 días de garantía</strong> por si hay que ajustar algo. Soporte continuo opcional, cuando lo necesites.</p>
+            </div>
+          </div>
         </div>
 
-        <!-- Cómo empezamos -->
+        <!-- Cómo empezamos: persuasión + valor -->
         <div class="svc-start" data-animate="fade-up">
-          <div class="svc-start-info">
-            <h3 class="svc-start-title">Cómo empezamos</h3>
-            <p>Se arranca con un anticipo (normalmente entre el 40% y el 50%, <strong>negociable</strong> según el proyecto). Si es grande, puedes pagarlo <strong>por fases</strong>: abonas cada parte cuando se te entrega.</p>
-            <ul class="svc-start-facts">
-              <li><span>Pagos</span> Zelle · PayPal · Cripto</li>
-              <li><span>Entrega</span> Rápida — con más tiempo, más pulido</li>
-              <li><span>Garantía</span> 30 días incluidos</li>
-              <li><span>Modalidad</span> Remoto · Español e inglés</li>
-            </ul>
+          <div class="svc-start-lead">
+            <span class="svc-start-eyebrow">La pregunta del millón</span>
+            <h3 class="svc-start-title">¿Cuánto cuesta y cómo empezamos?</h3>
+            <p>Lo que normalmente necesita <strong>un equipo entero</strong> —un diseñador, un desarrollador, un experto en blockchain, otro en pagos— aquí lo hace <strong>una sola persona</strong>. Eso significa el trabajo de un equipo al precio de uno, y en días, no en meses.</p>
+            <p>Y no arriesgas todo de golpe: si tu proyecto es grande, lo dividimos <strong>por fases</strong> y pagas cada parte a medida que se te entrega y la ves funcionando. Sin sorpresas.</p>
           </div>
-          <div class="svc-start-cta">
-            <p>¿Tienes una idea en mente?</p>
-            <a href="#contact" class="btn btn--primary">
+          <div class="svc-start-card">
+            <div class="svc-fact"><span class="svc-fact-k">Para arrancar</span><span class="svc-fact-v">Anticipo 40–50% <em>negociable</em></span></div>
+            <div class="svc-fact"><span class="svc-fact-k">Pago flexible</span><span class="svc-fact-v">Por fases si el proyecto es grande</span></div>
+            <div class="svc-fact"><span class="svc-fact-k">Métodos</span><span class="svc-fact-v">Zelle · PayPal · Cripto</span></div>
+            <div class="svc-fact"><span class="svc-fact-k">Garantía</span><span class="svc-fact-v">30 días incluidos</span></div>
+            <a href="#contact" class="btn btn--primary btn--full">
               <span>Cuéntame tu idea</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
@@ -668,39 +682,31 @@
          ABOUT
     ═══════════════════════════════════════════════════════ -->
     <section id="about" class="section section--about" data-animate="fade-up" aria-label="Sobre mí">
-      <div class="section-container">
+      <div class="section-container about-center">
 
-        <div class="section-eyebrow">
-          <span class="eyebrow-code">// 01</span>
+        <div class="section-eyebrow section-eyebrow--center">
+          <span class="eyebrow-code">// 04</span>
           <span class="eyebrow-title">PERFIL</span>
         </div>
 
-        <div class="about-grid">
+        <h2 class="section-title about-h2">Desarrollador full-stack</h2>
+        <p class="about-lead">
+          Desarrollo software en múltiples lenguajes y entornos — desde scripts de trading
+          en PineScript y contratos inteligentes en Solidity, hasta backends en Python,
+          frontends en JavaScript y dApps completas sobre BNB Smart Chain y Ethereum.
+        </p>
+        <p class="about-lead about-lead--dim">
+          Experiencia práctica en protocolos DeFi, integración de wallets, automatización
+          on-chain y herramientas de análisis y monitoreo para mercados cripto.
+        </p>
 
-          <div class="about-text">
-            <h2 class="section-title">Desarrollador.<br>full-stack</h2>
-            <p class="about-desc">
-              Desarrollo software en múltiples lenguajes y entornos: desde scripts de
-              trading automatizado en PineScript hasta contratos inteligentes en Solidity,
-              pasando por backends en Python, frontends en JavaScript y dApps completas
-              sobre BNB Smart Chain y Ethereum.
-            </p>
-            <p class="about-desc">
-              Experiencia práctica en arquitectura de protocolos DeFi, integración de
-              wallets, automatización de procesos on-chain y construcción de herramientas
-              de análisis y monitoreo para mercados crypto.
-            </p>
-
-            <div class="about-tags" role="list" aria-label="Especialidades">
-              <span class="tag" role="listitem">Blockchain Dev</span>
-              <span class="tag" role="listitem">Smart Contracts</span>
-              <span class="tag" role="listitem">Web3 / DeFi</span>
-              <span class="tag" role="listitem">Python Dev</span>
-              <span class="tag" role="listitem">PineScript</span>
-              <span class="tag" role="listitem">Crypto Trader</span>
-            </div>
-          </div>
-
+        <div class="about-tags about-tags--center" role="list" aria-label="Especialidades">
+          <span class="tag" role="listitem">Blockchain Dev</span>
+          <span class="tag" role="listitem">Smart Contracts</span>
+          <span class="tag" role="listitem">Web3 / DeFi</span>
+          <span class="tag" role="listitem">Python Dev</span>
+          <span class="tag" role="listitem">PineScript</span>
+          <span class="tag" role="listitem">Crypto Trader</span>
         </div>
 
       </div>
