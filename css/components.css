@@ -1642,17 +1642,22 @@ textarea.wiz-input { resize: vertical; min-height: 90px; }
 }
 
 /* Tarjeta de cristal por paso del flujo (efecto como las de servicios) */
-.flow-card {
-  margin-top: .25rem; width: 100%;
-  background: var(--color-bg-surface); border: 1px solid var(--color-border);
-  border-radius: 14px; padding: 1.15rem 1rem;
-  transition: border-color .3s var(--ease-default), transform .3s var(--ease-cyber), box-shadow .35s var(--ease-out);
+.flow-card { margin-top: .25rem; width: 100%; min-height: 190px; perspective: 1200px; background: transparent; border: none; }
+.flow-card-inner { position: relative; width: 100%; min-height: 190px; transition: transform .6s cubic-bezier(.4,.2,.2,1); transform-style: preserve-3d; }
+.flow-card:hover .flow-card-inner, .flow-card:focus-within .flow-card-inner, .flow-card.flipped .flow-card-inner { transform: rotateY(180deg); }
+.flow-card-face {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  padding: 1.15rem 1rem; background: var(--color-bg-surface); border: 1px solid var(--color-border); border-radius: 14px;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  transition: box-shadow .35s var(--ease-out), border-color .3s;
 }
-.flow-step:hover .flow-card, .flow-step:focus-within .flow-card {
-  border-color: var(--color-border-cyan);
-  transform: translateY(-5px);
-  box-shadow: var(--glow-cyan-sm), 0 14px 32px rgba(0,0,0,.4);
+.flow-card-back { transform: rotateY(180deg); border-color: var(--color-border-cyan); }
+.flow-card-back p { color: var(--color-text-secondary); font-size: .82rem; line-height: 1.55; }
+.flow-card:hover .flow-card-face, .flow-card:focus-within .flow-card-face, .flow-card.flipped .flow-card-face {
+  box-shadow: var(--glow-cyan-sm), 0 14px 32px rgba(0,0,0,.4); border-color: var(--color-border-cyan);
 }
+.flow-flip-hint { margin-top: .7rem; font-family: var(--font-mono, monospace); font-size: .66rem; letter-spacing: .06em; text-transform: uppercase; color: var(--color-cyan-400); opacity: .75; }
+.flow-step { cursor: pointer; }
 
 /* "Cómo empezamos": mismo efecto de movimiento en la tarjeta */
 .svc-start-card { transition: border-color .3s var(--ease-default), transform .3s var(--ease-cyber), box-shadow .35s var(--ease-out); }
@@ -1717,3 +1722,24 @@ textarea.wiz-input { resize: vertical; min-height: 90px; }
 .about-lens-content { position: absolute; top: 0; left: 0; transform-origin: 0 0; }
 .about-lens-content .about-lead--dim { color: var(--color-text-secondary); }
 @media (hover: none) { .about-lens { display: none !important; } }
+
+/* Ocultar el eyebrow "// 04 PROYECTOS" de la galería */
+.bpf-eyebrow { display: none !important; }
+
+/* Centrar TODOS los títulos en versión móvil */
+@media (max-width: 768px) {
+  .section-title,
+  .section-subtitle,
+  .bpf-section-title,
+  .bpf-header,
+  .svc-process-title,
+  .svc-process-sub,
+  .svc-start-title,
+  .wiz-heading,
+  .about-h2 {
+    text-align: center !important;
+  }
+  .bpf-section-title { margin-left: auto; margin-right: auto; }
+  .svc-start-lead { text-align: center; }
+  .svc-start-eyebrow { display: block; }
+}
