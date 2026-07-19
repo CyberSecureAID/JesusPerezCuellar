@@ -748,8 +748,8 @@ class BookFolio {
 .bpf-card-corner--br { bottom:6px;right:6px;border-width:0 1px 1px 0 }
 
 .bpf-loadmore { display:flex; justify-content:center; margin-top:2.5rem; }
-.bpf-loadmore-btn { display:inline-flex; align-items:center; gap:.5rem; height:44px; padding:0 1.75rem; text-decoration:none; font-family:var(--font-mono,monospace); font-size:.8rem; letter-spacing:.1em; text-transform:uppercase; color:var(--color-cyan-400,#00e5e5); background:rgba(0,255,255,.04); border:1px solid rgba(0,255,255,.22); border-radius:2px; cursor:pointer; transition:color .18s,border-color .18s,background .18s,box-shadow .18s; }
-.bpf-loadmore-btn:hover { background:rgba(0,255,255,.09); border-color:rgba(0,255,255,.45); box-shadow:0 0 24px rgba(0,255,255,.12); }
+.bpf-loadmore-btn { display:inline-flex; align-items:center; gap:.5rem; height:48px; padding:0 1.9rem; text-decoration:none; font-family:var(--font-mono,monospace); font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:#eafffe; background:linear-gradient(135deg,rgba(0,229,229,.16),rgba(127,90,240,.12)); border:1px solid rgba(0,255,255,.4); border-radius:11px; cursor:pointer; transition:color .2s,border-color .2s,background .2s,box-shadow .3s,transform .2s; }
+.bpf-loadmore-btn:hover { background:linear-gradient(135deg,rgba(0,229,229,.24),rgba(127,90,240,.18)); border-color:var(--color-cyan-400,#00e5e5); box-shadow:0 10px 28px rgba(0,229,229,.24); transform:translateY(-2px); }
 .bpf-loadmore-btn:focus-visible { outline:2px solid rgba(0,255,255,.5); outline-offset:2px; }
 .bpf-loadmore-count { color:var(--color-text-muted,#4a5568); font-size:.72rem; }
 .bpf-empty { text-align:center; padding:4rem 0; }
