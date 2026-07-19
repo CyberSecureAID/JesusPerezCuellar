@@ -1491,3 +1491,33 @@ a.contact-info-value:hover { color: var(--color-cyan-400); }
   border-color: var(--color-cyan-300);
   background: var(--color-cyan-glow-sm);
 }
+
+/* ============================================================
+   BOTÓN DE TEMA (claro / oscuro)
+   ============================================================ */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin-left: auto;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color .2s ease, border-color .2s ease, background .2s ease;
+}
+.theme-toggle:hover {
+  color: var(--color-cyan-400);
+  border-color: var(--color-border-cyan);
+  background: var(--color-cyan-glow-sm);
+}
+.theme-toggle .theme-icon { display: none; }
+.theme-icon--moon { display: inline; }               /* oscuro → muestra luna */
+html[data-theme="light"] .theme-icon--moon { display: none; }
+html[data-theme="light"] .theme-icon--sun  { display: inline; }  /* claro → muestra sol */
+
+/* Deja un respiro entre el botón de tema y el hamburguesa (móvil) */
+.nav-toggle { margin-left: 0.5rem; }

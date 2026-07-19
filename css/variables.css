@@ -309,3 +309,72 @@
     --transition-glow:      none;
   }
 }
+
+/* ============================================================
+   TEMA CLARO  (html[data-theme="light"])
+   ============================================================ */
+html[data-theme="light"] {
+  --color-bg-base:     #eceef3;
+  --color-bg-surface:  #f4f6fa;
+  --color-bg-elevated: #ffffff;
+  --color-bg-overlay:  #e2e6ee;
+  --color-bg-glass:    rgba(244, 246, 250, 0.72);
+
+  --color-cyan-500: #0b8f8f;
+  --color-cyan-400: #0d9488;
+  --color-cyan-300: #0f766e;
+  --color-cyan-200: #115e59;
+  --color-cyan-glow:    rgba(13, 148, 136, 0.12);
+  --color-cyan-glow-sm: rgba(13, 148, 136, 0.06);
+
+  --color-violet-500: #6d4ee0;
+  --color-violet-400: #7c5cf0;
+  --color-violet-300: #5b3fd0;
+  --color-violet-glow:    rgba(109, 78, 224, 0.14);
+  --color-violet-glow-sm: rgba(109, 78, 224, 0.07);
+
+  --color-text-primary:   #131722;
+  --color-text-secondary: #3f4759;
+  --color-text-muted:     #6b7488;
+  --color-text-disabled:  #9aa2b1;
+  --color-text-inverse:   #f4f6fa;
+
+  --color-border:        rgba(0, 0, 0, 0.10);
+  --color-border-subtle: rgba(0, 0, 0, 0.05);
+  --color-border-cyan:   rgba(13, 148, 136, 0.35);
+  --color-border-violet: rgba(109, 78, 224, 0.30);
+  --color-border-active: rgba(13, 148, 136, 0.55);
+
+  --gradient-text-cyber: linear-gradient(90deg, #0d9488, #6d4ee0);
+  --gradient-hero-bg:    linear-gradient(180deg, #f4f6fa 0%, #eceef3 100%);
+
+  --glass-bg:          rgba(244, 246, 250, 0.80);
+  --glass-bg-light:    rgba(255, 255, 255, 0.60);
+  --glass-border:      rgba(0, 0, 0, 0.08);
+  --glass-border-cyan: rgba(13, 148, 136, 0.20);
+}
+
+/* Oculta el canvas de matrix/grid (diseñado para fondo oscuro) */
+html[data-theme="light"] #bg-canvas { opacity: 0 !important; }
+
+/* Neutraliza los tintes oscuros de sección para que no ensucien el claro */
+html[data-theme="light"] .section--about,
+html[data-theme="light"] .section--skills,
+html[data-theme="light"] .section--blockchain {
+  background: transparent !important;
+}
+
+/* Transición suave al cambiar de tema */
+body { transition: background-color .45s ease, color .45s ease; }
+
+/* En claro, el terminal se mantiene oscuro pero con texto legible */
+html[data-theme="light"] .about-terminal {
+  background: #0d0d14 !important;
+  border-color: rgba(0, 0, 0, 0.25) !important;
+}
+html[data-theme="light"] .about-terminal,
+html[data-theme="light"] .about-terminal .terminal-body,
+html[data-theme="light"] .about-terminal pre,
+html[data-theme="light"] .about-terminal code {
+  color: #d6dae4 !important;
+}
