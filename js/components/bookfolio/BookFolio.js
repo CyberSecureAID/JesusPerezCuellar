@@ -64,13 +64,8 @@ class BookFolio {
   ═══════════════════════════════════════════════════════════════ */
 
   _loadProjects() {
-    try {
-      const saved = localStorage.getItem('bookfolio_projects');
-      if (saved) {
-        this._projects = JSON.parse(saved);
-        return;
-      }
-    } catch (_) {}
+    /* Fuente de la verdad: projects.js (window.NP_PROJECTS). Se ignora
+       cualquier copia vieja en localStorage para que los cambios siempre salgan. */
     this._projects = this._defaultProjects.map((p, i) => ({
       id:          p.id || `p_${Date.now()}_${i}`,
       title:       p.title       || 'Proyecto sin título',
@@ -283,7 +278,7 @@ class BookFolio {
       <article class="bpf-card" data-id="${p.id}" data-index="${i}"
         tabindex="0" role="button"
         aria-label="Ver proyecto: ${this._esc(p.title)}"
-        style="animation-delay:${i * 60}ms">
+        style="animation-delay:0ms">
         <div class="bpf-card-img-wrap">
           ${p.image
             ? `<img class="bpf-card-img" src="${this._esc(p.image)}" alt="${this._esc(p.title)}" loading="eager" decoding="async" fetchpriority="high" onerror="this.style.display='none'">`
@@ -726,7 +721,7 @@ class BookFolio {
 .bpf-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.5rem; transition:opacity .3s ease,transform .3s cubic-bezier(.23,1,.32,1); }
 
 @keyframes bpf-card-in { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
-.bpf-card { position:relative; display:flex; flex-direction:column; background:var(--color-bg-surface,#0d0d14); border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden; cursor:pointer; outline:none; animation:bpf-card-in .45s cubic-bezier(.23,1,.32,1) both; transition:border-color .25s,box-shadow .4s; will-change:transform; }
+.bpf-card { position:relative; display:flex; flex-direction:column; background:var(--color-bg-surface,#0d0d14); border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden; cursor:pointer; outline:none; animation:bpf-card-in .28s ease both; transition:border-color .25s,box-shadow .4s; will-change:transform; }
 .bpf-card:hover,.bpf-card:focus-visible { border-color:rgba(0,255,255,.25); box-shadow:0 0 20px rgba(0,255,255,.08),0 8px 32px rgba(0,0,0,.4); }
 .bpf-card:focus-visible { outline:2px solid rgba(0,255,255,.5); outline-offset:2px; }
 
