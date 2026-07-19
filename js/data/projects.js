@@ -82,3 +82,12 @@ window.NP_PROJECTS = [
     "image": "assets/projects/shots/p9.jpg"
   }
 ];
+
+/* Precargar las imágenes de proyectos para que estén en caché cuanto antes */
+(function(){
+  try{
+    window.NP_PROJECTS.forEach(function(p){
+      if(p.image){ var im=new Image(); im.decoding='async'; im.src=p.image; }
+    });
+  }catch(e){}
+})();
