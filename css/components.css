@@ -1491,8 +1491,8 @@ select.tk-input { cursor: pointer; }
   background: var(--color-bg-base); border: 1px solid var(--color-border-violet); color: var(--color-violet-300, #b59bf8);
   font-family: var(--font-mono, monospace); font-size: .7rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
 .flow-step h4 { margin: 0 0 .55rem; font-size: 1.05rem; color: var(--color-text-primary); }
-.flow-step p { margin: 0 auto; font-size: .84rem; line-height: 1.6; color: var(--color-text-muted); max-width: 210px; }
-.flow-step:hover, .flow-step:focus-within { transform: translateY(-6px); }
+.flow-step p { margin: 0; font-size: .84rem; line-height: 1.6; color: var(--color-text-muted); }
+
 .flow-step:hover .flow-node, .flow-step:focus-within .flow-node {
   background: #0f2930; border-color: var(--color-cyan-400); box-shadow: 0 0 22px var(--color-cyan-glow); transform: scale(1.07); }
 @media (max-width: 860px) {
@@ -1581,7 +1581,7 @@ select.tk-input { cursor: pointer; }
 .wiz-card > * { position: relative; z-index: 1; }
 
 /* Puntos de progreso */
-.wiz-progress { display: flex; gap: .5rem; justify-content: center; margin-bottom: 1.8rem; }
+.wiz-progress { display: flex; gap: .5rem; justify-content: center; margin-top: 1.8rem; flex-wrap: wrap; }
 .wiz-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-border); transition: all .3s ease; }
 .wiz-dot.done { background: var(--color-cyan-400); }
 .wiz-dot.now { background: var(--color-cyan-400); transform: scale(1.5); box-shadow: 0 0 12px var(--color-cyan-glow); }
@@ -1595,7 +1595,7 @@ select.tk-input { cursor: pointer; }
 .wiz-card.wiz-shake { animation: wizShake .4s ease; }
 
 .wiz-kicker { font-family: var(--font-mono, monospace); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--color-cyan-400); }
-.wiz-q { font-size: clamp(1.4rem, 3.5vw, 1.9rem); margin: .5rem 0 1.5rem; line-height: 1.2; }
+.wiz-q { font-size: clamp(1.35rem, 3.3vw, 1.8rem); margin: .4rem 0 .6rem; line-height: 1.2; }
 
 /* Chips seleccionables (paso 1) */
 .wiz-chips { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
@@ -1640,3 +1640,33 @@ textarea.wiz-input { resize: vertical; min-height: 90px; }
   .wiz-card { padding: 1.8rem 1.3rem 1.5rem; min-height: 400px; border-radius: 18px; }
   .wiz-chips { grid-template-columns: 1fr; }
 }
+
+/* Tarjeta de cristal por paso del flujo (efecto como las de servicios) */
+.flow-card {
+  margin-top: .25rem; width: 100%;
+  background: var(--color-bg-surface); border: 1px solid var(--color-border);
+  border-radius: 14px; padding: 1.15rem 1rem;
+  transition: border-color .3s var(--ease-default), transform .3s var(--ease-cyber), box-shadow .35s var(--ease-out);
+}
+.flow-step:hover .flow-card, .flow-step:focus-within .flow-card {
+  border-color: var(--color-border-cyan);
+  transform: translateY(-5px);
+  box-shadow: var(--glow-cyan-sm), 0 14px 32px rgba(0,0,0,.4);
+}
+
+/* "Cómo empezamos": mismo efecto de movimiento en la tarjeta */
+.svc-start-card { transition: border-color .3s var(--ease-default), transform .3s var(--ease-cyber), box-shadow .35s var(--ease-out); }
+.svc-start-card:hover {
+  border-color: var(--color-cyan-400);
+  transform: translateY(-5px);
+  box-shadow: var(--glow-cyan-sm), 0 18px 46px rgba(0,0,0,.45);
+}
+
+/* Texto de ayuda bajo cada pregunta del asistente */
+.wiz-help { font-size: .9rem; color: var(--color-text-secondary); line-height: 1.55; margin: 0 0 1.3rem; }
+/* Chip seleccionado (multi) con check visual */
+.wiz-multi .wiz-chip { padding-right: 2.2rem; }
+.wiz-multi .wiz-chip.sel::after {
+  content: "✓"; position: absolute; top: .7rem; right: .8rem; color: var(--color-cyan-400); font-weight: 700; font-size: .9rem;
+}
+.wiz-chip { position: relative; }
