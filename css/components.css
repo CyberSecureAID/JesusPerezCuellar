@@ -1306,7 +1306,17 @@
   list-style: none; margin: 0; padding: 0;
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
 }
-.svc-step { display: flex; flex-direction: column; gap: .75rem; }
+.svc-step {
+  display: flex; flex-direction: column; gap: .75rem;
+  background: var(--color-bg-surface); border: 1px solid var(--color-border);
+  border-radius: 14px; padding: 1.4rem;
+  transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease;
+}
+.svc-step:hover {
+  border-color: var(--color-border-cyan); transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,0,0,.35);
+}
+.svc-step:hover .svc-step-num { background: var(--color-cyan-glow-sm); box-shadow: 0 0 14px var(--color-cyan-glow); }
 .svc-step-num {
   display: inline-flex; align-items: center; justify-content: center;
   width: 44px; height: 44px; border-radius: 12px;
@@ -1317,8 +1327,8 @@
 .svc-step h4 { margin: 0 0 .3rem; font-size: 1.05rem; }
 .svc-step p { margin: 0; color: var(--color-text-secondary); font-size: .92rem; line-height: 1.6; }
 @media (max-width: 860px) {
-  .svc-steps { grid-template-columns: 1fr; gap: 1.6rem; }
-  .svc-step { flex-direction: row; }
+  .svc-steps { grid-template-columns: 1fr; gap: 1rem; }
+  .svc-step { flex-direction: row; align-items: flex-start; }
 }
 
 /* Cómo empezamos */
@@ -1345,4 +1355,81 @@
 @media (max-width: 768px) {
   .svc-start { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem; }
   .svc-start-cta { border-left: none; border-top: 1px solid var(--color-border); padding-left: 0; padding-top: 1.5rem; }
+}
+
+/* ============================================================
+   BARRA DE CONFIANZA dentro del hero (bajo las redes)
+   ============================================================ */
+.hero-trust {
+  display: flex; align-items: center; gap: .55rem 1.1rem; flex-wrap: wrap;
+  margin-top: .3rem; padding: .7rem .9rem; border-radius: 12px;
+  background: rgba(255,255,255,.03); border: 1px solid var(--color-border);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+.hero-trust-gh {
+  display: inline-flex; align-items: center; gap: .4rem; text-decoration: none;
+  color: var(--color-text-primary); font-family: var(--font-mono, monospace); font-size: .8rem;
+  padding: .35rem .7rem; border: 1px solid var(--color-border-cyan); border-radius: 8px;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.hero-trust-gh:hover { color: var(--color-cyan-400); border-color: var(--color-cyan-400); background: var(--color-cyan-glow-sm); }
+.hero-trust-arrow { transition: transform .2s; }
+.hero-trust-gh:hover .hero-trust-arrow { transform: translateX(2px); }
+.hero-trust-stats { display: flex; gap: 1.1rem; flex-wrap: wrap; }
+.hero-trust-stat { font-size: .82rem; color: var(--color-text-muted); white-space: nowrap; }
+.hero-trust-stat b { color: var(--color-cyan-400); font-weight: 700; }
+.hero-trust-avail { display: inline-flex; align-items: center; gap: .4rem; font-size: .82rem; color: var(--color-text-secondary); margin-left: auto; }
+.hero-trust-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px rgba(34,197,94,.8); animation: trustPulse 2s ease-in-out infinite; }
+@media (max-width: 768px) { .hero-trust-avail { margin-left: 0; } .hero-trust { gap: .5rem .9rem; } }
+
+/* ============================================================
+   CONTACTO — Generador de Ticket de Producción
+   ============================================================ */
+.ticket-wrap {
+  display: grid; grid-template-columns: 1.1fr .9fr; gap: 2rem; margin-top: 2.5rem;
+  align-items: start;
+}
+.ticket-form { display: flex; flex-direction: column; gap: 1.1rem; }
+.tk-group { display: flex; flex-direction: column; gap: .4rem; }
+.tk-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.tk-label { font-size: .9rem; font-weight: 600; color: var(--color-text-primary); }
+.tk-req { color: var(--color-cyan-400); }
+.tk-opt { color: var(--color-text-muted); font-weight: 400; font-size: .82rem; }
+.tk-input {
+  width: 100%; background: var(--color-bg-surface); border: 1px solid var(--color-border);
+  color: var(--color-text-primary); border-radius: 10px; padding: .7rem .9rem;
+  font-size: .92rem; font-family: inherit; transition: border-color .2s, box-shadow .2s;
+}
+.tk-input:focus { outline: none; border-color: var(--color-cyan-400); box-shadow: 0 0 0 3px var(--color-cyan-glow-sm); }
+textarea.tk-input { resize: vertical; min-height: 76px; }
+select.tk-input { cursor: pointer; }
+.tk-hint {
+  margin: .1rem 0 0; font-size: .85rem; line-height: 1.5; color: var(--color-text-secondary);
+  padding: .6rem .8rem; background: var(--color-cyan-glow-sm);
+  border-left: 2px solid var(--color-border-cyan); border-radius: 0 8px 8px 0;
+}
+
+/* Panel del ticket */
+.ticket-side { display: flex; flex-direction: column; gap: .8rem; position: sticky; top: 90px; }
+.ticket-card { background: #0a0c14; border: 1px solid var(--color-border-cyan); border-radius: 12px; overflow: hidden; }
+.ticket-card-head { display: flex; align-items: center; gap: 6px; padding: .6rem .8rem; background: var(--color-bg-surface); border-bottom: 1px solid var(--color-border); }
+.ticket-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--color-border); }
+.ticket-dot:nth-child(1){ background:#ff5f56; } .ticket-dot:nth-child(2){ background:#ffbd2e; } .ticket-dot:nth-child(3){ background:#27c93f; }
+.ticket-card-title { margin-left: 6px; font-family: var(--font-mono, monospace); font-size: .78rem; color: var(--color-text-muted); }
+.ticket-preview {
+  margin: 0; padding: 1rem; font-family: var(--font-mono, monospace); font-size: .82rem;
+  line-height: 1.6; color: var(--color-text-secondary); white-space: pre-wrap; word-break: break-word;
+  min-height: 180px;
+}
+.ticket-steps { list-style: none; counter-reset: st; margin: .5rem 0 0; padding: 0; display: flex; flex-direction: column; gap: .6rem; }
+.ticket-steps li { counter-increment: st; position: relative; padding-left: 2rem; font-size: .86rem; color: var(--color-text-secondary); line-height: 1.5; }
+.ticket-steps li::before {
+  content: counter(st); position: absolute; left: 0; top: 0; width: 22px; height: 22px;
+  display: flex; align-items: center; justify-content: center; border-radius: 6px;
+  background: var(--color-bg-surface); border: 1px solid var(--color-border-cyan);
+  color: var(--color-cyan-400); font-size: .75rem; font-weight: 700; font-family: var(--font-mono, monospace);
+}
+@media (max-width: 860px) {
+  .ticket-wrap { grid-template-columns: 1fr; gap: 1.5rem; }
+  .ticket-side { position: static; }
 }
