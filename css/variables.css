@@ -1,0 +1,311 @@
+/*
+  ============================================================
+  CYBER PORTFOLIO — F02 · css/variables.css
+  ============================================================
+  VERSIÓN: 1.2.0 — Hero negro puro con fade hacia color original
+*/
+
+:root {
+
+  /* ── COLORES ── */
+  --color-bg-base:        #050508;
+  --color-bg-surface:     #0d0d14;
+  --color-bg-elevated:    #13131e;
+  --color-bg-overlay:     #1a1a2e;
+  --color-bg-glass:       rgba(13, 13, 20, 0.72);
+
+  --color-cyan-500:       #00ffff;
+  --color-cyan-400:       #00e5e5;
+  --color-cyan-300:       #00cccc;
+  --color-cyan-200:       #00aaaa;
+  --color-cyan-100:       #003333;
+  --color-cyan-glow:      rgba(0, 255, 255, 0.15);
+  --color-cyan-glow-sm:   rgba(0, 255, 255, 0.08);
+
+  --color-violet-500:     #7f5af0;
+  --color-violet-400:     #9b7cf4;
+  --color-violet-300:     #b59bf8;
+  --color-violet-200:     #4a3090;
+  --color-violet-100:     #1e1035;
+  --color-violet-glow:    rgba(127, 90, 240, 0.18);
+  --color-violet-glow-sm: rgba(127, 90, 240, 0.08);
+
+  --color-green-500:      #2cb67d;
+  --color-green-400:      #3dd68c;
+  --color-green-glow:     rgba(44, 182, 125, 0.18);
+
+  --color-red-500:        #ff4757;
+  --color-red-400:        #ff6b81;
+  --color-red-glow:       rgba(255, 71, 87, 0.18);
+
+  --color-yellow-500:     #ffd600;
+  --color-yellow-400:     #ffe033;
+
+  --color-text-primary:   #e8eaf0;
+  --color-text-secondary: #8892a4;
+  --color-text-muted:     #4a5568;
+  --color-text-disabled:  #2d3748;
+  --color-text-inverse:   #050508;
+
+  --color-border:         rgba(255, 255, 255, 0.06);
+  --color-border-subtle:  rgba(255, 255, 255, 0.03);
+  --color-border-cyan:    rgba(0, 255, 255, 0.2);
+  --color-border-violet:  rgba(127, 90, 240, 0.2);
+  --color-border-active:  rgba(0, 255, 255, 0.5);
+
+  --gradient-cyber:
+    linear-gradient(135deg, var(--color-cyan-500) 0%, var(--color-violet-500) 100%);
+  --gradient-cyber-subtle:
+    linear-gradient(135deg, rgba(0,255,255,0.12) 0%, rgba(127,90,240,0.12) 100%);
+  --gradient-surface:
+    linear-gradient(180deg, var(--color-bg-surface) 0%, var(--color-bg-base) 100%);
+  --gradient-glow-cyan:
+    radial-gradient(ellipse at center, rgba(0,255,255,0.15) 0%, transparent 70%);
+  --gradient-glow-violet:
+    radial-gradient(ellipse at center, rgba(127,90,240,0.15) 0%, transparent 70%);
+
+  /*
+    HERO BACKGROUND — v1.2.0
+    La sección hero es negra pura (#000) para que el GIF
+    con mix-blend-mode:screen se fusione perfectamente.
+    El desvanecimiento hacia el color original de la página
+    se gestiona en layout.css mediante el pseudo-elemento ::after
+    del hero, no aquí — así el fondo de la sección siguiente
+    (--color-bg-base: #050508) aparece de forma natural al hacer scroll.
+
+    Se eliminan los gradientes cian/violeta del hero-bg que
+    creaban el fondo tintado visible detrás del GIF.
+  */
+  --gradient-hero-bg: #000000;
+
+  --gradient-text-cyber:
+    linear-gradient(90deg, var(--color-cyan-500), var(--color-violet-400));
+
+  /* ── TIPOGRAFÍA ── */
+  --font-display: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', monospace;
+
+  --text-2xs:  0.625rem;
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  clamp(1.5rem,  2.5vw, 1.75rem);
+  --text-4xl:  clamp(1.75rem, 3vw,   2rem);
+  --text-5xl:  clamp(1.5rem,  2.8vw, 2rem);
+  --text-6xl:  clamp(2rem,    5vw,   3.2rem);
+  --text-hero: clamp(1.4rem,  3.5vw, 2.6rem);
+
+  --weight-light:    300;
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  --leading-tight:   1.2;
+  --leading-snug:    1.35;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;
+  --leading-loose:   2;
+
+  --tracking-tight:   -0.02em;
+  --tracking-normal:  0em;
+  --tracking-wide:    0.04em;
+  --tracking-wider:   0.08em;
+  --tracking-widest:  0.2em;
+  --tracking-code:    0.02em;
+
+  /* ── ESPACIADO ── */
+  --space-1:   0.25rem;
+  --space-2:   0.5rem;
+  --space-3:   0.75rem;
+  --space-4:   1rem;
+  --space-5:   1.25rem;
+  --space-6:   1.5rem;
+  --space-8:   2rem;
+  --space-10:  2.5rem;
+  --space-12:  3rem;
+  --space-16:  4rem;
+  --space-20:  5rem;
+  --space-24:  6rem;
+  --space-32:  8rem;
+  --space-40:  10rem;
+
+  --container-max:     1200px;
+  --container-wide:    1400px;
+  --container-narrow:  800px;
+  --container-padding: clamp(1rem, 5vw, 2rem);
+  --section-padding-y: clamp(3.5rem, 7vw, 6rem);
+
+  /* ── BORDER RADIUS ── */
+  --radius-sm:   2px;
+  --radius-md:   4px;
+  --radius-lg:   8px;
+  --radius-xl:   12px;
+  --radius-2xl:  16px;
+  --radius-3xl:  24px;
+  --radius-full: 9999px;
+
+  /* ── SOMBRAS ── */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.4);
+  --shadow-lg: 0 10px 30px rgba(0,0,0,0.6), 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-xl: 0 20px 60px rgba(0,0,0,0.7), 0 8px 24px rgba(0,0,0,0.5);
+
+  --glow-cyan-sm:
+    0 0 8px rgba(0,255,255,0.3), 0 0 20px rgba(0,255,255,0.1);
+  --glow-cyan-md:
+    0 0 15px rgba(0,255,255,0.4), 0 0 40px rgba(0,255,255,0.15), 0 0 80px rgba(0,255,255,0.05);
+  --glow-cyan-lg:
+    0 0 20px rgba(0,255,255,0.5), 0 0 60px rgba(0,255,255,0.2), 0 0 120px rgba(0,255,255,0.08);
+
+  --glow-violet-sm:
+    0 0 8px rgba(127,90,240,0.3), 0 0 20px rgba(127,90,240,0.1);
+  --glow-violet-md:
+    0 0 15px rgba(127,90,240,0.4), 0 0 40px rgba(127,90,240,0.15), 0 0 80px rgba(127,90,240,0.05);
+  --glow-violet-lg:
+    0 0 20px rgba(127,90,240,0.5), 0 0 60px rgba(127,90,240,0.2), 0 0 120px rgba(127,90,240,0.08);
+
+  --glow-green-sm:
+    0 0 8px rgba(44,182,125,0.4), 0 0 20px rgba(44,182,125,0.15);
+
+  --text-glow-cyan:   0 0 10px rgba(0,255,255,0.5), 0 0 30px rgba(0,255,255,0.2);
+  --text-glow-violet: 0 0 10px rgba(127,90,240,0.5), 0 0 30px rgba(127,90,240,0.2);
+
+  /* ── GLASSMORPHISM ── */
+  --glass-blur:        blur(12px);
+  --glass-blur-heavy:  blur(24px);
+  --glass-blur-light:  blur(6px);
+  --glass-bg:          rgba(13, 13, 20, 0.7);
+  --glass-bg-light:    rgba(19, 19, 30, 0.5);
+  --glass-border:      rgba(255, 255, 255, 0.05);
+  --glass-border-cyan: rgba(0, 255, 255, 0.12);
+
+  /* ── TRANSICIONES ── */
+  --duration-instant:  50ms;
+  --duration-fast:     150ms;
+  --duration-normal:   250ms;
+  --duration-slow:     400ms;
+  --duration-slower:   600ms;
+  --duration-loading:  1800ms;
+
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in:      cubic-bezier(0.4, 0, 1, 1);
+  --ease-out:     cubic-bezier(0, 0, 0.2, 1);
+  --ease-sharp:   cubic-bezier(0.4, 0, 0.6, 1);
+  --ease-spring:  cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-cyber:   cubic-bezier(0.23, 1, 0.32, 1);
+
+  --transition-default:  all var(--duration-normal) var(--ease-default);
+  --transition-fast:     all var(--duration-fast) var(--ease-default);
+  --transition-color:    color var(--duration-fast) var(--ease-default),
+                         background-color var(--duration-fast) var(--ease-default),
+                         border-color var(--duration-fast) var(--ease-default);
+  --transition-transform: transform var(--duration-normal) var(--ease-cyber);
+  --transition-glow:     box-shadow var(--duration-slow) var(--ease-out),
+                         text-shadow var(--duration-slow) var(--ease-out);
+
+  /* ── Z-INDEX ── */
+  --z-bg-canvas: -1;
+  --z-base:       0;
+  --z-raised:    10;
+  --z-sticky:    50;
+  --z-overlay:  100;
+  --z-modal:    200;
+  --z-popover:  300;
+  --z-cursor:   500;
+  --z-loader:  9999;
+
+  /* ── LAYOUT ── */
+  --navbar-height:        64px;
+  --navbar-height-mobile: 56px;
+  --scroll-offset: calc(var(--navbar-height) + 1rem);
+
+  /* ── COMPONENTES ── */
+  --btn-height-sm:    36px;
+  --btn-height-md:    44px;
+  --btn-height-lg:    52px;
+  --btn-padding-x-sm: var(--space-4);
+  --btn-padding-x-md: var(--space-6);
+  --btn-padding-x-lg: var(--space-8);
+  --btn-radius:       var(--radius-sm);
+  --btn-font:         var(--font-display);
+  --btn-font-size:    var(--text-sm);
+  --btn-weight:       var(--weight-medium);
+  --btn-tracking:     var(--tracking-wider);
+
+  --card-padding:    var(--space-6);
+  --card-padding-lg: var(--space-8);
+  --card-radius:     var(--radius-lg);
+  --card-border:     1px solid var(--color-border);
+  --card-bg:         var(--color-bg-surface);
+
+  --input-height:       var(--btn-height-md);
+  --input-padding-x:    var(--space-4);
+  --input-radius:       var(--radius-md);
+  --input-border:       1px solid var(--color-border);
+  --input-border-focus: 1px solid var(--color-cyan-300);
+  --input-bg:           var(--color-bg-elevated);
+  --input-font:         var(--font-body);
+  --input-font-size:    var(--text-sm);
+
+  --skillbar-height: 2px;
+  --skillbar-bg:     var(--color-bg-overlay);
+  --skillbar-radius: var(--radius-full);
+
+  --status-dot-size:  8px;
+  --status-dot-color: var(--color-green-500);
+
+  --terminal-bg:         #0a0a10;
+  --terminal-border:     var(--color-border-cyan);
+  --terminal-padding:    var(--space-6);
+  --terminal-radius:     var(--radius-lg);
+  --terminal-dot-red:    #ff5f57;
+  --terminal-dot-yellow: #febc2e;
+  --terminal-dot-green:  #28c840;
+
+  --hud-corner-size:   20px;
+  --hud-corner-weight: 2px;
+  --hud-corner-color:  var(--color-cyan-400);
+
+  /* ── JS TOKENS ── */
+  --js-color-cyan:    #00ffff;
+  --js-color-violet:  #7f5af0;
+  --js-color-green:   #2cb67d;
+  --js-color-bg:      #050508;
+  --js-color-surface: #0d0d14;
+  --js-particle-count: 2000;
+  --js-robot-fov:      45;
+}
+
+/* ── SEMÁNTICO ── */
+:root {
+  --color-surface-1: var(--color-bg-base);
+  --color-surface-2: var(--color-bg-surface);
+  --color-surface-3: var(--color-bg-elevated);
+  --color-accent:         var(--color-cyan-500);
+  --color-accent-hover:   var(--color-cyan-400);
+  --color-accent-2:       var(--color-violet-500);
+  --color-accent-2-hover: var(--color-violet-400);
+  --color-success: var(--color-green-500);
+  --color-error:   var(--color-red-500);
+  --color-warning: var(--color-yellow-500);
+}
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast:    0ms;
+    --duration-normal:  0ms;
+    --duration-slow:    0ms;
+    --duration-slower:  0ms;
+    --transition-default:   none;
+    --transition-fast:      none;
+    --transition-color:     none;
+    --transition-transform: none;
+    --transition-glow:      none;
+  }
+}

@@ -1,0 +1,617 @@
+/*
+  ============================================================
+  CYBER PORTFOLIO — F03 · css/base.css
+  ============================================================
+  ESTADO: ✅ COMPLETADO
+  VERSIÓN: 1.0.0
+  FASE: 1 de 8
+
+  DESCRIPCIÓN:
+    Reset CSS, tipografía base, scrollbar custom, estilos
+    globales de documento y accesibilidad.
+    Depende de: css/variables.css (F02)
+
+  ORDEN EN index.html:
+    1. variables.css (F02)
+    2. base.css      ← este archivo
+    3. layout.css    (F11)
+    4. components.css (F12)
+    5. responsive.css (F13)
+
+  CONTIENE:
+    · Reset / Normalize moderno
+    · Box-sizing universal
+    · Tipografía base (html, body, headings, párrafos)
+    · Scrollbar custom (WebKit + Firefox)
+    · Cursor oculto (el custom cursor lo reemplaza via JS)
+    · Selection highlight
+    · Focus outline global (accesibilidad)
+    · Scroll behavior suave
+    · Clases utilitarias de accesibilidad (sr-only, etc.)
+    · Estilos base de elementos HTML (links, code, pre)
+    · Transiciones globales de color para modo de movimiento
+    · Canvas full-screen (bg-canvas)
+
+  NO CONTIENE:
+    · Layouts de sección (→ layout.css F11)
+    · Estilos de componentes (→ components.css F12)
+    · Breakpoints responsive (→ responsive.css F13)
+
+  PRÓXIMO ARCHIVO: F11 · css/layout.css
+  ============================================================
+*/
+
+/* ============================================================
+   1. BOX-SIZING & RESET MODERNO
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Reset de listas (preservado para elementos con role="list")*/
+ul,
+ol {
+  list-style: none;
+}
+
+/* Imágenes y medios responsivos por defecto */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Inputs heredan tipografía del padre */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Previene overflow de texto largo */
+p,
+h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* Reset de anclas */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Reset de botones */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+/* ============================================================
+   2. DOCUMENTO BASE
+   ============================================================ */
+
+html {
+  /* Scroll suave nativo — fallback para el JS en index.html */
+  scroll-behavior: smooth;
+
+  /* Compensa el navbar fixed en saltos de ancla */
+  scroll-padding-top: var(--navbar-height);
+
+  /* Previene el zoom horizontal en móvil */
+  overflow-x: hidden;
+
+  /* Tamaño base: 16px — no modificar, afecta toda la escala rem */
+  font-size: 16px;
+
+  /* Suavizado de fuentes — cian sobre negro lo necesita */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+
+  /* Color de fondo base — visible antes de que cargue el CSS */
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-normal);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-base);
+
+  /* Previene scroll horizontal global */
+  overflow-x: hidden;
+
+  /* Stacking context raíz para todos los z-index del proyecto */
+  position: relative;
+}
+
+/* ============================================================
+   3. SCROLLBAR PERSONALIZADA
+   Estilo: línea delgada cian sobre fondo casi negro.
+   WebKit (Chrome/Safari/Edge) + Firefox.
+   ============================================================ */
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-cyan-200) var(--color-bg-overlay);
+}
+
+/* WebKit */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-overlay);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-cyan-200);
+  border-radius: var(--radius-full);
+  transition: background var(--duration-fast) var(--ease-default);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-cyan-400);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--color-bg-base);
+}
+
+/* ============================================================
+   4. CURSOR
+   El cursor nativo se oculta globalmente.
+   CustomCursor.js (F17) inyecta el cursor cian custom.
+   Si JS no carga (accesibilidad / preferencias) se revierte.
+   ============================================================ */
+
+/* Ocultar cursor en toda la página cuando JS esté disponible */
+/* La clase .js-cursor-active la añade CustomCursor.js (F17) */
+.js-cursor-active,
+.js-cursor-active * {
+  cursor: none !important;
+}
+
+/* ============================================================
+   5. SELECCIÓN DE TEXTO
+   ============================================================ */
+
+::selection {
+  background-color: rgba(0, 255, 255, 0.2);
+  color: var(--color-cyan-500);
+}
+
+::-moz-selection {
+  background-color: rgba(0, 255, 255, 0.2);
+  color: var(--color-cyan-500);
+}
+
+/* ============================================================
+   6. FOCUS — ACCESIBILIDAD
+   Outline visible para navegación por teclado.
+   Se respeta siempre (no se elimina con outline: none global).
+   El anillo usa :focus-visible para no mostrar en click/touch.
+   ============================================================ */
+
+:focus-visible {
+  outline: 2px solid var(--color-cyan-400);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Eliminar outline nativo solo cuando :focus-visible esté activo
+   y sustituirlo por el nuestro */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ============================================================
+   7. TIPOGRAFÍA — HEADINGS
+   ============================================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
+}
+
+h1 {
+  font-size: var(--text-hero);
+  letter-spacing: var(--tracking-tight);
+}
+
+h2 {
+  font-size: var(--text-5xl);
+  letter-spacing: var(--tracking-tight);
+}
+
+h3 {
+  font-size: var(--text-2xl);
+  letter-spacing: var(--tracking-normal);
+}
+
+h4 {
+  font-size: var(--text-xl);
+  letter-spacing: var(--tracking-normal);
+}
+
+h5 {
+  font-size: var(--text-lg);
+  letter-spacing: var(--tracking-wide);
+  font-weight: var(--weight-semibold);
+}
+
+h6 {
+  font-size: var(--text-base);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  font-weight: var(--weight-medium);
+  color: var(--color-text-secondary);
+}
+
+/* ============================================================
+   8. TIPOGRAFÍA — PÁRRAFOS Y TEXTO
+   ============================================================ */
+
+p {
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+p + p {
+  margin-top: var(--space-4);
+}
+
+/* Texto en monospace (terminal, código inline) */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  letter-spacing: var(--tracking-code);
+  color: var(--color-cyan-400);
+  background-color: rgba(0, 255, 255, 0.06);
+  padding: 0.1em 0.4em;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-cyan);
+}
+
+/* Bloques de código */
+pre {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-code);
+  line-height: var(--leading-relaxed);
+  overflow-x: auto;
+  tab-size: 2;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* Strong / bold */
+strong,
+b {
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+/* Énfasis */
+em,
+i {
+  font-style: italic;
+}
+
+/* Small text */
+small {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
+/* ============================================================
+   9. LINKS
+   ============================================================ */
+
+a {
+  color: var(--color-cyan-400);
+  text-decoration: none;
+  transition: var(--transition-color);
+}
+
+a:hover {
+  color: var(--color-cyan-500);
+}
+
+/* Links dentro de párrafos de contenido */
+p a,
+.prose a {
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 255, 255, 0.3);
+  text-underline-offset: 3px;
+  transition:
+    color var(--duration-fast) var(--ease-default),
+    text-decoration-color var(--duration-fast) var(--ease-default);
+}
+
+p a:hover,
+.prose a:hover {
+  text-decoration-color: var(--color-cyan-400);
+}
+
+/* ============================================================
+   10. HR / DIVISORES
+   ============================================================ */
+
+hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: var(--space-8) 0;
+}
+
+/* ============================================================
+   11. CANVAS DE FONDO (bg-canvas)
+   Posición fixed detrás de todo el contenido.
+   Redimensionado y pintado por HolographicGrid (F09) y
+   MatrixRain (F10).
+   ============================================================ */
+
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--z-bg-canvas);
+  pointer-events: none;
+  display: block;
+}
+
+/* ============================================================
+   12. CLASES UTILITARIAS DE ACCESIBILIDAD
+   ============================================================ */
+
+/* Visualmente oculto pero accesible a lectores de pantalla */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Hace visible el elemento .sr-only cuando tiene foco */
+.sr-only-focusable:focus,
+.sr-only-focusable:focus-within {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Skip to main content — aparece al tabular, salta al #main-content */
+.skip-link {
+  position: fixed;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: calc(var(--z-loader) + 1);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-cyan-500);
+  color: var(--color-text-inverse);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wider);
+  border-radius: var(--radius-md);
+  transform: translateY(-200%);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* ============================================================
+   13. TRANSICIONES GLOBALES DE COLOR
+   Solo color y opacity — nunca transform ni size globalmente,
+   eso causaría conflictos con las animaciones de Three.js.
+   ============================================================ */
+
+a,
+button,
+input,
+select,
+textarea,
+[role="button"] {
+  transition: var(--transition-color);
+}
+
+/* ============================================================
+   14. IMÁGENES Y MEDIA
+   ============================================================ */
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* SVG inline hereda el color del padre */
+svg:not([fill]) {
+  fill: currentColor;
+}
+
+/* ============================================================
+   15. FORMULARIO — BASE GLOBAL
+   Los estilos detallados están en components.css (F12).
+   Aquí solo los resets necesarios.
+   ============================================================ */
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+legend {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+/* Eliminar flechas nativas de select en WebKit */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Eliminar spinner de inputs tipo number */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Eliminar X de clear en IE/Edge */
+input[type="text"]::-ms-clear,
+input[type="search"]::-ms-clear {
+  display: none;
+}
+
+/* Eliminar ícono de search nativo en WebKit */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+/* Placeholder */
+::placeholder {
+  color: var(--color-text-muted);
+  opacity: 1; /* Firefox lo baja por defecto */
+}
+
+/* ============================================================
+   16. TABLAS — RESET BASE
+   ============================================================ */
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+th,
+td {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+
+th {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+/* ============================================================
+   17. REDUCED MOTION — OVERRIDE GLOBAL
+   Complementa las variables de F02.
+   Desactiva animaciones CSS que no pasen por variables.
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Mantener el bg-canvas pero sin animaciones */
+  #bg-canvas {
+    opacity: 0;
+  }
+}
+
+/* ============================================================
+   18. PRINT — RESET BÁSICO
+   Para el caso en que alguien imprima el portfolio.
+   ============================================================ */
+
+@media print {
+  #loader,
+  #bg-canvas,
+  #custom-cursor,
+  #navbar,
+  .scroll-indicator,
+  .orbital-ring,
+  .robot-hud {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+    font-size: 12pt;
+  }
+
+  a {
+    color: black;
+    text-decoration: underline;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: black;
+    page-break-after: avoid;
+  }
+
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+}
