@@ -172,10 +172,7 @@
     flex-shrink: 0;
   }
 
-  .hero-gif-wrapper {
-    width: 60% !important;
-    max-width: 220px !important;
-  }
+  /* [obsoleto hero 2-col] */
 
   .hero-content {
     order: 2 !important;
@@ -389,10 +386,7 @@
     max-height: 220px !important;
   }
 
-  .hero-gif-wrapper {
-    width: 55% !important;
-    max-width: 190px !important;
-  }
+  /* [obsoleto hero 2-col] */
 
   .hero-content {
     gap: var(--space-3) !important;
@@ -478,7 +472,7 @@
   .hero-stat-number  { font-size: 1.1rem !important; }
   .hero-stat-label   { font-size: 0.45rem !important; }
   .blockchain-stats  { grid-template-columns: 1fr; }
-  .hero-gif-wrapper  { width: 50% !important; }
+  /* [obsoleto hero 2-col] */
   .hero-title-name   { font-size: clamp(0.8rem, 4.5vw, 1rem) !important; }
   .section--about .section-title { font-size: clamp(1.05rem, 8.5vw, 1.4rem) !important; }
 }
