@@ -731,8 +731,10 @@ class BookFolio {
 .bpf-card-img-fallback { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:2rem; color:rgba(0,255,255,.12); z-index:0; }
 .bpf-card-overlay { position:absolute; inset:0; background:linear-gradient(135deg,rgba(0,255,255,.12),rgba(127,90,240,.12)); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .3s; z-index:2; }
 .bpf-card:hover .bpf-card-overlay { opacity:1; }
-.bpf-card-view-btn { font-family:var(--font-mono,monospace); font-size:.75rem; letter-spacing:.15em; text-transform:uppercase; color:var(--color-cyan-400,#00e5e5); padding:.5rem 1rem; border:1px solid rgba(0,255,255,.4); border-radius:2px; background:rgba(0,0,0,.6); backdrop-filter:blur(4px); transform:translateY(4px); transition:transform .3s cubic-bezier(.23,1,.32,1); }
+.bpf-card-view-btn { position:relative; overflow:hidden; display:inline-flex; align-items:center; gap:.4rem; font-family:var(--font-mono,monospace); font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; color:#eafffe; padding:.62rem 1.4rem; border:1px solid rgba(0,255,255,.55); border-radius:11px; background:linear-gradient(135deg,rgba(0,229,229,.24),rgba(127,90,240,.20)); box-shadow:0 8px 24px rgba(0,229,229,.22); transform:translateY(8px); transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .3s,border-color .3s; }
 .bpf-card:hover .bpf-card-view-btn { transform:translateY(0); }
+.bpf-card-view-btn::after { content:''; position:absolute; top:0; left:-130%; width:55%; height:100%; background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent); transform:skewX(-18deg); transition:left .6s ease; pointer-events:none; }
+.bpf-card:hover .bpf-card-view-btn::after { left:150%; }
 .bpf-card-body { padding:1.25rem; display:flex; flex-direction:column; gap:.5rem; flex:1; }
 .bpf-card-meta { display:flex; align-items:center; gap:.5rem; }
 .bpf-card-cat { font-family:var(--font-mono,monospace); font-size:.65rem; letter-spacing:.15em; text-transform:uppercase; color:var(--color-cyan-300,#00cccc); padding:2px 6px; background:rgba(0,255,255,.06); border:1px solid rgba(0,255,255,.15); border-radius:2px; }
