@@ -107,12 +107,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(5, 5, 8, 0.97);
-  backdrop-filter: var(--glass-blur-heavy);
-  -webkit-backdrop-filter: var(--glass-blur-heavy);
-  z-index: calc(var(--z-sticky) - 1);
+  background: #07080d;
+  z-index: 700;
   align-items: center;
   justify-content: center;
+  overflow-y: auto;
   border-top: 1px solid var(--color-border-cyan);
   opacity: 1;
   transform: translateY(0);
