@@ -556,47 +556,58 @@
     </section><!-- /hero -->
 
     <!-- ═══════════════════════════════════════════════════════
-         MARQUEE DE TECNOLOGÍAS
+         MARQUEE EN X — dos cintas diagonales asimétricas
     ═══════════════════════════════════════════════════════ -->
-    <div class="tech-marquee" aria-label="Stack tecnológico" data-animate="fade-in">
-      <div class="tech-marquee-track">
-        <!-- Grupo A -->
-        <div class="tech-marquee-group" aria-hidden="false">
-          <span class="tech-chip">Solidity</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">Smart Contracts</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">Web3</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">DeFi</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">ethers.js</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">Hardhat</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">BSC</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">Ethereum</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">Python</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">JavaScript</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">Node.js</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">PineScript</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">React</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">Docker</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">PostgreSQL</span><span class="tech-sep">◆</span>
-        </div>
-        <!-- Grupo B (copia para loop sin costura) -->
-        <div class="tech-marquee-group" aria-hidden="true">
-          <span class="tech-chip">Solidity</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">Smart Contracts</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">Web3</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">DeFi</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">ethers.js</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">Hardhat</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">BSC</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">Ethereum</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">Python</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">JavaScript</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">Node.js</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">PineScript</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">React</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">Docker</span><span class="tech-sep">◆</span>
-          <span class="tech-chip">PostgreSQL</span><span class="tech-sep">◆</span>
+    <div class="tmx" aria-label="Stack tecnológico" data-animate="fade-in">
+
+      <!-- Cinta A: blockchain / web3 — inclinada, izquierda→derecha -->
+      <div class="tmx-strip tmx-strip--a">
+        <div class="tmx-track tmx-track--a">
+          <span class="tmx-chip">Solidity</span><span class="tmx-dot">◆</span>
+          <span class="tmx-chip">Smart Contracts</span><span class="tmx-dot">◆</span>
+          <span class="tmx-chip">Web3</span><span class="tmx-dot">◆</span>
+          <span class="tmx-chip">DeFi</span><span class="tmx-dot">◆</span>
+          <span class="tmx-chip">ethers.js</span><span class="tmx-dot">◆</span>
+          <span class="tmx-chip">Hardhat</span><span class="tmx-dot">◆</span>
+          <span class="tmx-chip">BSC</span><span class="tmx-dot">◆</span>
+          <span class="tmx-chip">Ethereum</span><span class="tmx-dot">◆</span>
+          <span class="tmx-chip">PancakeSwap</span><span class="tmx-dot">◆</span>
+          <!-- copia para loop sin costura -->
+          <span class="tmx-chip">Solidity</span><span class="tmx-dot">◆</span>
+          <span class="tmx-chip">Smart Contracts</span><span class="tmx-dot">◆</span>
+          <span class="tmx-chip">Web3</span><span class="tmx-dot">◆</span>
+          <span class="tmx-chip">DeFi</span><span class="tmx-dot">◆</span>
+          <span class="tmx-chip">ethers.js</span><span class="tmx-dot">◆</span>
+          <span class="tmx-chip">Hardhat</span><span class="tmx-dot">◆</span>
+          <span class="tmx-chip">BSC</span><span class="tmx-dot">◆</span>
+          <span class="tmx-chip">Ethereum</span><span class="tmx-dot">◆</span>
+          <span class="tmx-chip">PancakeSwap</span><span class="tmx-dot">◆</span>
         </div>
       </div>
+
+      <!-- Cinta B: lenguajes / herramientas — otra inclinación, derecha→izquierda -->
+      <div class="tmx-strip tmx-strip--b">
+        <div class="tmx-track tmx-track--b">
+          <span class="tmx-chip tmx-chip--v">Python</span><span class="tmx-dot tmx-dot--v">◆</span>
+          <span class="tmx-chip tmx-chip--v">JavaScript</span><span class="tmx-dot tmx-dot--v">◆</span>
+          <span class="tmx-chip tmx-chip--v">Node.js</span><span class="tmx-dot tmx-dot--v">◆</span>
+          <span class="tmx-chip tmx-chip--v">PineScript</span><span class="tmx-dot tmx-dot--v">◆</span>
+          <span class="tmx-chip tmx-chip--v">React</span><span class="tmx-dot tmx-dot--v">◆</span>
+          <span class="tmx-chip tmx-chip--v">Docker</span><span class="tmx-dot tmx-dot--v">◆</span>
+          <span class="tmx-chip tmx-chip--v">Git</span><span class="tmx-dot tmx-dot--v">◆</span>
+          <span class="tmx-chip tmx-chip--v">TradingView</span><span class="tmx-dot tmx-dot--v">◆</span>
+          <!-- copia para loop sin costura -->
+          <span class="tmx-chip tmx-chip--v">Python</span><span class="tmx-dot tmx-dot--v">◆</span>
+          <span class="tmx-chip tmx-chip--v">JavaScript</span><span class="tmx-dot tmx-dot--v">◆</span>
+          <span class="tmx-chip tmx-chip--v">Node.js</span><span class="tmx-dot tmx-dot--v">◆</span>
+          <span class="tmx-chip tmx-chip--v">PineScript</span><span class="tmx-dot tmx-dot--v">◆</span>
+          <span class="tmx-chip tmx-chip--v">React</span><span class="tmx-dot tmx-dot--v">◆</span>
+          <span class="tmx-chip tmx-chip--v">Docker</span><span class="tmx-dot tmx-dot--v">◆</span>
+          <span class="tmx-chip tmx-chip--v">Git</span><span class="tmx-dot tmx-dot--v">◆</span>
+          <span class="tmx-chip tmx-chip--v">TradingView</span><span class="tmx-dot tmx-dot--v">◆</span>
+        </div>
+      </div>
+
     </div>
 
     <!-- ═══════════════════════════════════════════════════════
@@ -910,10 +921,6 @@
                 <div class="tech-icon-box">GIT</div>
                 <span class="tech-icon-label">Git</span>
               </div>
-              <div class="tech-icon-item" role="listitem" aria-label="PostgreSQL">
-                <div class="tech-icon-box">PG</div>
-                <span class="tech-icon-label">PostgreSQL</span>
-              </div>
             </div>
           </div>
 
@@ -937,7 +944,7 @@
       /* Los proyectos viven en js/data/projects.js (window.NP_PROJECTS).
          Sube PROJECTS_VERSION cada vez que edites esa lista para que la
          galería se refresque en los navegadores que ya la visitaron. */
-      const PROJECTS_VERSION = 'v4';
+      const PROJECTS_VERSION = 'v5';
       document.addEventListener('DOMContentLoaded', function () {
         try {
           if (localStorage.getItem('bookfolio_seed_version') !== PROJECTS_VERSION) {
