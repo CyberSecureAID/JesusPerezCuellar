@@ -1516,14 +1516,24 @@ html.deck-on #footer {
   visibility: hidden;
   pointer-events: none;
   z-index: 1;                 /* por debajo del navbar (--z-sticky: 50) */
-  transition: opacity 0.7s ease, visibility 0.7s ease;
+  transition: opacity 0.7s ease;
 }
+/* Entrante: se funde POR ENCIMA */
 html.deck-on #main-content > section.is-active,
 html.deck-on #footer.is-active {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+  z-index: 5;
+}
+/* Saliente: se queda SÓLIDA justo debajo hasta quedar tapada (no parpadea) */
+html.deck-on #main-content > section.is-leaving,
+html.deck-on #footer.is-leaving {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: none;
   z-index: 4;
+  transition: none;
 }
 
 /* Imagen de fondo (fotograma) en cada panel que NO es el hero.
@@ -1537,9 +1547,25 @@ html.deck-on #footer::before {
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(180deg, rgba(10,12,22,0.86) 0%, rgba(10,12,22,0.92) 100%),
-    url("assets/banner/blockchain-developer-banner.jpg") center center / cover no-repeat;
+    linear-gradient(90deg, rgba(10,12,22,0.97) 0%, rgba(10,12,22,0.90) 40%, rgba(10,12,22,0.48) 70%, rgba(10,12,22,0.18) 100%),
+    linear-gradient(0deg, rgba(10,12,22,0.55) 0%, rgba(10,12,22,0) 30%),
+    url("../assets/banner/blockchain-developer-banner.jpg") center center / cover no-repeat;
   pointer-events: none;
+}
+
+/* Contenido a la IZQUIERDA; la mitad derecha queda limpia para la
+   imagen de fondo (efecto fotograma). Proyectos se deja ancho. */
+html.deck-on #main-content > section:not(.section--hero):not(.section--projects) .section-container {
+  max-width: 640px;
+  margin-left: 0;
+  margin-right: auto;
+}
+html.deck-on .about-grid,
+html.deck-on .contact-grid {
+  display: block !important;
+}
+html.deck-on .services-grid {
+  grid-template-columns: 1fr 1fr !important;
 }
 
 /* Deja sitio a la navbar fija dentro de cada panel */
