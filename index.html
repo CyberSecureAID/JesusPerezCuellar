@@ -627,8 +627,8 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg>
                 <span class="flow-num">04</span>
               </div>
-              <h4>Lo lanzas</h4>
-              <p>Recibes tu proyecto completo y funcionando, con <strong>30 días de garantía</strong> por si hay que ajustar algo. Soporte continuo opcional, cuando lo necesites.</p>
+              <h4>Se despliega</h4>
+              <p>Yo me encargo del despliegue: tu proyecto queda publicado y funcionando, con <strong>30 días de garantía</strong> por si hay que ajustar algo. Soporte continuo opcional, cuando lo necesites.</p>
             </div>
           </div>
         </div>
@@ -689,7 +689,7 @@
           <span class="eyebrow-title">PERFIL</span>
         </div>
 
-        <h2 class="section-title about-h2">Desarrollador full-stack</h2>
+        <h2 class="section-title about-h2" id="about-title">Desarrollador full-stack</h2>
         <p class="about-lead">
           Desarrollo software en múltiples lenguajes y entornos — desde scripts de trading
           en PineScript y contratos inteligentes en Solidity, hasta backends en Python,
@@ -936,6 +936,32 @@
   function fallback(t){ var ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");}catch(e){} document.body.removeChild(ta); }
 
   refresh();
+})();
+</script>
+<script>
+/* Efecto "lupa": dividir el título de Sobre mí en letras */
+(function(){
+  var t=document.getElementById('about-title');
+  if(!t) return;
+  var txt=t.textContent, frag=document.createDocumentFragment();
+  for(var i=0;i<txt.length;i++){
+    var s=document.createElement('span'); s.className='ltr';
+    s.textContent = txt[i]===' ' ? '\u00A0' : txt[i];
+    frag.appendChild(s);
+  }
+  t.textContent=''; t.appendChild(frag);
+})();
+
+/* Flujo "Cómo trabajamos": la línea se ilumina donde está el cursor */
+(function(){
+  var flow=document.querySelector('.flow');
+  if(!flow) return;
+  flow.addEventListener('mousemove', function(e){
+    var r=flow.getBoundingClientRect();
+    flow.style.setProperty('--gx', (e.clientX-r.left)+'px');
+    flow.style.setProperty('--go','1');
+  });
+  flow.addEventListener('mouseleave', function(){ flow.style.setProperty('--go','0'); });
 })();
 </script>
 </body>
