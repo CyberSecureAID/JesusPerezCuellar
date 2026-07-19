@@ -1060,10 +1060,14 @@
    CINTAS EN X — dos bandas diagonales cruzadas (delante/atrás)
    ============================================================ */
 .tmx {
+  --tmx-h: clamp(150px, 17vw, 200px);
   position: relative;
-  width: 100%;
-  height: clamp(150px, 17vw, 200px);
-  margin: 0;
+  z-index: 20;
+  height: var(--tmx-h);
+  /* Se solapa media altura sobre el hero y media sobre la sección
+     siguiente → une ambas secciones pasando POR ENCIMA, sin corte. */
+  margin-top: calc(var(--tmx-h) / -2);
+  margin-bottom: calc(var(--tmx-h) / -2);
   overflow: hidden;
   pointer-events: none;
 }
@@ -1130,7 +1134,7 @@
 .tmx-dot--v{ color: var(--color-violet-400, #9b7cf4); opacity: .55; font-size: .6em; }
 
 @media (max-width: 768px) {
-  .tmx { height: clamp(140px, 40vw, 190px); }
+  .tmx { --tmx-h: clamp(140px, 40vw, 190px); }
   .tmx-strip { height: 40px; }
   .tmx-strip--a { top: 50%; transform: rotate(-7deg); }
   .tmx-strip--b { top: 24%; transform: rotate(8deg); }
