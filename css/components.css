@@ -1140,3 +1140,146 @@
 @media (prefers-reduced-motion: reduce) {
   .tmx-track { animation: none; }
 }
+
+/* ============================================================
+   FRANJA DE CONFIANZA (trust strip)
+   ============================================================ */
+.trust-strip {
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+}
+.trust-inner {
+  max-width: var(--container-wide, 1280px);
+  margin: 0 auto;
+  padding: 1.15rem var(--container-padding);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem 2.5rem;
+  flex-wrap: wrap;
+}
+.trust-github {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-sm, .9rem);
+  letter-spacing: .02em;
+  border: 1px solid var(--color-border-cyan);
+  border-radius: 10px;
+  padding: .6rem 1rem;
+  transition: color .2s ease, border-color .2s ease, background .2s ease, transform .2s ease;
+}
+.trust-github:hover {
+  color: var(--color-cyan-400);
+  border-color: var(--color-cyan-400);
+  background: var(--color-cyan-glow-sm);
+  transform: translateY(-1px);
+}
+.trust-github .trust-arrow { transition: transform .2s ease; }
+.trust-github:hover .trust-arrow { transform: translateX(3px); }
+
+.trust-stats { display: flex; gap: 2.4rem; flex-wrap: wrap; }
+.trust-stat { display: flex; flex-direction: column; line-height: 1.1; }
+.trust-num {
+  font-family: var(--font-display, sans-serif);
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+  font-weight: var(--weight-bold, 700);
+  background: var(--gradient-text-cyber);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.trust-lbl {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-2xs, .7rem);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-top: .2rem;
+}
+.trust-avail {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: var(--text-sm, .9rem);
+  color: var(--color-text-secondary);
+}
+.trust-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px rgba(34, 197, 94, .8);
+  animation: trustPulse 2s ease-in-out infinite;
+}
+@keyframes trustPulse { 0%,100%{opacity:1} 50%{opacity:.45} }
+
+@media (max-width: 860px) {
+  .trust-inner { justify-content: center; text-align: center; gap: 1.25rem 2rem; }
+  .trust-stats { gap: 1.6rem; justify-content: center; }
+}
+
+/* ============================================================
+   TESTIMONIOS
+   ============================================================ */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+.testimonial-card {
+  position: relative;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease;
+}
+.testimonial-card:hover {
+  border-color: var(--color-border-cyan);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md, 0 10px 30px rgba(0,0,0,.3));
+}
+.testimonial-mark {
+  font-family: var(--font-display, serif);
+  font-size: 3rem;
+  line-height: .5;
+  height: 1.4rem;
+  color: var(--color-cyan-400);
+  opacity: .45;
+}
+.testimonial-text {
+  font-size: var(--text-base, 1rem);
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin: 0 0 1.4rem;
+  font-style: italic;
+  flex: 1;
+}
+.testimonial-author {
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+  border-top: 1px solid var(--color-border);
+  padding-top: 1rem;
+}
+.testimonial-name {
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary);
+  font-size: var(--text-sm, .9rem);
+}
+.testimonial-role {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-2xs, .7rem);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+@media (max-width: 900px) {
+  .testimonials-grid { grid-template-columns: 1fr; }
+}
