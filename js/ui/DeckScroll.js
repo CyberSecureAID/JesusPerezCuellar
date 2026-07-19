@@ -55,21 +55,36 @@ window.DeckScroll = (function () {
     return _panels.length > 0;
   }
 
-  /* ── Activar un panel por índice ──────────────────────────── */
+  /* ── Activar un panel por índice (crossfade limpio) ───────── */
   function _activate(i, initial) {
     if (i < 0 || i >= _panels.length) return;
     if (i === _idx && !initial) return;
 
-    const prev = _panels[_idx];
-    const next = _panels[i];
+    const prevPanel = _panels[_idx];
+    const nextPanel = _panels[i];
     _idx = i;
 
+    // La sección saliente se queda SÓLIDA detrás (is-leaving) mientras
+    // la entrante se funde por encima; luego se oculta ya tapada.
+    if (!initial && prevPanel && prevPanel !== nextPanel) {
+      prevPanel.classList.remove('is-active');
+      prevPanel.classList.add('is-leaving');
+      setTimeout(() => {
+        prevPanel.classList.remove('is-leaving');
+        prevPanel.setAttribute('aria-hidden', 'true');
+      }, FADE_MS + 60);
+    }
+
     _panels.forEach((p, k) => {
-      const active = (k === i);
-      p.classList.toggle('is-active', active);
-      p.setAttribute('aria-hidden', active ? 'false' : 'true');
-      // reinicia el scroll interno del panel que entra
-      if (active) { try { p.scrollTop = 0; } catch (e) {} }
+      if (k === i) {
+        p.classList.add('is-active');
+        p.classList.remove('is-leaving');
+        p.setAttribute('aria-hidden', 'false');
+        try { p.scrollTop = 0; } catch (e) {}
+      } else if (p !== prevPanel) {
+        p.classList.remove('is-active', 'is-leaving');
+        p.setAttribute('aria-hidden', 'true');
+      }
     });
 
     _updateNav();
