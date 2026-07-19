@@ -1670,3 +1670,50 @@ textarea.wiz-input { resize: vertical; min-height: 90px; }
   content: "✓"; position: absolute; top: .7rem; right: .8rem; color: var(--color-cyan-400); font-weight: 700; font-size: .9rem;
 }
 .wiz-chip { position: relative; }
+
+/* ============================================================
+   BOTONES más profesionales (barrido de brillo + elevación)
+   ============================================================ */
+.btn { border-radius: 11px; letter-spacing: .05em; height: 46px; padding: 0 1.6rem; }
+.btn::after {
+  content: ""; position: absolute; top: 0; left: -130%; width: 55%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.18), transparent);
+  transform: skewX(-18deg); transition: left .55s ease; pointer-events: none;
+}
+.btn:hover::after { left: 140%; }
+.btn--primary {
+  background: linear-gradient(135deg, rgba(0,229,229,.20), rgba(127,90,240,.16));
+  color: #eafffe; border-color: var(--color-cyan-400);
+}
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0,229,229,.26), var(--glow-cyan-md);
+  border-color: var(--color-cyan-400);
+}
+.btn--ghost, .btn--secondary {
+  border-color: rgba(0,229,229,.38); color: var(--color-text-primary); background: rgba(255,255,255,.025);
+}
+.btn--ghost:hover, .btn--secondary:hover {
+  transform: translateY(-2px); border-color: var(--color-cyan-400);
+  background: var(--color-cyan-glow-sm); box-shadow: 0 8px 20px rgba(0,0,0,.32);
+}
+
+/* ============================================================
+   SOBRE MÍ — cursor lupa (magnifier)
+   ============================================================ */
+#about { position: relative; }
+.about-lens {
+  position: absolute; width: 190px; height: 190px; border-radius: 50%;
+  border: 2px solid var(--color-cyan-400); overflow: hidden; pointer-events: none;
+  background: var(--color-bg-base);
+  box-shadow: 0 0 0 5px rgba(0,229,229,.10), 0 16px 44px rgba(0,0,0,.55), inset 0 0 34px rgba(0,229,229,.10);
+  opacity: 0; transition: opacity .18s ease; z-index: 30; display: none; will-change: left, top;
+}
+.about-lens.on { opacity: 1; display: block; }
+.about-lens::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  box-shadow: inset 0 0 40px rgba(0,0,0,.35); pointer-events: none;
+}
+.about-lens-content { position: absolute; top: 0; left: 0; transform-origin: 0 0; }
+.about-lens-content .about-lead--dim { color: var(--color-text-secondary); }
+@media (hover: none) { .about-lens { display: none !important; } }
