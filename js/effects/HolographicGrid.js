@@ -73,6 +73,8 @@ const HolographicGrid = (() => {
   /* Animación */
   let _elapsed     = 0;
   let _lastTime    = 0;
+  let _lastRender  = 0;     // último frame dibujado (cap de FPS)
+  let _frameMinMs  = 33;    // ~30fps escritorio; ajustado en init() para móvil
 
   /* ── Leer CSS ───────────────────────────────────────────── */
   function _css(v) {
@@ -286,6 +288,10 @@ const HolographicGrid = (() => {
   function _frame(timestamp) {
     _rafId = requestAnimationFrame(_frame);
 
+    // Cap de FPS: fondo ambiental, no necesita 60fps
+    if (_lastRender && timestamp - _lastRender < _frameMinMs) return;
+    _lastRender = timestamp;
+
     /* Delta time */
     if (!_lastTime) _lastTime = timestamp;
     const delta = Math.min((timestamp - _lastTime) / 1000, 0.05); // cap 50ms
@@ -336,6 +342,8 @@ const HolographicGrid = (() => {
       console.error('[HolographicGrid] Canvas 2D no disponible.');
       return;
     }
+
+    _frameMinMs = window.innerWidth < 768 ? 45 : 33;
 
     _reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     window.matchMedia('(prefers-reduced-motion: reduce)')

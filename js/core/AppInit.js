@@ -101,7 +101,7 @@ const AppInit = (() => {
 
     // UI modules
     _setProgress(40);
-    const uiModules = ['TopBanner', 'TypeWriter', 'ScrollAnimations', 'GlitchEffect', 'CustomCursor'];
+    const uiModules = ['TopBanner', 'TypeWriter', 'ScrollAnimations', 'GlitchEffect', 'CustomCursor', 'MagneticButtons'];
     for (let i = 0; i < uiModules.length; i++) {
       const key = uiModules[i];
       if (window[key]) {
@@ -227,7 +227,7 @@ const AppInit = (() => {
   function destroy() {
     [
       'HolographicGrid','MatrixRain','TopBanner','TypeWriter','ScrollAnimations',
-      'GlitchEffect','CustomCursor','ServicesSection','ContactSection',
+      'GlitchEffect','CustomCursor','MagneticButtons','ServicesSection','ContactSection',
     ].forEach(key => {
       try { window[key]?.destroy?.(); } catch (e) { console.warn(e); }
     });

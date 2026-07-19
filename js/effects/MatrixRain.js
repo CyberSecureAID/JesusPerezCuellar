@@ -76,6 +76,8 @@ const MatrixRain = (() => {
   /* Animación */
   let _lastTime  = 0;
   let _accumTime = 0;
+  let _lastRender = 0;      // último frame realmente dibujado (cap de FPS)
+  let _frameMinMs = 33;     // ~30fps escritorio; se ajusta en init() para móvil
   const TICK_MS  = 55; // ms entre actualizaciones de columnas (~18fps para el rain)
 
   /* Columnas */
@@ -232,6 +234,10 @@ const MatrixRain = (() => {
 
     if (_paused || _reducedMotion) return;
 
+    // Cap de FPS: no re-dibujar más rápido que _frameMinMs (ahorra CPU/batería)
+    if (timestamp - _lastRender < _frameMinMs) return;
+    _lastRender = timestamp;
+
     const delta = timestamp - (_lastTime || timestamp);
     _lastTime   = timestamp;
 
@@ -275,6 +281,9 @@ const MatrixRain = (() => {
     _reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     window.matchMedia('(prefers-reduced-motion: reduce)')
       .addEventListener('change', e => { _reducedMotion = e.matches; });
+
+    // En móvil bajamos a ~22fps para ahorrar batería sin pérdida visual notable
+    _frameMinMs = window.innerWidth < 768 ? 45 : 33;
 
     _W = window.innerWidth;
     _H = window.innerHeight;
