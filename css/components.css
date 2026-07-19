@@ -653,15 +653,19 @@
 
 [data-animate="fade-up"] {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(30px);
+  filter: blur(6px);
   transition:
-    opacity var(--duration-slower) var(--ease-out),
-    transform var(--duration-slower) var(--ease-cyber);
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
 }
 
 [data-animate="fade-up"].is-visible {
   opacity: 1;
   transform: translateY(0);
+  filter: blur(0);
 }
 
 [data-animate="fade-in"] {
@@ -923,6 +927,7 @@
     animation: none !important;
     transition: none !important;
     transform: none !important;
+    filter: none !important;
     opacity: 1 !important;
   }
 
@@ -1037,5 +1042,64 @@
   }
   .top-banner-inner {
     padding: var(--space-2) var(--container-padding);
+  }
+}
+
+/* ============================================================
+   MARQUEE DE TECNOLOGÍAS
+   ============================================================ */
+.tech-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: var(--space-4, 1rem) 0;
+  border-top: 1px solid var(--color-border, rgba(255,255,255,.06));
+  border-bottom: 1px solid var(--color-border, rgba(255,255,255,.06));
+  background: rgba(255,255,255,.012);
+  /* Difuminado en los extremos: los chips entran/salen suavemente */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.tech-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: tech-scroll 38s linear infinite;
+}
+.tech-marquee:hover .tech-marquee-track {
+  animation-play-state: paused;
+}
+.tech-marquee-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4, 1.25rem);
+  padding-right: var(--space-4, 1.25rem);
+  flex-shrink: 0;
+}
+.tech-chip {
+  font-family: var(--font-mono, monospace);
+  font-size: .8rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary, #b9c2d0);
+  white-space: nowrap;
+  transition: color .2s ease;
+}
+.tech-marquee:hover .tech-chip:hover {
+  color: var(--color-cyan-400, #00e5e5);
+}
+.tech-sep {
+  color: var(--color-cyan-400, #00e5e5);
+  opacity: .35;
+  font-size: .55rem;
+}
+@keyframes tech-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tech-marquee-track { animation: none; transform: none; }
+  .tech-marquee {
+    -webkit-mask-image: none; mask-image: none;
+    overflow-x: auto;
   }
 }
