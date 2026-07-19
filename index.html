@@ -11,6 +11,7 @@
 -->
 <html lang="es">
 <head>
+  <script>(function(){try{var t=localStorage.getItem('jpc-theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Desarrollador de software especializado en Blockchain, Web3, Smart Contracts, Python, JavaScript y PineScript. Soluciones de alto rendimiento en múltiples plataformas.">
@@ -127,6 +128,7 @@
     .hero-bg-scrim {
       position: absolute; inset: 0;
       background:
+        linear-gradient(0deg, var(--color-bg-base) 0%, rgba(3,3,6,0) 16%),
         linear-gradient(90deg, rgba(3,3,6,0.96) 0%, rgba(3,3,6,0.88) 30%, rgba(3,3,6,0.48) 60%, rgba(3,3,6,0.12) 100%),
         linear-gradient(0deg, rgba(3,3,6,0.92) 0%, rgba(3,3,6,0.08) 44%);
     }
@@ -354,6 +356,16 @@
         <li><a href="#contact"    class="nav-link nav-link--cta" data-section="contact">Contacto</a></li>
       </ul>
 
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar tema claro/oscuro" title="Cambiar tema">
+        <svg class="theme-icon theme-icon--moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="theme-icon theme-icon--sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8L6 18M18 6l1.8-1.8"/>
+        </svg>
+      </button>
+
       <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links-mobile" aria-label="Abrir menú">
         <span></span><span></span><span></span>
       </button>
@@ -403,8 +415,7 @@
           </div>
           <h1 class="hero-title">
             <span class="hero-title-name" id="hero-name">Jesús — Dev &amp; Trader</span>
-            <span class="hero-title-role" id="typewriter-target" aria-live="polite">Software Developer</span>
-            <span class="typewriter-cursor" aria-hidden="true">|</span>
+            <span class="hero-title-role">Blockchain · Web3 · Smart Contracts · Trading Algorítmico</span>
           </h1>
         </div>
 
@@ -466,77 +477,11 @@
 
       <!-- Dos cintas infinitas cruzadas (dentro del hero, abajo) -->
       <div class="tmx" aria-label="Stack tecnológico">
-        <div class="tmx-strip tmx-strip--a">
-          <div class="tmx-track tmx-track--a">
-            <span class="tmx-chip">Solidity</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">Smart Contracts</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">Web3</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">DeFi</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">ethers.js</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">Hardhat</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">BSC</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">Ethereum</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">PancakeSwap</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">dApps</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">On-Chain</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">Tokenomics</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">Auditoría</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">Liquidez</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">EVM</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">Web3Modal</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">Solidity</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">Smart Contracts</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">Web3</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">DeFi</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">ethers.js</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">Hardhat</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">BSC</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">Ethereum</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">PancakeSwap</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">dApps</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">On-Chain</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">Tokenomics</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">Auditoría</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">Liquidez</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">EVM</span><span class="tmx-dot">◆</span>
-            <span class="tmx-chip">Web3Modal</span><span class="tmx-dot">◆</span>
-          </div>
-        </div>
         <div class="tmx-strip tmx-strip--b">
-          <div class="tmx-track tmx-track--b">
-            <span class="tmx-chip tmx-chip--v">Python</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">JavaScript</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">TypeScript</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">Node.js</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">PineScript</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">React</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">Docker</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">Git</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">TradingView</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">APIs REST</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">WebSocket</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">Bots</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">Automatización</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">Full-Stack</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">Escalable</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">Producción</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">Python</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">JavaScript</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">TypeScript</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">Node.js</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">PineScript</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">React</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">Docker</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">Git</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">TradingView</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">APIs REST</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">WebSocket</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">Bots</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">Automatización</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">Full-Stack</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">Escalable</span><span class="tmx-dot tmx-dot--v">◆</span>
-            <span class="tmx-chip tmx-chip--v">Producción</span><span class="tmx-dot tmx-dot--v">◆</span>
-          </div>
+          <div class="tmx-track tmx-track--b"><span class="tmx-chip tmx-chip--v">Python</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">JavaScript</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">TypeScript</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Node.js</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">PineScript</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">React</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Docker</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Git</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">TradingView</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">APIs REST</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">WebSocket</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Bots</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Automatización</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Full-Stack</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Escalable</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Producción</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Backtesting</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Data Pipelines</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">CI/CD</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Alto Rendimiento</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Python</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">JavaScript</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">TypeScript</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Node.js</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">PineScript</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">React</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Docker</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Git</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">TradingView</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">APIs REST</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">WebSocket</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Bots</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Automatización</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Full-Stack</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Escalable</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Producción</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Backtesting</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Data Pipelines</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">CI/CD</span><span class="tmx-dot tmx-dot--v">◆</span><span class="tmx-chip tmx-chip--v">Alto Rendimiento</span><span class="tmx-dot tmx-dot--v">◆</span></div>
+        </div>
+        <div class="tmx-strip tmx-strip--a">
+          <div class="tmx-track tmx-track--a"><span class="tmx-chip">Solidity</span><span class="tmx-dot">◆</span><span class="tmx-chip">Smart Contracts</span><span class="tmx-dot">◆</span><span class="tmx-chip">Web3</span><span class="tmx-dot">◆</span><span class="tmx-chip">DeFi</span><span class="tmx-dot">◆</span><span class="tmx-chip">ethers.js</span><span class="tmx-dot">◆</span><span class="tmx-chip">Hardhat</span><span class="tmx-dot">◆</span><span class="tmx-chip">BSC</span><span class="tmx-dot">◆</span><span class="tmx-chip">Ethereum</span><span class="tmx-dot">◆</span><span class="tmx-chip">PancakeSwap</span><span class="tmx-dot">◆</span><span class="tmx-chip">dApps</span><span class="tmx-dot">◆</span><span class="tmx-chip">On-Chain</span><span class="tmx-dot">◆</span><span class="tmx-chip">Tokenomics</span><span class="tmx-dot">◆</span><span class="tmx-chip">Auditoría</span><span class="tmx-dot">◆</span><span class="tmx-chip">Liquidez</span><span class="tmx-dot">◆</span><span class="tmx-chip">EVM</span><span class="tmx-dot">◆</span><span class="tmx-chip">Web3Modal</span><span class="tmx-dot">◆</span><span class="tmx-chip">Staking</span><span class="tmx-dot">◆</span><span class="tmx-chip">AMM</span><span class="tmx-dot">◆</span><span class="tmx-chip">Gas Optimization</span><span class="tmx-dot">◆</span><span class="tmx-chip">Multisig</span><span class="tmx-dot">◆</span><span class="tmx-chip">Solidity</span><span class="tmx-dot">◆</span><span class="tmx-chip">Smart Contracts</span><span class="tmx-dot">◆</span><span class="tmx-chip">Web3</span><span class="tmx-dot">◆</span><span class="tmx-chip">DeFi</span><span class="tmx-dot">◆</span><span class="tmx-chip">ethers.js</span><span class="tmx-dot">◆</span><span class="tmx-chip">Hardhat</span><span class="tmx-dot">◆</span><span class="tmx-chip">BSC</span><span class="tmx-dot">◆</span><span class="tmx-chip">Ethereum</span><span class="tmx-dot">◆</span><span class="tmx-chip">PancakeSwap</span><span class="tmx-dot">◆</span><span class="tmx-chip">dApps</span><span class="tmx-dot">◆</span><span class="tmx-chip">On-Chain</span><span class="tmx-dot">◆</span><span class="tmx-chip">Tokenomics</span><span class="tmx-dot">◆</span><span class="tmx-chip">Auditoría</span><span class="tmx-dot">◆</span><span class="tmx-chip">Liquidez</span><span class="tmx-dot">◆</span><span class="tmx-chip">EVM</span><span class="tmx-dot">◆</span><span class="tmx-chip">Web3Modal</span><span class="tmx-dot">◆</span><span class="tmx-chip">Staking</span><span class="tmx-dot">◆</span><span class="tmx-chip">AMM</span><span class="tmx-dot">◆</span><span class="tmx-chip">Gas Optimization</span><span class="tmx-dot">◆</span><span class="tmx-chip">Multisig</span><span class="tmx-dot">◆</span></div>
         </div>
       </div>
 
@@ -1154,6 +1099,20 @@
   <script src="js/sections/ContactSection.js"></script>
   <script src="js/audio/AudioManager.js"></script>
 <script src="js/core/AppInit.js"></script>
+<script>
+(function(){
+  var btn=document.getElementById('theme-toggle');
+  if(!btn)return;
+  function cur(){return document.documentElement.getAttribute('data-theme')||'dark';}
+  btn.setAttribute('aria-pressed', cur()==='light');
+  btn.addEventListener('click',function(){
+    var next=cur()==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',next);
+    try{localStorage.setItem('jpc-theme',next);}catch(e){}
+    btn.setAttribute('aria-pressed', next==='light');
+  });
+})();
+</script>
 
 </body>
 </html>
