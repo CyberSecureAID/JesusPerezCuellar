@@ -1768,3 +1768,7 @@ textarea.wiz-input { resize: vertical; min-height: 90px; }
 .footer-col-title:hover { text-shadow: 0 0 14px var(--color-cyan-glow); }
 .footer-copy { transition: color .25s ease; }
 .footer-copy:hover { color: var(--color-text-secondary); }
+
+/* Fix arrastre del cursor: no arrastrar imágenes ni seleccionar durante el drag */
+img, a, .bpf-card, .flow-node { -webkit-user-drag: none; user-drag: none; }
+body.cursor-dragging, body.cursor-dragging * { -webkit-user-select: none !important; user-select: none !important; }
