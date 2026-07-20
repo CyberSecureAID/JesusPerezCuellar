@@ -58,12 +58,13 @@ const CustomCursor = (() => {
 
   const C_CYAN   = '#00ffff';
   const C_VIOLET = '#7f5af0';
-  /* Colores de chispa de soldadura (blanco incandescente -> naranja -> amarillo, con toque cian) */
-  const SPARK_COLORS = ['#ffffff', '#fff2c4', '#ffd24a', '#ff9a3c', '#ff6a1a', '#00ffff'];
+  /* Colores de chispa: paleta de la página (cian y violeta), sin tonos fuego */
+  const SPARK_COLORS = ['#00ffff', '#00e5e5', '#67e8f9', '#7f5af0', '#a78bfa', '#e0ffff'];
 
   /* Emitir chispas de soldadura mientras se arrastra */
   function _emitSparks(x, y) {
-    const n = 7 + (Math.random() * 5 | 0);
+    if (_particles.length > 90) return;          // tope para no saturar
+    const n = 3 + (Math.random() * 3 | 0);       // 3-5 por movimiento
     for (let i = 0; i < n; i++) {
       const angle = Math.random() * Math.PI * 2;
       const speed = 1.2 + Math.random() * 3.8;
@@ -141,39 +142,43 @@ const CustomCursor = (() => {
     }
     */
 
+    if (_particles.length === 0) return;
+
+    /* Brillo aditivo activado UNA sola vez para todas las partículas
+       (sin shadowBlur, que era lo que frenaba la página). */
+    _trailCtx.globalCompositeOperation = 'lighter';
+
     for (let i = _particles.length - 1; i >= 0; i--) {
       const p = _particles[i];
 
       if (p.spark) {
-        /* ── Chispa de soldadura ── */
+        /* ── Chispa (paleta de la página) ── */
         p.px = p.x; p.py = p.y;
-        p.vy += p.grav;          // gravedad
-        p.vx *= 0.98;            // rozamiento del aire
+        p.vy += p.grav;
+        p.vx *= 0.98;
         p.x  += p.vx;
         p.y  += p.vy;
         p.life -= p.decay;
-
         if (p.life <= 0) { _particles.splice(i, 1); continue; }
 
-        _trailCtx.save();
-        _trailCtx.globalCompositeOperation = 'lighter';   // brillo aditivo
-        /* estela (pequeña línea desde la posición anterior) */
-        _trailCtx.globalAlpha = p.life * 0.7;
+        /* estela */
+        _trailCtx.globalAlpha = p.life * 0.6;
         _trailCtx.strokeStyle = p.color;
-        _trailCtx.lineWidth   = p.r * p.life;
-        _trailCtx.shadowColor = p.color;
-        _trailCtx.shadowBlur  = 8;
+        _trailCtx.lineWidth   = Math.max(0.5, p.r * p.life);
         _trailCtx.beginPath();
         _trailCtx.moveTo(p.px, p.py);
         _trailCtx.lineTo(p.x, p.y);
         _trailCtx.stroke();
-        /* núcleo brillante */
-        _trailCtx.globalAlpha = p.life;
-        _trailCtx.fillStyle   = p.color;
+        /* halo suave + núcleo (dos círculos, barato, sin blur) */
+        _trailCtx.fillStyle = p.color;
+        _trailCtx.globalAlpha = p.life * 0.25;
         _trailCtx.beginPath();
-        _trailCtx.arc(p.x, p.y, Math.max(0.4, p.r * p.life), 0, Math.PI * 2);
+        _trailCtx.arc(p.x, p.y, (p.r * p.life) * 2.4, 0, 6.2832);
         _trailCtx.fill();
-        _trailCtx.restore();
+        _trailCtx.globalAlpha = p.life;
+        _trailCtx.beginPath();
+        _trailCtx.arc(p.x, p.y, Math.max(0.5, p.r * p.life), 0, 6.2832);
+        _trailCtx.fill();
         continue;
       }
 
@@ -181,22 +186,18 @@ const CustomCursor = (() => {
       p.x    += p.vx;
       p.y    += p.vy;
       p.life -= p.decay;
+      if (p.life <= 0) { _particles.splice(i, 1); continue; }
 
-      if (p.life <= 0) {
-        _particles.splice(i, 1);
-        continue;
-      }
-
-      _trailCtx.save();
       _trailCtx.globalAlpha = p.life * 0.55;
       _trailCtx.fillStyle   = p.color;
-      _trailCtx.shadowColor = p.color;
-      _trailCtx.shadowBlur  = 4;
       _trailCtx.beginPath();
-      _trailCtx.arc(p.x, p.y, p.r * p.life, 0, Math.PI * 2);
+      _trailCtx.arc(p.x, p.y, p.r * p.life, 0, 6.2832);
       _trailCtx.fill();
-      _trailCtx.restore();
     }
+
+    /* Restaurar estado del contexto */
+    _trailCtx.globalCompositeOperation = 'source-over';
+    _trailCtx.globalAlpha = 1;
   }
 
   /* ── Determinar hover state ──────────────────────────────── */
@@ -303,8 +304,9 @@ const CustomCursor = (() => {
     _mouseY = e.clientY;
 
     /* Chispas de soldadura SOLO mientras se arrastra con el clic */
-    if (_dragging && !_reducedMotion) {
-      _emitSparks(_mouseX, _mouseY);
+    if (_dragging) {
+      if (!_reducedMotion) _emitSparks(_mouseX, _mouseY);
+      return;   // durante el arrastre no hace falta recalcular el hover (ahorra CPU)
     }
 
     const state = _detectHoverState(e);
