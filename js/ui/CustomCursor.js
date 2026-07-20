@@ -50,11 +50,37 @@ const CustomCursor = (() => {
   /* Estado hover */
   let _hoverState = 'default';
 
+  /* Estado de arrastre (clic izquierdo mantenido) */
+  let _dragging = false;
+
   /* Trail particles */
   let _particles = [];
 
   const C_CYAN   = '#00ffff';
   const C_VIOLET = '#7f5af0';
+  /* Colores de chispa de soldadura (blanco incandescente -> naranja -> amarillo, con toque cian) */
+  const SPARK_COLORS = ['#ffffff', '#fff2c4', '#ffd24a', '#ff9a3c', '#ff6a1a', '#00ffff'];
+
+  /* Emitir chispas de soldadura mientras se arrastra */
+  function _emitSparks(x, y) {
+    const n = 7 + (Math.random() * 5 | 0);
+    for (let i = 0; i < n; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 1.2 + Math.random() * 3.8;
+      _particles.push({
+        x, y,
+        px:    x, py: y,
+        vx:    Math.cos(angle) * speed,
+        vy:    Math.sin(angle) * speed - 0.6,
+        r:     Math.random() * 1.6 + 0.6,
+        life:  1.0,
+        decay: 0.045 + Math.random() * 0.05,
+        grav:  0.12 + Math.random() * 0.10,
+        spark: true,
+        color: SPARK_COLORS[(Math.random() * SPARK_COLORS.length) | 0],
+      });
+    }
+  }
 
   /* ── Helpers ─────────────────────────────────────────────── */
   function _lerp(a, b, t) { return a + (b - a) * t; }
@@ -117,6 +143,41 @@ const CustomCursor = (() => {
 
     for (let i = _particles.length - 1; i >= 0; i--) {
       const p = _particles[i];
+
+      if (p.spark) {
+        /* ── Chispa de soldadura ── */
+        p.px = p.x; p.py = p.y;
+        p.vy += p.grav;          // gravedad
+        p.vx *= 0.98;            // rozamiento del aire
+        p.x  += p.vx;
+        p.y  += p.vy;
+        p.life -= p.decay;
+
+        if (p.life <= 0) { _particles.splice(i, 1); continue; }
+
+        _trailCtx.save();
+        _trailCtx.globalCompositeOperation = 'lighter';   // brillo aditivo
+        /* estela (pequeña línea desde la posición anterior) */
+        _trailCtx.globalAlpha = p.life * 0.7;
+        _trailCtx.strokeStyle = p.color;
+        _trailCtx.lineWidth   = p.r * p.life;
+        _trailCtx.shadowColor = p.color;
+        _trailCtx.shadowBlur  = 8;
+        _trailCtx.beginPath();
+        _trailCtx.moveTo(p.px, p.py);
+        _trailCtx.lineTo(p.x, p.y);
+        _trailCtx.stroke();
+        /* núcleo brillante */
+        _trailCtx.globalAlpha = p.life;
+        _trailCtx.fillStyle   = p.color;
+        _trailCtx.beginPath();
+        _trailCtx.arc(p.x, p.y, Math.max(0.4, p.r * p.life), 0, Math.PI * 2);
+        _trailCtx.fill();
+        _trailCtx.restore();
+        continue;
+      }
+
+      /* ── Partícula normal (burst del clic) ── */
       p.x    += p.vx;
       p.y    += p.vy;
       p.life -= p.decay;
@@ -203,8 +264,13 @@ const CustomCursor = (() => {
   }
 
   /* ── Burst en click ──────────────────────────────────────── */
-  function _onMouseDown() {
+  function _onMouseDown(e) {
     if (!_dot || _paused) return;
+    /* Solo el clic izquierdo activa el arrastre con chispas */
+    if (!e || e.button === 0) {
+      _dragging = true;
+      document.body.classList.add('cursor-dragging');
+    }
     _dot.style.transform = 'translate(-50%, -50%) scale(2.4)';
     _dot.style.opacity   = '0.6';
     for (let i = 0; i < 8; i++) {
@@ -224,6 +290,8 @@ const CustomCursor = (() => {
   }
 
   function _onMouseUp() {
+    _dragging = false;
+    document.body.classList.remove('cursor-dragging');
     if (!_dot) return;
     _dot.style.transform = 'translate(-50%, -50%) scale(1)';
     _dot.style.opacity   = '1';
@@ -233,6 +301,11 @@ const CustomCursor = (() => {
   function _onMouseMove(e) {
     _mouseX = e.clientX;
     _mouseY = e.clientY;
+
+    /* Chispas de soldadura SOLO mientras se arrastra con el clic */
+    if (_dragging && !_reducedMotion) {
+      _emitSparks(_mouseX, _mouseY);
+    }
 
     const state = _detectHoverState(e);
     if (state !== _hoverState) {
@@ -322,9 +395,15 @@ const CustomCursor = (() => {
     _dot.style.transform  = 'translate(-50%, -50%) scale(1)';
     _dot.style.transition = 'transform 0.1s cubic-bezier(0.175,0.885,0.32,1.275), opacity 0.1s ease';
 
+    /* FIX: evitar el arrastre nativo (imagen/elemento) y la selección
+       durante el arrastre, que provocaban el icono 🚫 y que el cursor
+       "se separara" de su animación. */
+    window.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    document.addEventListener('selectstart', function (e) { if (_dragging) e.preventDefault(); });
+
     /* Event listeners */
     window.addEventListener('mousemove',    _onMouseMove,  { passive: true });
-    window.addEventListener('mousedown',    _onMouseDown,  { passive: true });
+    window.addEventListener('mousedown',    _onMouseDown,  { passive: false });
     window.addEventListener('mouseup',      _onMouseUp,    { passive: true });
     document.addEventListener('mouseleave', _onMouseLeave);
     document.addEventListener('mouseenter', _onMouseEnter);
